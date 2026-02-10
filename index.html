@@ -1,0 +1,1187 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LocalBridge | Premium Warranty & Commerce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Fonts: Plus Jakarta Sans (Headings), Inter (Body) -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+
+
+    <style>
+        body {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+
+        /* Dark Mode Transitions */
+        .dark body {
+            background-color: #020617;
+            color: #f8fafc;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 3px;
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            background: #475569;
+        }
+    </style>
+</head>
+
+<body class="antialiased selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300 relative">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div
+                    class="w-10 h-10 rounded-xl bg-brand-blue flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                    <i class="fas fa-cube text-lg"></i>
+                </div>
+                <span class="font-display font-bold text-xl tracking-tight text-slate-900 dark:text-white">Local<span
+                        class="text-brand-blue">Bridge</span></span>
+            </div>
+
+            <!-- View Switcher -->
+            <div class="bg-slate-100 dark:bg-slate-800 p-1 rounded-full flex items-center shadow-inner relative">
+                <button onclick="switchView('customer')" id="btn-customer"
+                    class="px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 bg-white dark:bg-slate-700 text-brand-blue shadow-sm">
+                    Customer
+                </button>
+                <button onclick="switchView('merchant')" id="btn-merchant"
+                    class="px-6 py-2 rounded-full text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300">
+                    Merchant
+                </button>
+            </div>
+
+            <div class="flex items-center gap-4">
+                <!-- Dark Mode Toggle -->
+                <button onclick="toggleDarkMode()"
+                    class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition">
+                    <i class="fas fa-moon" id="dark-icon"></i>
+                </button>
+
+                <!-- Notifications -->
+                <div class="relative">
+                    <button onclick="toggleNotifications()"
+                        class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition">
+                        <i class="far fa-bell"></i>
+                        <span
+                            class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-800"></span>
+                    </button>
+                    <!-- Dropdown -->
+                    <div id="notif-dropdown"
+                        class="hidden absolute right-0 mt-4 w-80 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 overflow-hidden transform origin-top-right transition-all">
+                        <div
+                            class="p-4 border-b border-slate-100 dark:border-slate-700 flex justify-between items-center">
+                            <h4 class="font-bold text-sm dark:text-white">Notifications</h4>
+                            <span class="text-xs text-brand-blue font-semibold cursor-pointer">Mark all read</span>
+                        </div>
+                        <div class="max-h-64 overflow-y-auto">
+                            <div
+                                class="p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer border-b border-slate-50 dark:border-slate-700/50">
+                                <div class="flex gap-3">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-exclamation"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Warranty
+                                            Expiring</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">Your Nike Air Jordan
+                                            warranty ends in 14 days.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 hover:bg-slate-50 dark:hover:bg-slate-700/50 cursor-pointer">
+                                <div class="flex gap-3">
+                                    <div
+                                        class="w-8 h-8 rounded-full bg-blue-100 text-brand-blue flex items-center justify-center flex-shrink-0">
+                                        <i class="fas fa-tag"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-semibold text-slate-900 dark:text-slate-100">Offer from
+                                            Verma Fashion</p>
+                                        <p class="text-xs text-slate-500 dark:text-slate-400">"New winter collection is
+                                            here! 20% off for you."</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class="hidden md:block w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 p-[2px] shadow-md cursor-pointer">
+                    <img src="https://ui-avatars.com/api/?name=H+G&background=random"
+                        class="rounded-full w-full h-full">
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- CUSTOMER VIEW -->
+    <div id="customer-view" class="pt-28 pb-20 px-6 min-h-screen fade-in">
+        <div class="max-w-7xl mx-auto">
+
+            <!-- Hero -->
+            <header class="mb-16 text-center md:text-left relative">
+                <div class="absolute -top-20 -left-20 w-64 h-64 bg-brand-blue opacity-[0.05] rounded-full blur-3xl">
+                </div>
+                <h1
+                    class="font-display font-extrabold text-5xl md:text-7xl text-slate-900 dark:text-white leading-tight mb-6 relative z-10">
+                    Your Local Market.<br>
+                    <span class="gradient-text">Digitized & Simplified.</span>
+                </h1>
+                <p class="text-lg text-slate-500 dark:text-slate-400 max-w-2xl font-medium relative z-10">
+                    The smart wallet for your offline life. Track warranties, discover local gems, and keep receipts
+                    safe.
+                    <span class="block mt-2 text-brand-blue font-semibold italic">"Warranties iko jagah, tension
+                        mukki."</span>
+                </p>
+                <div class="mt-8 flex gap-4 justify-center md:justify-start">
+                    <button onclick="toggleQRModal()"
+                        class="px-6 py-3 bg-brand-blue hover:bg-blue-600 text-white rounded-xl font-bold shadow-neon transition flex items-center gap-2">
+                        <i class="fas fa-qrcode"></i> Scan Receipt
+                    </button>
+                    <button
+                        class="px-6 py-3 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-xl font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition">
+                        Explore Map
+                    </button>
+                </div>
+            </header>
+
+            <!-- Warranty Vault -->
+            <section class="mb-20">
+                <div class="flex items-end justify-between mb-8">
+                    <div>
+                        <h2 class="font-display font-bold text-3xl text-slate-900 dark:text-white">Digital Vault</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Your active coverages</p>
+                    </div>
+                    <button class="hidden md:flex items-center gap-2 text-brand-blue font-semibold hover:underline">
+                        View Archived <i class="fas fa-arrow-right text-xs"></i>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Samsung Card -->
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl dark:hover:shadow-slate-900/50 transition-all duration-300 group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-slate-700 flex items-center justify-center text-brand-blue text-xl">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">Samsung
+                                        OLED 55"</h3>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Sharma Electronics
+                                        <i class="fas fa-check-circle text-blue-500 text-xs ml-1"
+                                            title="Verified Merchant"></i>
+                                    </p>
+                                </div>
+                            </div>
+                            <span
+                                class="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 text-xs font-bold uppercase tracking-wider rounded-full">Active</span>
+                        </div>
+
+                        <div class="mb-6">
+                            <div
+                                class="flex justify-between text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wide">
+                                <span>Expires in 186 Days</span>
+                                <span>24% Used</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                                <div class="bg-brand-blue h-2 rounded-full progress-bar-fill" style="width: 24%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="openReceipt('Samsung OLED 55', 'Sharma Electronics')"
+                                class="flex-1 py-3 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-semibold text-sm hover:opacity-90 transition shadow-lg shadow-slate-900/20">
+                                View Receipt
+                            </button>
+                            <button
+                                class="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                                <i class="fas fa-headset"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Nike Card -->
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-700 hover:shadow-xl dark:hover:shadow-slate-900/50 transition-all duration-300 group">
+                        <div class="flex justify-between items-start mb-6">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-12 h-12 rounded-2xl bg-orange-50 dark:bg-slate-700 flex items-center justify-center text-orange-500 text-xl">
+                                    <i class="fas fa-shoe-prints"></i>
+                                </div>
+                                <div>
+                                    <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white">Nike Air
+                                        Jordan</h3>
+                                    <p class="text-sm text-slate-500 dark:text-slate-400 font-medium">Verma Fashion
+                                        Store <i class="fas fa-check-circle text-blue-500 text-xs ml-1"
+                                            title="Verified Merchant"></i></p>
+                                </div>
+                            </div>
+                            <span
+                                class="px-3 py-1 bg-yellow-50 dark:bg-yellow-900/30 text-yellow-600 dark:text-yellow-400 text-xs font-bold uppercase tracking-wider rounded-full">Expiring
+                                Soon</span>
+                        </div>
+
+                        <div class="mb-6">
+                            <div
+                                class="flex justify-between text-xs font-semibold text-slate-400 mb-2 uppercase tracking-wide">
+                                <span>Expires in 14 Days</span>
+                                <span>92% Used</span>
+                            </div>
+                            <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                                <div class="bg-orange-500 h-2 rounded-full progress-bar-fill" style="width: 92%"></div>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-3">
+                            <button onclick="openReceipt('Nike Air Jordan', 'Verma Fashion Store')"
+                                class="flex-1 py-3 rounded-xl bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 text-slate-900 dark:text-white font-semibold text-sm hover:bg-slate-50 dark:hover:bg-slate-600 transition">
+                                View Receipt
+                            </button>
+                            <button
+                                class="px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-600 transition">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Shop Socials -->
+            <section>
+                <h2 class="font-display font-bold text-3xl text-slate-900 dark:text-white mb-8">Shops Near You</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Shop 1 -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-6 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-brand-blue/30 transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-full bg-cover bg-center"
+                                style="background-image: url('https://images.unsplash.com/photo-1541533260371-b8fc9b036eb1?w=200')">
+                            </div>
+                            <button
+                                class="text-brand-blue text-sm font-bold bg-blue-50 dark:bg-blue-900/30 px-4 py-2 rounded-full hover:bg-brand-blue hover:text-white transition">Follow</button>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-1">Aggarwal
+                            Sweets <i class="fas fa-check-circle text-blue-500 text-xs"></i></h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Food & Beverages • 2.1km</p>
+                        <div
+                            class="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wide">
+                            <i class="fas fa-users"></i> 12.5k Followers
+                        </div>
+                    </div>
+
+                    <!-- Shop 2 -->
+                    <div
+                        class="bg-white dark:bg-slate-800 p-6 rounded-[24px] border border-slate-100 dark:border-slate-700 hover:border-brand-blue/30 transition cursor-pointer">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="w-12 h-12 rounded-full bg-cover bg-center"
+                                style="background-image: url('https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=200')">
+                            </div>
+                            <button
+                                class="text-slate-400 text-sm font-bold bg-slate-50 dark:bg-slate-700 px-4 py-2 rounded-full hover:bg-slate-200 transition">Unfollow</button>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white flex items-center gap-1">Verma
+                            Fashion <i class="fas fa-check-circle text-blue-500 text-xs"></i></h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mb-4">Clothing & Retail • 0.8km</p>
+                        <div
+                            class="flex items-center gap-2 text-xs font-semibold text-slate-400 uppercase tracking-wide">
+                            <i class="fas fa-users"></i> 4.2k Followers
+                        </div>
+                    </div>
+
+                    <!-- Map Placeholder -->
+                    <div
+                        class="bg-slate-100 dark:bg-slate-900 p-6 rounded-[24px] border border-slate-200 dark:border-slate-700 flex flex-col items-center justify-center text-center cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-800 transition min-h-[220px]">
+                        <div
+                            class="w-16 h-16 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-slate-400 mb-4">
+                            <i class="fas fa-map-marked-alt text-2xl"></i>
+                        </div>
+                        <h3 class="font-bold text-lg text-slate-900 dark:text-white">Explore Map</h3>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm">Find 20+ more shops nearby</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!-- MERCHANT PORTAL -->
+    <div id="merchant-view" class="hidden pt-20 h-screen flex bg-gray-50 dark:bg-slate-900 overflow-hidden">
+
+        <!-- Sidebar -->
+        <aside
+            class="w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex flex-col flex-shrink-0 z-30">
+            <!-- Merchant Profile Compact -->
+            <div class="p-4 border-b border-gray-100 dark:border-slate-700 flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center"
+                    style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200')">
+                </div>
+                <div class="overflow-hidden">
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white truncate">Sukhdev Electronics</h3>
+                    <p class="text-xs text-slate-500 uppercase">Merchant</p>
+                </div>
+            </div>
+
+            <div class="flex-1 overflow-y-auto py-4 space-y-1 px-3">
+                <div onclick="switchMerchantTab('dashboard')" id="menu-dashboard"
+                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 cursor-pointer transition-colors">
+                    <i class="fas fa-chart-pie w-5 text-center"></i> Dashboard
+                </div>
+                <div onclick="switchMerchantTab('campaigns')" id="menu-campaigns"
+                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                    <i class="fas fa-bullhorn w-5 text-center"></i> Campaigns
+                </div>
+                <div onclick="switchMerchantTab('customers')" id="menu-customers"
+                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                    <i class="fas fa-users w-5 text-center"></i> Customers
+                </div>
+                <div onclick="switchMerchantTab('settings')" id="menu-settings"
+                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                    <i class="fas fa-cog w-5 text-center"></i> Settings
+                </div>
+            </div>
+
+            <div class="p-4 border-t border-gray-100 dark:border-slate-700">
+                <button
+                    class="w-full flex items-center justify-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition">
+                    <i class="fas fa-sign-out-alt"></i> Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <main class="flex-1 overflow-y-auto p-8">
+
+                <!-- Dashboard Content -->
+                <div id="merchant-dashboard" class="space-y-6 max-w-6xl mx-auto">
+
+                    <!-- Header -->
+                    <div class="flex justify-between items-center mb-2">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Dashboard</h2>
+                        <div class="flex gap-2">
+                            <span
+                                class="text-xs text-slate-500 bg-white px-3 py-1.5 rounded border border-gray-200">Last
+                                30 Days</span>
+                        </div>
+                    </div>
+
+                    <!-- Stats Row -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total Revenue
+                            </p>
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white">₹12.4L</h3>
+                            <div class="mt-4 flex items-center text-xs font-medium text-green-600">
+                                <i class="fas fa-arrow-up mr-1"></i> 12% <span class="text-slate-400 ml-1">vs last
+                                    month</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Active
+                                Warranties</p>
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white">1,248</h3>
+                            <div class="mt-4 flex items-center text-xs font-medium text-blue-600">
+                                <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> Live coverage
+                            </div>
+                        </div>
+
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm">
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
+                                Customers</p>
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white">4.2K</h3>
+                            <div class="mt-4 flex items-center text-xs font-medium text-green-600">
+                                <i class="fas fa-arrow-up mr-1"></i> 84 <span class="text-slate-400 ml-1">this
+                                    week</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Main Column -->
+                        <div class="lg:col-span-2 space-y-6">
+                            <!-- Recent Transactions -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-5 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Recent Transactions
+                                    </h3>
+                                    <button onclick="toggleViewAll()" id="view-all-btn"
+                                        class="text-blue-600 text-xs font-semibold hover:underline">View All</button>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm text-left">
+                                        <thead
+                                            class="text-xs text-slate-500 uppercase bg-gray-50 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-700 z-10 backdrop-blur-md">
+                                            <tr>
+                                                <th class="px-5 py-3 font-semibold">Customer</th>
+                                                <th class="px-5 py-3 font-semibold">Product</th>
+                                                <th class="px-5 py-3 font-semibold">Policies</th>
+                                                <th class="px-5 py-3 font-semibold">Date</th>
+                                                <th class="px-5 py-3 font-semibold text-right">Amount</th>
+                                                <th class="px-5 py-3 font-semibold text-right">Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="divide-y divide-gray-100 dark:divide-slate-700"
+                                            id="transactions-body">
+                                            <tr class="hover:bg-gray-50 transition">
+                                                <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">Amit
+                                                    Kumar</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">Warranty</span>
+                                                </td>
+                                                <td class="px-5 py-3 text-slate-500 font-mono text-xs">Oct 24, 10:42am
+                                                </td>
+                                                <td class="px-5 py-3 text-slate-900 font-mono text-right">₹15,000</td>
+                                                <td class="px-5 py-3 text-right"><span
+                                                        class="text-green-600 text-xs font-bold">Paid</span></td>
+                                            </tr>
+                                            <tr class="hover:bg-gray-50 transition">
+                                                <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">Riya
+                                                    Singh</td>
+                                                <td class="px-5 py-3"><span
+                                                        class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800">Return</span>
+                                                </td>
+                                                <td class="px-5 py-3 text-slate-500 font-mono text-xs">Oct 23, 4:20pm
+                                                </td>
+                                                <td class="px-5 py-3 text-slate-900 font-mono text-right">₹2,499</td>
+                                                <td class="px-5 py-3 text-right"><span
+                                                        class="text-orange-500 text-xs font-bold">Pending</span></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Side Column (New Sale Form) -->
+                        <div class="space-y-6">
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm z-20">
+                                <h3
+                                    class="font-bold text-slate-900 dark:text-white text-sm mb-4 flex items-center gap-2">
+                                    <i class="fas fa-cash-register text-blue-600"></i> New Sale
+                                </h3>
+
+                                <div class="space-y-4">
+                                    <!-- Mobile Input -->
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Customer
+                                            Mobile</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <span class="text-slate-500 font-bold text-sm">+91</span>
+                                            </div>
+                                            <input type="tel" id="sale-mobile"
+                                                class="block w-full pl-12 text-sm border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono tracking-wide placeholder-slate-400 transition"
+                                                placeholder="98765 43210">
+                                        </div>
+                                    </div>
+
+                                    <!-- Product Name Input -->
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Product
+                                            Name</label>
+                                        <input type="text" id="sale-product"
+                                            class="block w-full text-sm border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono tracking-wide placeholder-slate-400 transition"
+                                            placeholder="e.g. iPhone 15 Pro">
+                                    </div>
+
+                                    <!-- Amount Input -->
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Sale
+                                            Amount (₹)</label>
+                                        <div class="relative">
+                                            <span
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-bold">₹</span>
+                                            <input type="number" id="sale-amount"
+                                                class="block w-full pl-8 text-sm border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono tracking-wide placeholder-slate-400 transition"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+
+                                    <!-- Policies Grid -->
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <!-- Warranty Duration -->
+                                        <div>
+                                            <label
+                                                class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Warranty</label>
+                                            <select id="sale-warranty"
+                                                class="block w-full text-xs border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer">
+                                                <option value="none">None</option>
+                                                <option value="7d">7 Days</option>
+                                                <option value="1m">1 Month</option>
+                                                <option value="6m">6 Months</option>
+                                                <option value="1y" selected>1 Year</option>
+                                                <option value="lifetime">Lifetime</option>
+                                            </select>
+                                        </div>
+
+                                        <!-- Return Policy -->
+                                        <div>
+                                            <label
+                                                class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Return</label>
+                                            <select id="sale-return"
+                                                class="block w-full text-xs border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer">
+                                                <option value="none">No Return</option>
+                                                <option value="3d">3 Days</option>
+                                                <option value="7d">7 Days</option>
+                                                <option value="30d">30 Days</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action Button -->
+                                    <div class="pt-2">
+                                        <button onclick="registerSale()"
+                                            class="w-full flex justify-center items-center gap-2 py-3 px-4 border border-transparent shadow-sm text-sm font-bold rounded-lg text-white bg-blue-600 hover:bg-blue-700 active:scale-95 transition focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                            <i class="fas fa-check-circle"></i>
+                                            Log Sale
+                                        </button>
+                                        <p class="text-[10px] text-center text-slate-400 mt-2">
+                                            <i class="fas fa-info-circle mr-1"></i> "None" policies will log as Record
+                                            Only.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Smart Broadcast Widget -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="p-4 border-b border-gray-100 dark:border-slate-700 bg-gray-50 dark:bg-slate-700/50">
+                                    <h3
+                                        class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+                                        <i class="fas fa-bullhorn text-blue-600"></i> Smart Broadcast
+                                    </h3>
+                                </div>
+                                <div class="p-5 space-y-4">
+                                    <div>
+                                        <label
+                                            class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">Target
+                                            Audience</label>
+                                        <select id="broadcast-audience" onchange="updateBroadcastReach()"
+                                            class="block w-full text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2.5 bg-white dark:bg-slate-900 dark:border-slate-600 dark:text-white">
+                                            <option value="all">All Customers (4.2K)</option>
+                                            <option value="vip">Generic (High Value) (850)</option>
+                                            <option value="inactive">Inactive > 30 Days (1.2K)</option>
+                                        </select>
+                                    </div>
+
+                                    <div
+                                        class="bg-blue-50 dark:bg-blue-900/10 rounded-md p-3 flex justify-between items-center border border-blue-100 dark:border-blue-800">
+                                        <span class="text-xs text-blue-700 dark:text-blue-300 font-medium">Estimated
+                                            Reach</span>
+                                        <span id="broadcast-reach"
+                                            class="text-sm font-bold text-blue-800 dark:text-blue-200">4,200
+                                            users</span>
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wide">Message</label>
+                                        <textarea id="broadcast-message" rows="3"
+                                            class="block w-full text-sm border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500 p-2.5 resize-none bg-white dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+                                            placeholder="Type your offer here..."></textarea>
+                                        <p class="text-[10px] text-slate-400 mt-1 text-right">0/160 characters</p>
+                                    </div>
+
+                                    <button onclick="sendBroadcast()"
+                                        class="w-full flex justify-center items-center gap-2 px-4 py-2.5 bg-slate-900 dark:bg-blue-600 hover:bg-slate-800 dark:hover:bg-blue-700 text-white text-sm font-bold rounded-md transition-all shadow-sm">
+                                        <i class="fas fa-paper-plane text-xs"></i> Send Blast
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Top Customers Widget -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-5 py-4 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Top Customers</h3>
+                                    <button class="text-blue-600 text-xs font-semibold hover:underline">View
+                                        All</button>
+                                </div>
+                                <div class="divide-y divide-gray-100 dark:divide-slate-700">
+                                    <div
+                                        class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-xs font-bold">
+                                                JD</div>
+                                            <div>
+                                                <p
+                                                    class="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                                                    Jaskaran D.</p>
+                                                <p class="text-[10px] text-slate-500 mt-1">12 Orders</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">₹45k
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
+                                        <div class="flex items-center gap-3">
+                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
+                                                class="w-8 h-8 rounded-full object-cover border border-gray-200">
+                                            <div>
+                                                <p
+                                                    class="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                                                    Amit Kumar</p>
+                                                <p class="text-[10px] text-slate-500 mt-1">8 Orders</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">₹32k
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div
+                                        class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center text-xs font-bold">
+                                                PS</div>
+                                            <div>
+                                                <p
+                                                    class="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                                                    Priya S.</p>
+                                                <p class="text-[10px] text-slate-500 mt-1">5 Orders</p>
+                                            </div>
+                                        </div>
+                                        <div class="text-right">
+                                            <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">₹28k
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Campaigns View (Placeholder) -->
+                <div id="merchant-campaigns" class="hidden space-y-6 max-w-6xl mx-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Campaigns</h2>
+                        <button
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700">New
+                            Campaign</button>
+                    </div>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 p-8 text-center">
+                        <p class="text-slate-500">Campaign management features coming soon.</p>
+                    </div>
+                </div>
+
+                <!-- Customers View (Placeholder) -->
+                <div id="merchant-customers" class="hidden space-y-6 max-w-6xl mx-auto">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Customers</h2>
+                        <input type="text" placeholder="Search..."
+                            class="border border-gray-300 rounded-md px-3 py-1.5 text-sm">
+                    </div>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 p-8 text-center">
+                        <p class="text-slate-500">Customer directory coming soon.</p>
+                    </div>
+                </div>
+
+                <!-- Settings View (Placeholder) -->
+                <div id="merchant-settings" class="hidden space-y-6 max-w-2xl mx-auto">
+                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Settings</h2>
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-lg border border-gray-200 dark:border-slate-700 p-6 space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Store Name</label>
+                            <input type="text" value="Sukhdev Electronics"
+                                class="block w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2 border">
+                        </div>
+                        <button
+                            class="px-4 py-2 bg-blue-600 text-white rounded-md text-sm font-medium hover:bg-blue-700">Save
+                            Changes</button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Receipt Modal -->
+    <div id="receipt-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/60 backdrop-blur-sm transition-opacity opacity-0">
+        <div class="bg-white dark:bg-slate-800 rounded-[2rem] max-w-md w-full p-8 shadow-2xl transform scale-95 transition-transform duration-300"
+            id="modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="font-display font-bold text-2xl text-slate-900 dark:text-white">Receipt Details</h3>
+                <button onclick="closeReceipt()"
+                    class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 flex items-center justify-center text-slate-500 dark:text-slate-400 transition">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div
+                class="bg-slate-50 dark:bg-slate-900 rounded-2xl p-6 mb-6 text-center border border-dashed border-slate-200 dark:border-slate-700">
+                <p class="text-slate-400 text-xs uppercase tracking-widest font-bold mb-2">Verified Purchase</p>
+                <h4 id="modal-product" class="font-bold text-lg text-slate-900 dark:text-white">Product Name</h4>
+                <p id="modal-shop" class="text-sm text-slate-500 dark:text-slate-400">Shop Name</p>
+
+                <div class="mt-6 bg-white p-2 rounded-xl shadow-sm inline-block">
+                    <img src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=400" alt="Receipt"
+                        class="h-48 object-cover rounded-lg">
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button
+                    class="flex-1 py-3 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-blue-600 transition">Download
+                    PDF</button>
+                <button
+                    class="flex-1 py-3 rounded-xl bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 font-bold text-sm hover:bg-slate-200 dark:hover:bg-slate-600 transition">Share</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- QR Scanner Modal (Mock) -->
+    <div id="qr-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/90 backdrop-blur-md transition-opacity opacity-0">
+        <div class="bg-black/80 rounded-[2rem] max-w-sm w-full p-8 shadow-2xl transform scale-95 transition-transform duration-300 relative border border-white/10"
+            id="qr-content">
+            <button onclick="toggleQRModal()" class="absolute top-4 right-4 text-white hover:text-gray-300"><i
+                    class="fas fa-times text-xl"></i></button>
+            <div class="text-center">
+                <h3 class="font-display font-bold text-xl text-white mb-6">Scan Receipt QR</h3>
+                <div
+                    class="w-64 h-64 mx-auto bg-slate-800 rounded-2xl relative overflow-hidden border-2 border-brand-blue shadow-neon">
+                    <div
+                        class="absolute inset-0 bg-[url('https://media.istockphoto.com/id/134129816/photo/qr-code.jpg?s=612x612&w=0&k=20&c=0K6v9i6y_0y6y_0y6y_0y6y_0y6y_0y6y')] bg-cover opacity-20">
+                    </div>
+                    <!-- Scanning Line Animation -->
+                    <div
+                        class="absolute top-0 left-0 w-full h-1 bg-brand-blue shadow-[0_0_20px_rgba(37,99,235,1)] animate-[float_3s_ease-in-out_infinite]">
+                    </div>
+                    <p
+                        class="absolute inset-0 flex items-center justify-center text-xs text-brand-blue font-bold tracking-widest uppercase">
+                        Scanning...</p>
+                </div>
+                <p class="text-slate-400 text-sm mt-6">Align the QR code within the frame to automatically add warranty.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // View Switcher Logic
+        function switchView(view) {
+            const customerView = document.getElementById('customer-view');
+            const merchantView = document.getElementById('merchant-view');
+            const btnCustomer = document.getElementById('btn-customer');
+            const btnMerchant = document.getElementById('btn-merchant');
+
+            if (view === 'customer') {
+                customerView.classList.remove('hidden');
+                merchantView.classList.add('hidden');
+
+                btnCustomer.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                btnCustomer.classList.remove('text-slate-500', 'dark:text-slate-400');
+
+                btnMerchant.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                btnMerchant.classList.add('text-slate-500', 'dark:text-slate-400');
+            } else {
+                customerView.classList.add('hidden');
+                merchantView.classList.remove('hidden');
+
+                btnMerchant.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                btnMerchant.classList.remove('text-slate-500', 'dark:text-slate-400');
+
+                btnCustomer.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                btnCustomer.classList.add('text-slate-500', 'dark:text-slate-400');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Modal Logic
+        const modal = document.getElementById('receipt-modal');
+        const modalContent = document.getElementById('modal-content');
+
+        function openReceipt(product, shop) {
+            document.getElementById('modal-product').innerText = product;
+            document.getElementById('modal-shop').innerText = shop;
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95');
+                modalContent.classList.add('scale-100');
+            }, 10);
+        }
+
+        function closeReceipt() {
+            modal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100');
+            modalContent.classList.add('scale-95');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300);
+        }
+
+        // QR Modal
+        const qrModal = document.getElementById('qr-modal');
+        const qrContent = document.getElementById('qr-content');
+        function toggleQRModal() {
+            if (qrModal.classList.contains('hidden')) {
+                qrModal.classList.remove('hidden');
+                setTimeout(() => { qrModal.classList.remove('opacity-0'); qrContent.classList.remove('scale-95'); }, 10);
+            } else {
+                qrModal.classList.add('opacity-0');
+                qrContent.classList.add('scale-95');
+                setTimeout(() => { qrModal.classList.add('hidden'); }, 300);
+            }
+        }
+
+        // Notifications Logic
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notif-dropdown');
+            dropdown.classList.toggle('hidden');
+        }
+
+        // Live Preview Logic
+        function updatePreview() {
+            const input = document.getElementById('broadcast-msg').value;
+            const preview = document.getElementById('preview-text');
+            preview.innerText = input || "Sat Sri Akal! New stock arrived...";
+        }
+
+        // Dark Mode Logic
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('dark-icon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        }
+
+        // Merchant Sale Logic
+        function registerSale() {
+            const mobile = document.getElementById('sale-mobile').value;
+            const product = document.getElementById('sale-product').value || "Generic Product";
+            const amount = document.getElementById('sale-amount').value;
+            const warranty = document.getElementById('sale-warranty').value;
+            const returnPolicy = document.getElementById('sale-return').value;
+
+            // Validation
+            if (mobile.length < 10) {
+                alert("Please enter a valid 10-digit mobile number.");
+                return;
+            }
+            if (!amount || amount <= 0) {
+                alert("Please enter a valid sale amount.");
+                return;
+            }
+
+            // Determine Badges
+            let policiesHTML = '';
+            if (warranty !== 'none') {
+                const wSel = document.getElementById('sale-warranty');
+                const wText = wSel.options[wSel.selectedIndex].text;
+                policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-800 border border-blue-200 mr-1">Warranty (${wText})</span>`;
+            }
+            if (returnPolicy !== 'none') {
+                const rSel = document.getElementById('sale-return');
+                const rText = rSel.options[rSel.selectedIndex].text;
+                policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-purple-100 text-purple-800 border border-purple-200">Return (${rText})</span>`;
+            }
+            if (warranty === 'none' && returnPolicy === 'none') {
+                policiesHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-800 border border-slate-200">Record Only</span>`;
+            }
+
+            // Visual Feedback
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Logged!';
+                btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
+                btn.classList.add('bg-green-600', 'hover:bg-green-700');
+
+                // Add to Table
+                const tbody = document.getElementById('transactions-body');
+                const row = document.createElement('tr');
+                row.className = 'hover:bg-gray-50 dark:hover:bg-slate-700/50 transition fade-in bg-blue-50/30 dark:bg-blue-900/10 border-l-4 border-blue-500';
+
+                // Date
+                const date = new Date();
+                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ", " +
+                    date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                row.innerHTML = `
+                    <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">New Customer <span class="text-slate-400 text-xs font-normal">(${mobile})</span></td>
+                    <td class="px-5 py-3 text-slate-600 dark:text-slate-300 font-medium">${product}</td>
+                    <td class="px-5 py-3">${policiesHTML}</td>
+                    <td class="px-5 py-3 text-slate-500 font-mono text-xs">${dateStr}</td>
+                    <td class="px-5 py-3 text-slate-900 font-mono text-right font-bold">₹${parseInt(amount).toLocaleString()}</td>
+                    <td class="px-5 py-3 text-right"><span class="bg-green-100 text-green-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border border-green-200">Paid</span></td>
+                `;
+                tbody.insertBefore(row, tbody.firstChild);
+
+                // Auto-Open Receipt
+                openReceipt(product, "Modern Bazaar");
+
+                // Reset Form
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
+                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
+                    btn.disabled = false;
+                    document.getElementById('sale-mobile').value = '';
+                    document.getElementById('sale-product').value = '';
+                    document.getElementById('sale-amount').value = '';
+                    document.getElementById('sale-warranty').value = '1y';
+                    document.getElementById('sale-return').value = 'none';
+                }, 2000);
+            }, 800);
+        }
+
+        // Mock Data Generation
+        function generateMockData() {
+            const names = ["Aarav Patel", "Vihaan Rao", "Aditya Sharma", "Sai Kumar", "Reyansh Gupta", "Arjun Singh", "Kia Kapoor", "Ananya Reddy", "Ishita Verma", "Saanvi Nair", "Rohan Mehta", "Priya Das"];
+            const products = ["iPhone 15 Pro", "Samsung S24 Ultra", "MacBook Air M3", "Sony WH-1000XM5", "iPad Air", "Apple Watch S9", "Marshall Emberton", "Dell XPS 13"];
+            const warranties = ["6 Months", "1 Year", "2 Years", "Lifetime", "None"];
+            const returns = ["3 Days", "7 Days", "30 Days", "None"];
+            const statuses = ["Paid", "Paid", "Paid", "Pending"]; // Weighted towards Paid
+
+            const tbody = document.getElementById('transactions-body');
+            tbody.innerHTML = ''; // Clear existing
+
+            for (let i = 0; i < 25; i++) {
+                const name = names[Math.floor(Math.random() * names.length)];
+                const product = products[Math.floor(Math.random() * products.length)];
+                const amount = Math.floor(Math.random() * 25000) + 500;
+
+                // Random Policies
+                let wVal = warranties[Math.floor(Math.random() * warranties.length)];
+                let rVal = returns[Math.floor(Math.random() * returns.length)];
+
+                // Ensure at least one policy sometimes, or record only
+                if (Math.random() > 0.8) { wVal = "None"; rVal = "None"; }
+
+                let policiesHTML = '';
+                if (wVal !== "None") {
+                    policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-800 border border-blue-200 mr-1">Warranty (${wVal})</span>`;
+                }
+                if (rVal !== "None") {
+                    policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-purple-100 text-purple-800 border border-purple-200">Return (${rVal})</span>`;
+                }
+                if (wVal === "None" && rVal === "None") {
+                    policiesHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-800 border border-slate-200">Record Only</span>`;
+                }
+
+                const status = statuses[Math.floor(Math.random() * statuses.length)];
+                const statusColor = status === "Paid" ? "green" : "orange";
+
+                const date = new Date();
+                date.setDate(date.getDate() - Math.floor(Math.random() * 10)); // Last 10 days
+                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ", " +
+                    date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+                const tr = document.createElement('tr');
+                tr.className = `hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-b border-gray-100 dark:border-slate-700 ${i >= 7 ? 'hidden extra-row' : ''}`;
+                tr.innerHTML = `
+                    <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">${name}</td>
+                    <td class="px-5 py-3 text-slate-600 dark:text-slate-400">${product}</td>
+                    <td class="px-5 py-3">${policiesHTML}</td>
+                    <td class="px-5 py-3 text-slate-500 font-mono text-xs">${dateStr}</td>
+                    <td class="px-5 py-3 text-slate-900 font-mono text-right font-bold">₹${amount.toLocaleString()}</td>
+                    <td class="px-5 py-3 text-right"><span class="bg-${statusColor}-100 text-${statusColor}-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border border-${statusColor}-200">${status}</span></td>
+                `;
+                tbody.appendChild(tr);
+            }
+        }
+
+        function toggleViewAll() {
+            const hiddenRows = document.querySelectorAll('.extra-row');
+            const btn = document.getElementById('view-all-btn');
+            if (hiddenRows.length === 0) return;
+
+            const isHidden = hiddenRows[0].classList.contains('hidden');
+
+            hiddenRows.forEach(row => {
+                if (isHidden) row.classList.remove('hidden');
+                else row.classList.add('hidden');
+            });
+
+            btn.innerText = isHidden ? "Show Less" : "View All";
+        }
+
+        // Initialize Mock Data
+        generateMockData();
+
+        // Merchant Tab Switching
+        function switchMerchantTab(tabName) {
+            // Hide all tabs
+            ['dashboard', 'campaigns', 'customers', 'settings'].forEach(tab => {
+                document.getElementById(`merchant-${tab}`).classList.add('hidden');
+
+                // Reset menu styles
+                const menu = document.getElementById(`menu-${tab}`);
+                if (menu) {
+                    menu.classList.remove('bg-blue-50', 'text-blue-700');
+                    menu.classList.add('text-slate-600', 'dark:text-slate-400', 'hover:bg-gray-50', 'dark:hover:bg-slate-700');
+                }
+            });
+
+            // Show selected tab
+            document.getElementById(`merchant-${tabName}`).classList.remove('hidden');
+
+            // Highlight menu
+            const activeMenu = document.getElementById(`menu-${tabName}`);
+            activeMenu.classList.remove('text-slate-600', 'dark:text-slate-400', 'hover:bg-gray-50', 'dark:hover:bg-slate-700');
+            activeMenu.classList.add('bg-blue-50', 'text-blue-700');
+        }
+
+        // Feature Functions
+        function createCampaign() {
+            alert("Create Campaign Modal will open here. (Mock)");
+        }
+
+        function filterCustomers() {
+            const input = document.getElementById('customer-search');
+            const filter = input.value.toUpperCase();
+            const table = document.getElementById('customer-table');
+            const tr = table.getElementsByTagName('tr');
+
+            for (let i = 0; i < tr.length; i++) {
+                const td = tr[i].getElementsByTagName('td')[0]; // Name column
+                if (td) {
+                    const txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+        function saveSettings() {
+            const btn = event.currentTarget;
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Saved';
+                btn.classList.add('bg-green-500');
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.remove('bg-green-500');
+                }, 2000);
+            }, 1000);
+        }
+
+        // Smart Broadcast Logic
+        function updateBroadcastReach() {
+            const audience = document.getElementById('broadcast-audience').value;
+            const reachDisplay = document.getElementById('broadcast-reach');
+
+            let count = "4,200 users";
+            if (audience === 'vip') count = "850 users";
+            if (audience === 'inactive') count = "1,200 users";
+
+            // Animate change
+            reachDisplay.style.opacity = '0.5';
+            setTimeout(() => {
+                reachDisplay.innerText = count;
+                reachDisplay.style.opacity = '1';
+            }, 200);
+        }
+
+        function sendBroadcast() {
+            const message = document.getElementById('broadcast-message').value;
+            if (!message) {
+                alert("Please enter a message to send.");
+                return;
+            }
+
+            const btn = event.currentTarget;
+            const originalContent = btn.innerHTML;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Blast Sent!';
+                btn.classList.remove('bg-slate-900', 'dark:bg-blue-600');
+                btn.classList.add('bg-green-600');
+
+                setTimeout(() => {
+                    btn.innerHTML = originalContent;
+                    btn.classList.add('bg-slate-900', 'dark:bg-blue-600');
+                    btn.classList.remove('bg-green-600');
+                    btn.disabled = false;
+                    document.getElementById('broadcast-message').value = '';
+                    alert("Broadcast sent successfully to selected audience!");
+                }, 2000);
+            }, 1500);
+        }
+    </script>
+</body>
+
+</html>
