@@ -71,11 +71,18 @@
             position: fixed;
             inset: 0;
             z-index: 9999;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+            background: #0d1225;
             transition: opacity 0.5s ease, transform 0.5s ease;
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            #auth-screen {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto 1fr;
+            }
         }
 
         #auth-screen.auth-hidden {
@@ -84,16 +91,166 @@
             transform: scale(1.05);
         }
 
+        /* ---- Left Branding Panel ---- */
+        .auth-left-panel {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 3.5rem;
+            background: linear-gradient(160deg, #0d1225 0%, #111832 40%, #0f1629 100%);
+            overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .auth-left-panel {
+                padding: 2rem 1.5rem 1.5rem;
+            }
+        }
+
+        /* Dot grid pattern */
+        .auth-left-panel::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+            background-size: 24px 24px;
+            pointer-events: none;
+        }
+
+        /* Glowing accent blobs */
+        .auth-glow {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.18;
+            pointer-events: none;
+        }
+
+        .auth-sparkle {
+            position: absolute;
+            color: #3b82f6;
+            font-size: 0.9rem;
+            opacity: 0.35;
+            animation: auth-sparkle-float 6s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes auth-sparkle-float {
+
+            0%,
+            100% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 0.35;
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(15deg);
+                opacity: 0.6;
+            }
+        }
+
+        .auth-stat-card {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            padding: 1rem 1.25rem;
+            border-radius: 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(8px);
+            min-width: 120px;
+        }
+
+        .auth-stat-card .stat-icon {
+            width: 28px;
+            height: 28px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .auth-stat-card .stat-value {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 800;
+            font-size: 1.4rem;
+            color: white;
+        }
+
+        .auth-stat-card .stat-label {
+            font-size: 0.7rem;
+            color: rgba(255, 255, 255, 0.45);
+            font-weight: 500;
+        }
+
+        .auth-feature-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.65rem 1rem;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .auth-feature-badge:hover {
+            background: rgba(59, 130, 246, 0.08);
+            border-color: rgba(59, 130, 246, 0.2);
+        }
+
+        .auth-feature-badge .badge-dot {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+        }
+
+        /* ---- Right Form Panel ---- */
+        .auth-right-panel {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2.5rem;
+            background: #0d1225;
+            position: relative;
+        }
+
+        @media (max-width: 768px) {
+            .auth-right-panel {
+                padding: 1.5rem;
+                align-items: flex-start;
+            }
+        }
+
         .auth-card {
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(24px);
             -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 1.5rem;
             padding: 2.5rem;
             width: 100%;
             max-width: 440px;
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .auth-card {
+                padding: 2rem 1.5rem;
+                border-left: none;
+                border-top: 1px solid rgba(255, 255, 255, 0.07);
+            }
         }
 
         .auth-role-btn {
@@ -101,7 +258,7 @@
             padding: 1rem;
             border-radius: 1rem;
             border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
             color: rgba(255, 255, 255, 0.6);
             font-weight: 700;
             font-size: 0.875rem;
@@ -133,8 +290,8 @@
         .auth-input {
             width: 100%;
             padding: 0.875rem 1rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 0.75rem;
             color: white;
             font-size: 0.875rem;
@@ -143,7 +300,7 @@
         }
 
         .auth-input::placeholder {
-            color: rgba(255, 255, 255, 0.35);
+            color: rgba(255, 255, 255, 0.3);
         }
 
         .auth-input:focus {
@@ -155,7 +312,7 @@
             width: 100%;
             padding: 0.875rem;
             border-radius: 0.75rem;
-            background: #2563eb;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
             color: white;
             font-weight: 700;
             font-size: 0.875rem;
@@ -166,7 +323,7 @@
         }
 
         .auth-submit-btn:hover {
-            background: #1d4ed8;
+            background: linear-gradient(135deg, #1d4ed8, #1e40af);
             transform: translateY(-1px);
             box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
         }
@@ -206,6 +363,53 @@
             opacity: 0.3;
             animation: auth-float 8s ease-in-out infinite;
             pointer-events: none;
+        }
+
+        .auth-divider {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: rgba(255, 255, 255, 0.25);
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .auth-divider::before,
+        .auth-divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .auth-google-btn {
+            width: 100%;
+            padding: 0.75rem;
+            border-radius: 0.75rem;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.75);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .auth-google-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.18);
+            color: white;
+        }
+
+        .auth-google-btn img {
+            width: 18px;
+            height: 18px;
         }
 
 
@@ -327,92 +531,290 @@
             }
         }
     </style>
+
+    <!-- Firebase SDK (compat) -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 </head>
 
 <body class="antialiased selection:bg-blue-100 selection:text-blue-900 transition-colors duration-300 relative">
 
     <!-- AUTH SCREEN OVERLAY -->
     <div id="auth-screen">
-        <div class="auth-float-orb" style="width:300px;height:300px;background:#2563eb;top:10%;left:10%;"></div>
-        <div class="auth-float-orb"
-            style="width:250px;height:250px;background:#7c3aed;bottom:10%;right:10%;animation-delay:4s;"></div>
-        <div class="auth-float-orb"
-            style="width:200px;height:200px;background:#06b6d4;top:50%;left:60%;animation-delay:2s;"></div>
+        <!-- ====== LEFT BRANDING PANEL ====== -->
+        <div class="auth-left-panel">
+            <!-- Glowing accents -->
+            <div class="auth-glow" style="width:300px;height:300px;background:#2563eb;top:-50px;left:-80px;"></div>
+            <div class="auth-glow"
+                style="width:200px;height:200px;background:#7c3aed;bottom:10%;right:-40px;animation-delay:4s;"></div>
 
-        <div class="auth-card">
-            <div class="text-center mb-8">
-                <div
-                    class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 mx-auto mb-4">
-                    <i class="fas fa-cube text-2xl"></i>
+            <!-- Floating sparkles -->
+            <div class="auth-sparkle" style="top:12%;right:18%;font-size:1.1rem;">✦</div>
+            <div class="auth-sparkle" style="top:28%;left:55%;animation-delay:2s;font-size:0.75rem;">✦</div>
+            <div class="auth-sparkle" style="bottom:22%;left:12%;animation-delay:4s;">✦</div>
+            <div class="auth-sparkle" style="top:55%;right:8%;animation-delay:1s;font-size:0.65rem;">✧</div>
+            <div class="auth-sparkle" style="bottom:35%;right:30%;animation-delay:3s;font-size:1rem;">✦</div>
+
+            <!-- Brand content (relative z) -->
+            <div style="position:relative;z-index:1;">
+                <!-- Logo -->
+                <div class="flex items-center gap-3 mb-8">
+                    <div
+                        class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/40">
+                        <i class="fas fa-cube text-2xl"></i>
+                    </div>
                 </div>
-                <h1 class="text-2xl font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">Welcome to
-                    <span style="color:#60a5fa;">LocalBridge</span>
+
+                <!-- Brand name -->
+                <h1
+                    style="font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:2.2rem;color:white;line-height:1.15;margin-bottom:0.75rem;">
+                    Local<span style="color:#3b82f6;">Bridge</span>
                 </h1>
-                <p class="text-sm text-white/50 mt-2" id="auth-subtitle">Choose your account type to continue</p>
-            </div>
 
-            <!-- Step 1: Role Selection -->
-            <div id="auth-step-role">
-                <div class="flex gap-4 mb-6">
-                    <button class="auth-role-btn" onclick="selectAuthRole('customer')" id="auth-role-customer">
-                        <i class="fas fa-user"></i>
-                        <span>Customer</span>
-                        <span style="font-size:10px;opacity:0.6;font-weight:400;">Shop & Manage Warranties</span>
-                    </button>
-                    <button class="auth-role-btn" onclick="selectAuthRole('merchant')" id="auth-role-merchant">
-                        <i class="fas fa-store"></i>
-                        <span>Merchant</span>
-                        <span style="font-size:10px;opacity:0.6;font-weight:400;">Manage Your Business</span>
-                    </button>
-                </div>
-            </div>
-
-            <!-- Step 2: Login/Signup Form -->
-            <div id="auth-step-form" class="hidden">
-                <div class="flex items-center gap-2 mb-6">
-                    <button onclick="goBackToRoleSelect()"
-                        class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"
-                        style="flex-shrink:0;">
-                        <i class="fas fa-arrow-left text-sm"></i>
-                    </button>
-                    <div class="flex items-center gap-2">
-                        <span id="auth-role-icon" class="text-blue-400"><i class="fas fa-user"></i></span>
-                        <span id="auth-role-label" class="text-sm font-bold text-white/80">Customer</span>
-                    </div>
-                </div>
-
-                <h2 class="text-lg font-bold text-white mb-1" id="auth-form-title"
-                    style="font-family:'Plus Jakarta Sans',sans-serif;">Login to your account</h2>
-                <p class="text-xs text-white/40 mb-6" id="auth-form-desc">Enter your details to continue</p>
-
-                <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
-                    <div id="auth-name-field" class="hidden">
-                        <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Full
-                            Name</label>
-                        <input type="text" id="auth-name" class="auth-input" placeholder="e.g. Rahul Sharma">
-                    </div>
-                    <div>
-                        <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Email
-                            or Phone Number</label>
-                        <input type="text" id="auth-email" class="auth-input"
-                            placeholder="e.g. rahul@email.com or 98765 43210" required>
-                    </div>
-                    <div>
-                        <label
-                            class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Password</label>
-                        <input type="password" id="auth-password" class="auth-input" placeholder="Enter your password"
-                            required>
-                    </div>
-                    <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Login
-                    </button>
-                </form>
-
-                <p class="text-center text-xs text-white/40 mt-5">
-                    <span id="auth-toggle-text">Don't have an account?</span>
-                    <span class="auth-toggle-link ml-1" onclick="toggleAuthMode()" id="auth-toggle-btn">Sign Up</span>
+                <!-- Tagline -->
+                <p
+                    style="color:rgba(255,255,255,0.5);font-size:0.95rem;line-height:1.7;max-width:380px;margin-bottom:2rem;">
+                    Transform your business with <strong style="color:rgba(255,255,255,0.85);">smart tools</strong>
+                    and <em style="color:rgba(255,255,255,0.85);font-style:italic;">real-time insights</em>
                 </p>
+
+                <!-- Stat cards -->
+                <div class="flex gap-3 mb-6 flex-wrap">
+                    <div class="auth-stat-card">
+                        <div class="stat-icon" style="background:rgba(59,130,246,0.15);color:#3b82f6;">
+                            <i class="fas fa-headset"></i>
+                        </div>
+                        <span class="stat-value">24/7</span>
+                        <span class="stat-label">Customer Support</span>
+                    </div>
+                    <div class="auth-stat-card">
+                        <div class="stat-icon" style="background:rgba(16,185,129,0.15);color:#10b981;">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <span class="stat-value">99%</span>
+                        <span class="stat-label">Uptime Guarantee</span>
+                    </div>
+                    <div class="auth-stat-card">
+                        <div class="stat-icon" style="background:rgba(168,85,247,0.15);color:#a855f7;">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <span class="stat-value">10K+</span>
+                        <span class="stat-label">Active Merchants</span>
+                    </div>
+                </div>
+
+                <!-- Feature badges -->
+                <div class="space-y-2 hidden md:block" style="max-width:320px;">
+                    <div class="auth-feature-badge">
+                        <div class="badge-dot" style="background:rgba(59,130,246,0.12);color:#3b82f6;">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        Lightning Fast Performance
+                    </div>
+                    <div class="auth-feature-badge">
+                        <div class="badge-dot" style="background:rgba(239,68,68,0.12);color:#ef4444;">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        Enterprise-grade Security
+                    </div>
+                    <div class="auth-feature-badge">
+                        <div class="badge-dot" style="background:rgba(16,185,129,0.12);color:#10b981;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        Real-time Analytics & Reports
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- ====== RIGHT FORM PANEL ====== -->
+        <div class="auth-right-panel">
+            <div class="auth-card">
+                <!-- Back to Home -->
+                <div class="mb-4">
+                    <button onclick="goBackToHome()"
+                        class="inline-flex items-center gap-2 text-sm text-white/50 hover:text-white transition-colors cursor-pointer group">
+                        <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+                        Back to Home
+                    </button>
+                </div>
+
+                <!-- Header -->
+                <div class="flex items-center justify-between mb-6">
+                    <div>
+                        <h1 class="text-xl font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;"
+                            id="auth-main-title">Welcome Back</h1>
+                        <p class="text-sm text-white/45 mt-1" id="auth-subtitle">Sign in to your account</p>
+                    </div>
+                </div>
+
+                <!-- Step 1: Role Selection -->
+                <div id="auth-step-role">
+                    <div class="flex gap-4 mb-6">
+                        <button class="auth-role-btn" onclick="selectAuthRole('customer')" id="auth-role-customer">
+                            <i class="fas fa-user"></i>
+                            <span>Customer</span>
+                            <span style="font-size:10px;opacity:0.6;font-weight:400;">Shop & Manage Warranties</span>
+                        </button>
+                        <button class="auth-role-btn" onclick="selectAuthRole('merchant')" id="auth-role-merchant">
+                            <i class="fas fa-store"></i>
+                            <span>Merchant</span>
+                            <span style="font-size:10px;opacity:0.6;font-weight:400;">Manage Your Business</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Step 2: Login/Signup Form -->
+                <div id="auth-step-form" class="hidden">
+                    <div class="flex items-center gap-2 mb-5">
+                        <button onclick="goBackToRoleSelect()"
+                            class="w-8 h-8 rounded-full bg-white/8 flex items-center justify-center text-white/50 hover:bg-white/15 hover:text-white transition"
+                            style="flex-shrink:0;">
+                            <i class="fas fa-arrow-left text-sm"></i>
+                        </button>
+                        <div class="flex items-center gap-2">
+                            <span id="auth-role-icon" class="text-blue-400"><i class="fas fa-user"></i></span>
+                            <span id="auth-role-label" class="text-sm font-bold text-white/80">Customer</span>
+                        </div>
+                    </div>
+
+                    <h2 class="text-lg font-bold text-white mb-1" id="auth-form-title"
+                        style="font-family:'Plus Jakarta Sans',sans-serif;">Login to your account</h2>
+                    <p class="text-xs text-white/40 mb-5" id="auth-form-desc">Enter your details to continue</p>
+
+                    <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
+                        <div id="auth-name-field" class="hidden">
+                            <label
+                                class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Full
+                                Name</label>
+                            <input type="text" id="auth-name" class="auth-input" placeholder="e.g. Rahul Sharma">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Email
+                                Address</label>
+                            <input type="text" id="auth-email" class="auth-input" placeholder="e.g. rahul@email.com"
+                                required>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Password</label>
+                            <div class="relative">
+                                <input type="password" id="auth-password" class="auth-input"
+                                    placeholder="Enter your password" required>
+                                <button type="button" onclick="togglePasswordVisibility()"
+                                    class="absolute right-3 top-1/2 -translate-y-1/2 text-white/30 hover:text-white/60 transition">
+                                    <i class="fas fa-eye text-sm" id="auth-pw-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Forgot password & Employee login row -->
+                        <div class="flex items-center justify-between text-xs" id="auth-links-row">
+                            <span class="text-white/40 hover:text-blue-400 cursor-pointer transition">Forgot Password?
+                                <i class="fas fa-chevron-right text-[8px] ml-0.5"></i></span>
+                        </div>
+
+                        <p id="auth-error-msg" class="text-red-400 text-xs font-semibold text-center hidden"></p>
+                        <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
+                            <i class="fas fa-sign-in-alt mr-2"></i> Sign In to Dashboard <i
+                                class="fas fa-arrow-right ml-2 text-xs"></i>
+                        </button>
+                    </form>
+
+                    <p class="text-center text-xs text-white/40 mt-4">
+                        <span id="auth-toggle-text">New to LocalBridge?</span>
+                        <span class="auth-toggle-link ml-1" onclick="toggleAuthMode()" id="auth-toggle-btn">Create
+                            Account ✦</span>
+                    </p>
+
+                    <!-- Divider -->
+                    <div class="auth-divider mt-4 mb-4">Or continue with</div>
+
+                    <!-- Google Sign-in -->
+                    <button class="auth-google-btn" onclick="handleGoogleSignIn()" type="button">
+                        <svg width="18" height="18" viewBox="0 0 48 48">
+                            <path fill="#EA4335"
+                                d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z" />
+                            <path fill="#4285F4"
+                                d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z" />
+                            <path fill="#FBBC05"
+                                d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z" />
+                            <path fill="#34A853"
+                                d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z" />
+                        </svg>
+                        Continue with Google <i class="fas fa-arrow-right text-xs ml-1 opacity-50"></i>
+                    </button>
+
+                    <!-- Terms -->
+                    <p class="text-center text-[10px] text-white/25 mt-4 leading-relaxed">
+                        By continuing, you agree to our <span
+                            class="text-white/40 hover:text-blue-400 cursor-pointer transition">Terms of Service</span>
+                        and <span class="text-white/40 hover:text-blue-400 cursor-pointer transition">Privacy
+                            Policy</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- EMAIL VERIFICATION SCREEN OVERLAY -->
+    <div id="verify-screen"
+        style="display:none;position:fixed;inset:0;z-index:10000;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f172a 0%,#1e293b 50%,#0f172a 100%);">
+        <div class="auth-float-orb"
+            style="width:250px;height:250px;background:#10b981;top:15%;right:15%;animation-delay:1s;"></div>
+        <div class="auth-float-orb"
+            style="width:200px;height:200px;background:#2563eb;bottom:20%;left:10%;animation-delay:3s;"></div>
+        <div class="auth-float-orb"
+            style="width:180px;height:180px;background:#7c3aed;top:60%;right:50%;animation-delay:5s;"></div>
+
+        <div class="auth-card" style="max-width:460px;text-align:center;">
+            <!-- Animated envelope icon -->
+            <div
+                style="margin:0 auto 1.5rem;width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#2563eb,#7c3aed);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 40px rgba(37,99,235,0.4);animation:auth-float 4s ease-in-out infinite;">
+                <i class="fas fa-envelope-open-text" style="font-size:2rem;color:white;"></i>
+            </div>
+
+            <h1 class="text-2xl font-bold text-white"
+                style="font-family:'Plus Jakarta Sans',sans-serif;margin-bottom:0.5rem;">
+                Check Your <span style="color:#60a5fa;">Inbox</span>
+            </h1>
+
+            <p style="color:rgba(255,255,255,0.55);font-size:0.875rem;line-height:1.6;margin-bottom:1.5rem;">
+                We have sent you a verification email to<br>
+                <strong id="verify-email-display" style="color:#60a5fa;font-weight:700;">user@email.com</strong><br>
+                Please verify it and log in.
+            </p>
+
+            <!-- Status row -->
+            <div
+                style="display:flex;align-items:center;gap:0.75rem;padding:1rem;border-radius:1rem;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);margin-bottom:1.5rem;">
+                <div
+                    style="width:36px;height:36px;border-radius:50%;background:rgba(16,185,129,0.2);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                    <i class="fas fa-paper-plane" style="color:#10b981;font-size:0.85rem;"></i>
+                </div>
+                <div style="text-align:left;">
+                    <p
+                        style="color:#10b981;font-size:0.75rem;font-weight:700;text-transform:uppercase;letter-spacing:0.05em;margin:0;">
+                        Email Sent Successfully</p>
+                    <p style="color:rgba(255,255,255,0.4);font-size:0.7rem;margin:0;">Check your spam folder if you
+                        don't see it</p>
+                </div>
+            </div>
+
+            <!-- Action buttons -->
+            <button onclick="goToLoginFromVerify()" class="auth-submit-btn" style="margin-bottom:0.75rem;">
+                <i class="fas fa-sign-in-alt mr-2"></i> Go to Login
+            </button>
+
+            <button id="resend-verify-btn" onclick="resendVerificationEmail()"
+                style="width:100%;padding:0.875rem;border-radius:0.75rem;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.7);font-weight:600;font-size:0.8rem;cursor:pointer;transition:all 0.3s;">
+                <i class="fas fa-redo mr-2"></i> Resend Verification Email
+            </button>
+
+            <p id="resend-status" style="color:rgba(255,255,255,0.4);font-size:0.7rem;margin-top:0.75rem;display:none;">
+            </p>
         </div>
     </div>
 
@@ -642,6 +1044,7 @@
                                 <span>Get Started</span>
                             </button>
                             <button
+                                onclick="document.getElementById('how-it-works').scrollIntoView({behavior:'smooth'})"
                                 class="w-full sm:w-auto px-8 py-4 text-slate-600 dark:text-slate-300 font-bold text-lg hover:text-brand-blue transition flex items-center justify-center gap-2 group">
                                 <div
                                     class="w-10 h-10 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center group-hover:border-brand-blue group-hover:scale-110 transition-all shadow-sm">
@@ -781,7 +1184,129 @@
                 </div>
             </section>
 
+            <!-- ========== HOW IT WORKS ========== -->
+            <section id="how-it-works" class="mb-20 reveal">
+                <div
+                    class="bg-white dark:bg-slate-800 rounded-[2rem] p-8 md:p-12 border border-slate-100 dark:border-slate-700 shadow-xl relative overflow-hidden">
 
+                    <!-- Background accents -->
+                    <div
+                        class="absolute top-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 -translate-x-1/3">
+                    </div>
+                    <div
+                        class="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/10 rounded-full blur-3xl translate-y-1/2 translate-x-1/3">
+                    </div>
+
+                    <div class="relative z-10">
+                        <!-- Header -->
+                        <div class="text-center mb-14">
+                            <div
+                                class="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-brand-blue text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+                                <i class="fas fa-route"></i> Simple Process
+                            </div>
+                            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-900 dark:text-white mb-3">How It
+                                Works</h2>
+                            <p class="text-slate-500 dark:text-slate-400 max-w-lg mx-auto">Get started in just 3 simple
+                                steps and transform the way you manage your business.</p>
+                        </div>
+
+                        <!-- Steps -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6 relative">
+
+                            <!-- Connecting lines (desktop only) -->
+                            <div
+                                class="hidden md:block absolute top-16 left-[calc(16.67%+2rem)] right-[calc(16.67%+2rem)] h-0.5">
+                                <div
+                                    class="w-full h-full bg-gradient-to-r from-blue-400 via-purple-400 to-green-400 rounded-full opacity-30">
+                                </div>
+                                <div class="absolute top-1/2 left-0 w-2 h-2 -translate-y-1/2 bg-blue-400 rounded-full">
+                                </div>
+                                <div
+                                    class="absolute top-1/2 left-1/2 w-2 h-2 -translate-x-1/2 -translate-y-1/2 bg-purple-400 rounded-full">
+                                </div>
+                                <div
+                                    class="absolute top-1/2 right-0 w-2 h-2 -translate-y-1/2 bg-green-400 rounded-full">
+                                </div>
+                            </div>
+
+                            <!-- Step 1 -->
+                            <div class="group text-center relative">
+                                <div class="relative mx-auto w-28 h-28 mb-6">
+                                    <div
+                                        class="absolute inset-0 bg-blue-500/20 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-300">
+                                    </div>
+                                    <div
+                                        class="relative w-full h-full bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-500/25 group-hover:scale-105 group-hover:shadow-blue-500/40 transition-all duration-300">
+                                        <i class="fas fa-user-plus text-white text-3xl"></i>
+                                    </div>
+                                    <div
+                                        class="absolute -top-2 -right-2 w-8 h-8 bg-white dark:bg-slate-700 border-2 border-blue-500 rounded-full flex items-center justify-center text-xs font-extrabold text-blue-600 shadow-md">
+                                        1</div>
+                                </div>
+                                <h3
+                                    class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-blue-600 transition-colors">
+                                    Create Account</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-xs mx-auto">
+                                    Sign up as a Customer or Merchant in seconds. Quick, easy, and completely free to
+                                    get started.</p>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="group text-center relative">
+                                <div class="relative mx-auto w-28 h-28 mb-6">
+                                    <div
+                                        class="absolute inset-0 bg-purple-500/20 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-300">
+                                    </div>
+                                    <div
+                                        class="relative w-full h-full bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center shadow-lg shadow-purple-500/25 group-hover:scale-105 group-hover:shadow-purple-500/40 transition-all duration-300">
+                                        <i class="fas fa-box-open text-white text-3xl"></i>
+                                    </div>
+                                    <div
+                                        class="absolute -top-2 -right-2 w-8 h-8 bg-white dark:bg-slate-700 border-2 border-purple-500 rounded-full flex items-center justify-center text-xs font-extrabold text-purple-600 shadow-md">
+                                        2</div>
+                                </div>
+                                <h3
+                                    class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-purple-600 transition-colors">
+                                    Add Your Products</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-xs mx-auto">
+                                    Upload receipts, register warranties, or list your products with our AI-powered
+                                    smart tools.</p>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="group text-center relative">
+                                <div class="relative mx-auto w-28 h-28 mb-6">
+                                    <div
+                                        class="absolute inset-0 bg-green-500/20 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform duration-300">
+                                    </div>
+                                    <div
+                                        class="relative w-full h-full bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/25 group-hover:scale-105 group-hover:shadow-green-500/40 transition-all duration-300">
+                                        <i class="fas fa-chart-line text-white text-3xl"></i>
+                                    </div>
+                                    <div
+                                        class="absolute -top-2 -right-2 w-8 h-8 bg-white dark:bg-slate-700 border-2 border-green-500 rounded-full flex items-center justify-center text-xs font-extrabold text-green-600 shadow-md">
+                                        3</div>
+                                </div>
+                                <h3
+                                    class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-green-600 transition-colors">
+                                    Track & Grow</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed max-w-xs mx-auto">
+                                    Monitor warranties, manage sales, and unlock real-time analytics to scale your
+                                    business.</p>
+                            </div>
+                        </div>
+
+                        <!-- CTA -->
+                        <div class="text-center mt-12">
+                            <button
+                                onclick="var a=document.getElementById('auth-screen'); a.style.display='grid'; a.classList.remove('auth-hidden');"
+                                class="inline-flex items-center gap-2 px-8 py-4 bg-brand-blue text-white rounded-xl font-bold text-lg shadow-[0_4px_14px_0_rgba(37,99,235,0.39)] hover:shadow-[0_6px_20px_rgba(37,99,235,0.23)] hover:-translate-y-0.5 transition-all">
+                                <i class="fas fa-rocket"></i> Get Started Now <i class="fas fa-arrow-right text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
             <section class="mb-20 reveal">
                 <div
@@ -801,8 +1326,7 @@
                                 Smart Receipt Scanner</h2>
                             <p class="text-slate-500 dark:text-slate-400 mb-8 max-w-md">Instantly digitize your paper
                                 receipts. Our AI automatically extracts product details, warranty dates, and merchant
-                                info
-                                with <span class="text-brand-blue font-bold">98% accuracy</span>.</p>
+                                info.</p>
 
                             <ul class="space-y-4 mb-8">
                                 <li class="flex items-center gap-3 text-slate-600 dark:text-slate-300">
@@ -1249,6 +1773,141 @@
             </section>
 
 
+            <!-- ========== WHY WE'RE DIFFERENT ========== -->
+            <section class="mb-20 reveal">
+                <div
+                    class="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 rounded-[2rem] p-8 md:p-12 border border-slate-700/50 shadow-2xl relative overflow-hidden">
+
+                    <!-- Background effects -->
+                    <div class="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"></div>
+                    <div class="absolute bottom-0 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl"></div>
+                    <div
+                        class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-conic from-blue-500/5 via-transparent to-purple-500/5 rounded-full blur-2xl">
+                    </div>
+
+                    <div class="relative z-10">
+                        <!-- Header -->
+                        <div class="text-center mb-12">
+                            <div
+                                class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold uppercase tracking-wider rounded-full mb-4">
+                                <i class="fas fa-gem"></i> What Sets Us Apart
+                            </div>
+                            <h2 class="font-display font-extrabold text-3xl md:text-4xl text-white mb-3">Why Choose
+                                <span
+                                    class="bg-gradient-to-r from-blue-400 to-indigo-400 bg-clip-text text-transparent">LocalBridge</span>?
+                            </h2>
+                            <p class="text-slate-400 max-w-xl mx-auto">We're not just another warranty app. Here's what
+                                makes us fundamentally different from everything else out there.</p>
+                        </div>
+
+                        <!-- Differentiators Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+
+                            <!-- 1. Digital-First Warranty Vault -->
+                            <div
+                                class="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                </div>
+                                <div class="relative z-10">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mb-4 shadow-lg shadow-blue-500/20 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-vault text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-bold text-white text-lg mb-2">Digital-First Warranty Vault</h3>
+                                    <p class="text-slate-400 text-sm leading-relaxed">No more digging through drawers.
+                                        All your warranties, receipts, and documents stored securely in one digital
+                                        vault — accessible anytime.</p>
+                                    <div class="mt-4 flex items-center gap-2 text-xs font-bold text-blue-400">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-blue-500/20 flex items-center justify-center"><i
+                                                class="fas fa-check text-[10px]"></i></span>
+                                        Others: Paper-based tracking
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- 3. Local Community Focus -->
+                            <div
+                                class="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-green-500/30 transition-all duration-300 relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 w-24 h-24 bg-green-500/10 rounded-full blur-2xl translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                </div>
+                                <div class="relative z-10">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mb-4 shadow-lg shadow-green-500/20 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-store text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-bold text-white text-lg mb-2">Local Community Focus</h3>
+                                    <p class="text-slate-400 text-sm leading-relaxed">We bridge the gap between local
+                                        shops and customers. Support your neighborhood stores while enjoying digital-age
+                                        convenience.</p>
+                                    <div class="mt-4 flex items-center gap-2 text-xs font-bold text-green-400">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center"><i
+                                                class="fas fa-check text-[10px]"></i></span>
+                                        Others: Only big brands
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <!-- 5. Instant Claim Support -->
+                            <div
+                                class="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-red-500/30 transition-all duration-300 relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 w-24 h-24 bg-red-500/10 rounded-full blur-2xl translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                </div>
+                                <div class="relative z-10">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-4 shadow-lg shadow-red-500/20 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-headset text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-bold text-white text-lg mb-2">Instant Claim Support</h3>
+                                    <p class="text-slate-400 text-sm leading-relaxed">File warranty claims in 2 taps. We
+                                        auto-generate claim details and connect you directly with the merchant — no
+                                        phone calls needed.</p>
+                                    <div class="mt-4 flex items-center gap-2 text-xs font-bold text-red-400">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-red-500/20 flex items-center justify-center"><i
+                                                class="fas fa-check text-[10px]"></i></span>
+                                        Others: Long claim processes
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 6. Zero Hidden Fees -->
+                            <div
+                                class="group bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 hover:border-cyan-500/30 transition-all duration-300 relative overflow-hidden">
+                                <div
+                                    class="absolute top-0 right-0 w-24 h-24 bg-cyan-500/10 rounded-full blur-2xl translate-x-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                </div>
+                                <div class="relative z-10">
+                                    <div
+                                        class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center mb-4 shadow-lg shadow-cyan-500/20 group-hover:scale-110 transition-transform">
+                                        <i class="fas fa-hand-holding-heart text-white text-lg"></i>
+                                    </div>
+                                    <h3 class="font-bold text-white text-lg mb-2">Zero Hidden Fees</h3>
+                                    <p class="text-slate-400 text-sm leading-relaxed">100% free for customers. No
+                                        subscriptions, no premium tiers, no sneaky charges. All features, fully unlocked
+                                        from day one.</p>
+                                    <div class="mt-4 flex items-center gap-2 text-xs font-bold text-cyan-400">
+                                        <span
+                                            class="w-5 h-5 rounded-full bg-cyan-500/20 flex items-center justify-center"><i
+                                                class="fas fa-check text-[10px]"></i></span>
+                                        Others: Freemium with limits
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+
             <section class="mb-8">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
@@ -1324,6 +1983,108 @@
                     </div>
                 </div>
             </section>
+
+
+            <!-- ===== MY FILES SECTION ===== -->
+            <section id="my-files-section" class="mb-20 reveal">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 gap-4">
+                    <div>
+                        <h2 class="font-display font-bold text-3xl text-slate-900 dark:text-white">My Files</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Manage your folders and documents</p>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <span id="files-folder-count"
+                            class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-brand-blue font-bold text-xs uppercase tracking-wider rounded-full">0
+                            Folders</span>
+                        <span id="files-file-count"
+                            class="px-3 py-1 bg-indigo-50 dark:bg-indigo-900/30 text-indigo-600 dark:text-indigo-400 font-bold text-xs uppercase tracking-wider rounded-full">0
+                            Files</span>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex gap-3 mb-8">
+                    <button onclick="openNewFolderModal()"
+                        class="px-5 py-2.5 border-2 border-brand-blue text-brand-blue rounded-xl font-bold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition flex items-center gap-2">
+                        <i class="fas fa-folder-plus"></i> New Folder
+                    </button>
+                    <button onclick="openAddFileModal()"
+                        class="px-5 py-2.5 bg-brand-blue text-white rounded-xl font-bold text-sm hover:bg-blue-600 transition shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                        <i class="fas fa-file-circle-plus"></i> Add File
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div id="files-loading" class="hidden">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 animate-pulse">
+                            <div class="h-10 w-10 rounded-xl bg-slate-200 dark:bg-slate-700 mb-4"></div>
+                            <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
+                            <div class="h-3 bg-slate-100 dark:bg-slate-700/50 rounded w-1/2"></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 animate-pulse">
+                            <div class="h-10 w-10 rounded-xl bg-slate-200 dark:bg-slate-700 mb-4"></div>
+                            <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
+                            <div class="h-3 bg-slate-100 dark:bg-slate-700/50 rounded w-1/2"></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 animate-pulse">
+                            <div class="h-10 w-10 rounded-xl bg-slate-200 dark:bg-slate-700 mb-4"></div>
+                            <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
+                            <div class="h-3 bg-slate-100 dark:bg-slate-700/50 rounded w-1/2"></div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 animate-pulse">
+                            <div class="h-10 w-10 rounded-xl bg-slate-200 dark:bg-slate-700 mb-4"></div>
+                            <div class="h-4 bg-slate-200 dark:bg-slate-700 rounded w-3/4 mb-2"></div>
+                            <div class="h-3 bg-slate-100 dark:bg-slate-700/50 rounded w-1/2"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div id="files-empty" class="hidden">
+                    <div
+                        class="bg-white dark:bg-slate-800 rounded-[2rem] p-12 border border-slate-100 dark:border-slate-700 text-center">
+                        <div
+                            class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center">
+                            <i class="fas fa-folder-open text-3xl text-slate-300 dark:text-slate-500"></i>
+                        </div>
+                        <h3 class="font-display font-bold text-xl text-slate-900 dark:text-white mb-2">No files yet</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-6 max-w-sm mx-auto">Create folders to
+                            organize your documents and add files to get started.</p>
+                        <div class="flex gap-3 justify-center">
+                            <button onclick="openNewFolderModal()"
+                                class="px-5 py-2.5 border-2 border-brand-blue text-brand-blue rounded-xl font-bold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition flex items-center gap-2">
+                                <i class="fas fa-folder-plus"></i> New Folder
+                            </button>
+                            <button onclick="openAddFileModal()"
+                                class="px-5 py-2.5 bg-brand-blue text-white rounded-xl font-bold text-sm hover:bg-blue-600 transition shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                                <i class="fas fa-file-circle-plus"></i> Add File
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Folders Grid -->
+                <div id="files-folders-container" class="hidden mb-8">
+                    <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4"><i
+                            class="fas fa-folder mr-2"></i>Folders</h3>
+                    <div id="files-folders-grid"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+                </div>
+
+                <!-- Files Grid -->
+                <div id="files-files-container" class="hidden">
+                    <h3 class="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-4"><i
+                            class="fas fa-file mr-2"></i>Files</h3>
+                    <div id="files-files-grid"
+                        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"></div>
+                </div>
+            </section>
+            <!-- ===== END MY FILES SECTION ===== -->
 
 
         </div>
@@ -1467,6 +2228,10 @@
                 <div onclick="switchMerchantTab('customers')" id="menu-customers"
                     class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
                     <i class="fas fa-users w-5 text-center"></i> Customers
+                </div>
+                <div onclick="switchMerchantTab('payroll')" id="menu-payroll"
+                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                    <i class="fas fa-money-check-alt w-5 text-center"></i> Payroll
                 </div>
                 <div onclick="switchMerchantTab('settings')" id="menu-settings"
                     class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
@@ -2167,6 +2932,168 @@
                 </div>
 
 
+                <!-- ===== PAYROLL TAB ===== -->
+                <div id="merchant-payroll" class="hidden space-y-6 max-w-6xl mx-auto">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Payroll
+                                Management</h2>
+                            <p class="text-sm text-slate-500 mt-1">Manage employees and process payroll</p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="openAddEmployeeModal()"
+                                class="px-4 py-2.5 border-2 border-blue-600 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition flex items-center gap-2">
+                                <i class="fas fa-user-plus"></i> Add Employee
+                            </button>
+                            <button onclick="openRunPayrollModal()"
+                                class="px-4 py-2.5 bg-green-600 text-white rounded-xl font-bold text-sm hover:bg-green-700 transition shadow-lg shadow-green-500/30 flex items-center gap-2">
+                                <i class="fas fa-wallet"></i> Run Payroll
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Summary Cards -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                            <div
+                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-users text-4xl"></i>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
+                                Employees</p>
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="payroll-stat-employees">0
+                            </h3>
+                            <div class="mt-3 flex items-center text-xs font-medium text-blue-600"><i
+                                    class="fas fa-user-check mr-1 text-[10px]"></i> <span
+                                    id="payroll-stat-active">0</span> active</div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                            <div
+                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-indian-rupee-sign text-4xl"></i>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Monthly Cost
+                            </p>
+                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="payroll-stat-cost">₹0</h3>
+                            <div class="mt-3 flex items-center text-xs font-medium text-slate-400"><i
+                                    class="fas fa-calculator mr-1 text-[10px]"></i> Active salaries</div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                            <div
+                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-clock text-4xl"></i>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Pending</p>
+                            <h3 class="text-3xl font-bold text-orange-500" id="payroll-stat-pending">0</h3>
+                            <div class="mt-3 flex items-center text-xs font-medium text-orange-500"><i
+                                    class="fas fa-exclamation-circle mr-1 text-[10px]"></i> Awaiting payment</div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                            <div
+                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                <i class="fas fa-check-circle text-4xl"></i>
+                            </div>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Paid This
+                                Month</p>
+                            <h3 class="text-3xl font-bold text-green-600" id="payroll-stat-paid">0</h3>
+                            <div class="mt-3 flex items-center text-xs font-medium text-green-600"><i
+                                    class="fas fa-check mr-1 text-[10px]"></i> Completed</div>
+                        </div>
+                    </div>
+
+                    <!-- Loading -->
+                    <div id="payroll-loading" class="hidden">
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 animate-pulse space-y-4">
+                            <div class="h-5 bg-slate-200 dark:bg-slate-700 rounded w-1/4"></div>
+                            <div class="h-10 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                            <div class="h-10 bg-slate-100 dark:bg-slate-700/50 rounded"></div>
+                            <div class="h-10 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                        </div>
+                    </div>
+
+                    <!-- Empty State -->
+                    <div id="payroll-empty" class="hidden">
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl p-12 border border-gray-200 dark:border-slate-700 text-center">
+                            <div
+                                class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center">
+                                <i class="fas fa-users text-3xl text-slate-300 dark:text-slate-500"></i>
+                            </div>
+                            <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-2">No employees yet</h3>
+                            <p class="text-sm text-slate-500 mb-6 max-w-sm mx-auto">Add employees to start managing your
+                                payroll. You can track salaries, run payroll, and keep payment history.</p>
+                            <button onclick="openAddEmployeeModal()"
+                                class="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-500/30 inline-flex items-center gap-2">
+                                <i class="fas fa-user-plus"></i> Add Your First Employee
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Employee List -->
+                    <div id="payroll-employees-section" class="hidden">
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div
+                                class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                                <h3 class="font-bold text-slate-900 dark:text-white"><i
+                                        class="fas fa-users mr-2 text-blue-500"></i>Employees</h3>
+                                <span id="payroll-emp-count-badge"
+                                    class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 font-bold text-xs rounded-full">0</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr
+                                            class="border-b border-gray-100 dark:border-slate-700 text-xs uppercase tracking-wider text-slate-400">
+                                            <th class="text-left py-3 px-6 font-semibold">Employee</th>
+                                            <th class="text-left py-3 px-4 font-semibold">Role</th>
+                                            <th class="text-right py-3 px-4 font-semibold">Salary</th>
+                                            <th class="text-center py-3 px-4 font-semibold">Status</th>
+                                            <th class="text-right py-3 px-6 font-semibold">Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payroll-employees-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payroll History -->
+                    <div id="payroll-history-section" class="hidden">
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div
+                                class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                                <h3 class="font-bold text-slate-900 dark:text-white"><i
+                                        class="fas fa-history mr-2 text-green-500"></i>Payroll History</h3>
+                                <span id="payroll-hist-count-badge"
+                                    class="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 font-bold text-xs rounded-full">0</span>
+                            </div>
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm">
+                                    <thead>
+                                        <tr
+                                            class="border-b border-gray-100 dark:border-slate-700 text-xs uppercase tracking-wider text-slate-400">
+                                            <th class="text-left py-3 px-6 font-semibold">Employee</th>
+                                            <th class="text-left py-3 px-4 font-semibold">Month</th>
+                                            <th class="text-right py-3 px-4 font-semibold">Amount</th>
+                                            <th class="text-center py-3 px-4 font-semibold">Status</th>
+                                            <th class="text-right py-3 px-6 font-semibold">Paid On</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="payroll-history-tbody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- ===== END PAYROLL TAB ===== -->
+
                 <div id="merchant-settings" class="hidden space-y-6 max-w-2xl mx-auto">
                     <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Store Settings</h2>
                     <div
@@ -2265,6 +3192,11 @@
                         class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
                         <i class="fas fa-users text-green-600 text-xl"></i>
                         <span class="text-sm font-bold text-slate-900 dark:text-white">Customers</span>
+                    </div>
+                    <div onclick="switchMerchantTab('payroll'); toggleMobileMoreMenu()"
+                        class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                        <i class="fas fa-money-check-alt text-emerald-600 text-xl"></i>
+                        <span class="text-sm font-bold text-slate-900 dark:text-white">Payroll</span>
                     </div>
                     <div onclick="switchMerchantTab('settings'); toggleMobileMoreMenu()"
                         class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
@@ -2531,23 +3463,173 @@
     </div>
     <script>
 
+        // ===== FIREBASE INIT =====
+        const firebaseConfig = {
+            apiKey: "AIzaSyDP04TyGK7QHW5HMrlEZvlTju9D6S-52sw",
+            authDomain: "dukaan-sathi-d4550.firebaseapp.com",
+            projectId: "dukaan-sathi-d4550",
+            storageBucket: "dukaan-sathi-d4550.firebasestorage.app",
+            messagingSenderId: "634888230813",
+            appId: "1:634888230813:web:aee76d147d7574f2b9c174",
+            measurementId: "G-HLJXXHL065"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+        // ===== END FIREBASE INIT =====
+
         // ===== AUTH SYSTEM =====
         let authSelectedRole = null;
         let authIsSignup = false;
 
+        let pendingVerificationEmail = null;
+        let resendCooldown = false;
+
+        function showAuthError(msg) {
+            const el = document.getElementById('auth-error-msg');
+            el.innerText = msg;
+            el.classList.remove('hidden');
+        }
+
+        function hideAuthError() {
+            const el = document.getElementById('auth-error-msg');
+            el.innerText = '';
+            el.classList.add('hidden');
+        }
+
+        function togglePasswordVisibility() {
+            const pw = document.getElementById('auth-password');
+            const eye = document.getElementById('auth-pw-eye');
+            if (pw.type === 'password') {
+                pw.type = 'text';
+                eye.classList.remove('fa-eye');
+                eye.classList.add('fa-eye-slash');
+            } else {
+                pw.type = 'password';
+                eye.classList.remove('fa-eye-slash');
+                eye.classList.add('fa-eye');
+            }
+        }
+
+        function handleGoogleSignIn() {
+            const provider = new firebase.auth.GoogleAuthProvider();
+            auth.signInWithPopup(provider)
+                .then((result) => {
+                    const user = result.user;
+                    const role = authSelectedRole || 'customer';
+                    const authData = {
+                        role: role,
+                        name: user.displayName || '',
+                        email: user.email || '',
+                        uid: user.uid
+                    };
+                    localStorage.setItem('localbridge_auth', JSON.stringify(authData));
+                    applyAuthState(authData);
+                })
+                .catch((error) => {
+                    console.error('Google sign-in error:', error);
+                    showAuthError(error.message || 'Google sign-in failed.');
+                });
+        }
+
+        function goBackToHome() {
+            const authScreen = document.getElementById('auth-screen');
+            authScreen.classList.add('auth-hidden');
+            setTimeout(() => { authScreen.style.display = 'none'; }, 500);
+        }
+
+        function showVerifyScreen(email) {
+            document.getElementById('verify-email-display').innerText = email;
+            document.getElementById('auth-screen').style.display = 'none';
+            const vs = document.getElementById('verify-screen');
+            vs.style.display = 'flex';
+        }
+
+        function hideVerifyScreen() {
+            document.getElementById('verify-screen').style.display = 'none';
+        }
+
+        function goToLoginFromVerify() {
+            hideVerifyScreen();
+            // Sign out any lingering session
+            auth.signOut().then(() => {
+                const authScreen = document.getElementById('auth-screen');
+                authScreen.style.display = 'flex';
+                authScreen.classList.remove('auth-hidden');
+                // Go to login form step if role was selected
+                if (authSelectedRole) {
+                    document.getElementById('auth-step-role').classList.add('hidden');
+                    document.getElementById('auth-step-form').classList.remove('hidden');
+                    authIsSignup = false;
+                    hideAuthError();
+                    updateAuthFormMode();
+                }
+            });
+        }
+
+        function resendVerificationEmail() {
+            if (resendCooldown) return;
+            const statusEl = document.getElementById('resend-status');
+            const btn = document.getElementById('resend-verify-btn');
+
+            // We need to temporarily sign in to resend
+            // Use the pending email if available
+            const currentUser = auth.currentUser;
+            if (currentUser) {
+                resendCooldown = true;
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Sending...';
+
+                currentUser.sendEmailVerification()
+                    .then(() => {
+                        statusEl.style.display = 'block';
+                        statusEl.style.color = '#10b981';
+                        statusEl.innerText = 'Verification email resent successfully!';
+                        btn.innerHTML = '<i class="fas fa-check mr-2"></i> Email Sent';
+                        btn.style.borderColor = 'rgba(16,185,129,0.4)';
+                        btn.style.color = '#10b981';
+
+                        // Reset after 30s cooldown
+                        let seconds = 30;
+                        const interval = setInterval(() => {
+                            seconds--;
+                            btn.innerHTML = `<i class="fas fa-clock mr-2"></i> Resend in ${seconds}s`;
+                            if (seconds <= 0) {
+                                clearInterval(interval);
+                                resendCooldown = false;
+                                btn.disabled = false;
+                                btn.innerHTML = '<i class="fas fa-redo mr-2"></i> Resend Verification Email';
+                                btn.style.borderColor = 'rgba(255,255,255,0.12)';
+                                btn.style.color = 'rgba(255,255,255,0.7)';
+                                statusEl.style.display = 'none';
+                            }
+                        }, 1000);
+                    })
+                    .catch((err) => {
+                        statusEl.style.display = 'block';
+                        statusEl.style.color = '#ef4444';
+                        statusEl.innerText = 'Failed to resend. Please try again.';
+                        resendCooldown = false;
+                        btn.disabled = false;
+                        btn.innerHTML = '<i class="fas fa-redo mr-2"></i> Resend Verification Email';
+                    });
+            } else {
+                statusEl.style.display = 'block';
+                statusEl.style.color = '#f59e0b';
+                statusEl.innerText = 'Please sign up again to resend the email.';
+            }
+        }
+
         function selectAuthRole(role) {
             authSelectedRole = role;
-            // Highlight selected button
             document.getElementById('auth-role-customer').classList.remove('selected');
             document.getElementById('auth-role-merchant').classList.remove('selected');
             document.getElementById('auth-role-' + role).classList.add('selected');
 
-            // Show form after short delay
             setTimeout(() => {
                 document.getElementById('auth-step-role').classList.add('hidden');
                 document.getElementById('auth-step-form').classList.remove('hidden');
 
-                // Update labels
                 if (role === 'customer') {
                     document.getElementById('auth-role-icon').innerHTML = '<i class="fas fa-user"></i>';
                     document.getElementById('auth-role-label').innerText = 'Customer';
@@ -2556,8 +3638,8 @@
                     document.getElementById('auth-role-label').innerText = 'Merchant';
                 }
 
-                // Reset to login mode
                 authIsSignup = false;
+                hideAuthError();
                 updateAuthFormMode();
             }, 200);
         }
@@ -2566,12 +3648,14 @@
             document.getElementById('auth-step-form').classList.add('hidden');
             document.getElementById('auth-step-role').classList.remove('hidden');
             authSelectedRole = null;
+            hideAuthError();
             document.getElementById('auth-role-customer').classList.remove('selected');
             document.getElementById('auth-role-merchant').classList.remove('selected');
         }
 
         function toggleAuthMode() {
             authIsSignup = !authIsSignup;
+            hideAuthError();
             updateAuthFormMode();
         }
 
@@ -2583,90 +3667,170 @@
             const formTitle = document.getElementById('auth-form-title');
             const formDesc = document.getElementById('auth-form-desc');
 
+            const linksRow = document.getElementById('auth-links-row');
+            const mainTitle = document.getElementById('auth-main-title');
+
             if (authIsSignup) {
                 nameField.classList.remove('hidden');
-                submitBtn.innerHTML = '<i class="fas fa-user-plus mr-2"></i> Create Account';
+                submitBtn.innerHTML = '<i class="fas fa-user-plus mr-2"></i> Create Account <i class="fas fa-arrow-right ml-2 text-xs"></i>';
                 toggleText.innerText = 'Already have an account?';
-                toggleBtn.innerText = 'Login';
+                toggleBtn.innerHTML = 'Sign In ✦';
                 formTitle.innerText = 'Create your account';
                 formDesc.innerText = 'Fill in your details to get started';
+                if (mainTitle) mainTitle.innerText = 'Get Started';
+                if (linksRow) linksRow.classList.add('hidden');
             } else {
                 nameField.classList.add('hidden');
-                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i> Login';
-                toggleText.innerText = "Don't have an account?";
-                toggleBtn.innerText = 'Sign Up';
+                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i> Sign In to Dashboard <i class="fas fa-arrow-right ml-2 text-xs"></i>';
+                toggleText.innerText = 'New to LocalBridge?';
+                toggleBtn.innerHTML = 'Create Account ✦';
                 formTitle.innerText = 'Login to your account';
                 formDesc.innerText = 'Enter your details to continue';
+                if (mainTitle) mainTitle.innerText = 'Welcome Back';
+                if (linksRow) linksRow.classList.remove('hidden');
             }
         }
 
         function handleAuthSubmit(e) {
             e.preventDefault();
+            hideAuthError();
 
             const email = document.getElementById('auth-email').value.trim();
             const password = document.getElementById('auth-password').value.trim();
             const name = document.getElementById('auth-name').value.trim();
 
             if (!email || !password) {
-                alert('Please fill all fields.');
+                showAuthError('Please fill all fields.');
                 return;
             }
 
             if (authIsSignup && !name) {
-                alert('Please enter your name.');
+                showAuthError('Please enter your name.');
                 return;
             }
 
-            // Save auth to localStorage
-            const authData = {
-                role: authSelectedRole,
-                email: email,
-                name: authIsSignup ? name : (email.includes('@') ? email.split('@')[0] : 'User'),
-                loggedIn: true
-            };
+            // Disable button while processing
+            const submitBtn = document.getElementById('auth-submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Please wait...';
 
-            localStorage.setItem('localbridge_auth', JSON.stringify(authData));
+            if (authIsSignup) {
+                // ---- SIGN UP ----
+                auth.createUserWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+                        // Update display name
+                        return user.updateProfile({ displayName: name }).then(() => user);
+                    })
+                    .then((user) => {
+                        // Send verification email
+                        return user.sendEmailVerification().then(() => user);
+                    })
+                    .then((user) => {
+                        // Save role to localStorage for later
+                        const authData = {
+                            role: authSelectedRole,
+                            email: email,
+                            name: name,
+                            loggedIn: false
+                        };
+                        localStorage.setItem('localbridge_auth', JSON.stringify(authData));
+                        pendingVerificationEmail = email;
 
-            // Animate out auth screen
-            const authScreen = document.getElementById('auth-screen');
-            authScreen.classList.add('auth-hidden');
+                        // DO NOT auto-sign in — show verification screen
+                        showVerifyScreen(email);
 
-            // Setup the correct view
-            setTimeout(() => {
-                authScreen.style.display = 'none';
-                applyAuthState(authData);
-            }, 500);
+                        // Sign out the user (createUser auto-signs in)
+                        return auth.signOut();
+                    })
+                    .catch((error) => {
+                        submitBtn.disabled = false;
+                        updateAuthFormMode();
+                        if (error.code === 'auth/email-already-in-use') {
+                            showAuthError('User already exists. Please sign in');
+                        } else if (error.code === 'auth/weak-password') {
+                            showAuthError('Password should be at least 6 characters.');
+                        } else if (error.code === 'auth/invalid-email') {
+                            showAuthError('Please enter a valid email address.');
+                        } else {
+                            showAuthError(error.message);
+                        }
+                    });
+            } else {
+                // ---- SIGN IN ----
+                auth.signInWithEmailAndPassword(email, password)
+                    .then((userCredential) => {
+                        const user = userCredential.user;
+
+                        // Check if email is verified
+                        if (!user.emailVerified) {
+                            // Email not verified — block access
+                            pendingVerificationEmail = user.email;
+                            showVerifyScreen(user.email);
+                            // Don't sign out here so resend works
+                            submitBtn.disabled = false;
+                            updateAuthFormMode();
+                            return;
+                        }
+
+                        // Email verified — proceed to dashboard
+                        const authData = {
+                            role: authSelectedRole,
+                            email: user.email,
+                            name: user.displayName || (user.email.includes('@') ? user.email.split('@')[0] : 'User'),
+                            loggedIn: true
+                        };
+                        localStorage.setItem('localbridge_auth', JSON.stringify(authData));
+
+                        const authScreen = document.getElementById('auth-screen');
+                        authScreen.classList.add('auth-hidden');
+                        setTimeout(() => {
+                            authScreen.style.display = 'none';
+                            applyAuthState(authData);
+                        }, 500);
+                    })
+                    .catch((error) => {
+                        submitBtn.disabled = false;
+                        updateAuthFormMode();
+                        if (error.code === 'auth/user-not-found' ||
+                            error.code === 'auth/wrong-password' ||
+                            error.code === 'auth/invalid-credential') {
+                            showAuthError('Email or password is incorrect');
+                        } else if (error.code === 'auth/invalid-email') {
+                            showAuthError('Please enter a valid email address.');
+                        } else if (error.code === 'auth/too-many-requests') {
+                            showAuthError('Too many failed attempts. Please try again later.');
+                        } else {
+                            showAuthError('Email or password is incorrect');
+                        }
+                    });
+            }
         }
 
         function applyAuthState(authData) {
-            const nav = document.querySelector('nav');
             const navToggle = document.getElementById('nav-role-toggle');
             const navBadge = document.getElementById('nav-role-badge');
             const customerView = document.getElementById('customer-view');
             const merchantView = document.getElementById('merchant-view');
             const profileView = document.getElementById('profile-view');
 
-            // Hide toggle, show role badge
             navToggle.classList.add('hidden');
             navBadge.classList.remove('hidden');
 
             if (authData.role === 'customer') {
                 document.getElementById('nav-badge-icon').className = 'fas fa-user mr-1';
                 document.getElementById('nav-badge-text').innerText = 'Customer';
-                // Show customer view
                 customerView.classList.remove('hidden');
                 merchantView.classList.add('hidden');
                 profileView.classList.add('hidden');
             } else {
                 document.getElementById('nav-badge-icon').className = 'fas fa-store mr-1';
                 document.getElementById('nav-badge-text').innerText = 'Merchant';
-                // Show merchant view
                 customerView.classList.add('hidden');
                 merchantView.classList.remove('hidden');
                 profileView.classList.add('hidden');
             }
 
-            // Update profile name if available
             if (authData.name && typeof userState !== 'undefined') {
                 userState.name = authData.name;
                 userState.email = authData.email;
@@ -2674,34 +3838,80 @@
                     updateProfileUI();
                 }
             }
+
+            // Load My Files data
+            if (typeof loadMyFiles === 'function') {
+                loadMyFiles();
+            }
+
+            // Load Payroll data for merchants
+            if (typeof loadPayrollData === 'function') {
+                loadPayrollData();
+            }
         }
 
         function authSignOut() {
-            localStorage.removeItem('localbridge_auth');
-            location.reload();
+            auth.signOut().then(() => {
+                localStorage.removeItem('localbridge_auth');
+                location.reload();
+            }).catch((error) => {
+                console.error('Sign out error:', error);
+                // Force sign out even if Firebase fails
+                localStorage.removeItem('localbridge_auth');
+                location.reload();
+            });
         }
 
         // Initialize auth on page load
         (function initAuth() {
-            const stored = localStorage.getItem('localbridge_auth');
-            if (stored) {
-                try {
-                    const authData = JSON.parse(stored);
-                    if (authData && authData.loggedIn) {
-                        // User is logged in — hide auth screen immediately
-                        const authScreen = document.getElementById('auth-screen');
-                        authScreen.style.display = 'none';
-                        authScreen.classList.add('auth-hidden');
-                        applyAuthState(authData);
+            // Listen for Firebase auth state changes
+            auth.onAuthStateChanged((user) => {
+                if (user) {
+                    // Check if email is verified
+                    if (!user.emailVerified) {
+                        // User exists but email not verified
+                        // Only show verify screen if not already on it
+                        const verifyScreen = document.getElementById('verify-screen');
+                        if (verifyScreen.style.display !== 'flex') {
+                            // Don't auto-show verify screen on page load for unverified users
+                            // Just keep auth screen visible and sign out
+                            auth.signOut();
+                        }
                         return;
                     }
-                } catch (e) { }
-            }
 
-            // Not logged in — show auth screen, hide both views
-            document.getElementById('customer-view').classList.add('hidden');
-            document.getElementById('merchant-view').classList.add('hidden');
-            document.getElementById('profile-view').classList.add('hidden');
+                    // User is verified — proceed
+                    const stored = localStorage.getItem('localbridge_auth');
+                    let authData;
+                    if (stored) {
+                        try {
+                            authData = JSON.parse(stored);
+                        } catch (e) { }
+                    }
+                    if (!authData || !authData.role) {
+                        authData = {
+                            role: 'customer',
+                            email: user.email,
+                            name: user.displayName || (user.email.includes('@') ? user.email.split('@')[0] : 'User'),
+                            loggedIn: true
+                        };
+                        localStorage.setItem('localbridge_auth', JSON.stringify(authData));
+                    }
+                    hideVerifyScreen();
+                    const authScreen = document.getElementById('auth-screen');
+                    authScreen.style.display = 'none';
+                    authScreen.classList.add('auth-hidden');
+                    applyAuthState(authData);
+                } else {
+                    // Not logged in — show auth screen, hide views
+                    document.getElementById('customer-view').classList.add('hidden');
+                    document.getElementById('merchant-view').classList.add('hidden');
+                    document.getElementById('profile-view').classList.add('hidden');
+                    const authScreen = document.getElementById('auth-screen');
+                    authScreen.style.display = 'flex';
+                    authScreen.classList.remove('auth-hidden');
+                }
+            });
         })();
 
         // ===== END AUTH SYSTEM =====
@@ -3215,7 +4425,7 @@
 
         function switchMerchantTab(tabName) {
 
-            const allTabs = ['dashboard', 'new-sale', 'transactions', 'broadcast', 'campaigns', 'customers', 'settings'];
+            const allTabs = ['dashboard', 'new-sale', 'transactions', 'broadcast', 'campaigns', 'customers', 'payroll', 'settings'];
 
             allTabs.forEach(tab => {
                 const tabElement = document.getElementById(`merchant-${tab}`);
@@ -3567,6 +4777,843 @@
         // Initialize UI with default state
         updateProfileUI();
 
+    </script>
+
+    <!-- ===== MY FILES MODALS ===== -->
+    <!-- New Folder Modal -->
+    <div id="modal-new-folder" class="hidden"
+        style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);">
+        <div class="auth-card" style="max-width:420px;" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;"><i
+                        class="fas fa-folder-plus text-blue-400 mr-2"></i>New Folder</h2>
+                <button onclick="closeModal('modal-new-folder')"
+                    class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"><i
+                        class="fas fa-times text-sm"></i></button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Folder
+                        Name</label>
+                    <input type="text" id="modal-folder-name" class="auth-input"
+                        placeholder="e.g. Invoices, Receipts..." maxlength="50">
+                </div>
+                <p id="modal-folder-error" class="text-red-400 text-xs font-semibold hidden"></p>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closeModal('modal-new-folder')"
+                        class="flex-1 py-3 rounded-xl border border-white/12 text-white/60 font-bold text-sm hover:bg-white/10 transition">Cancel</button>
+                    <button id="modal-folder-submit" onclick="submitNewFolder()"
+                        class="flex-1 py-3 rounded-xl bg-brand-blue text-white font-bold text-sm hover:bg-blue-600 transition shadow-lg shadow-blue-500/30">Create
+                        Folder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add File Modal -->
+    <div id="modal-add-file" class="hidden"
+        style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);">
+        <div class="auth-card" style="max-width:420px;" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;"><i
+                        class="fas fa-file-circle-plus text-indigo-400 mr-2"></i>Add File</h2>
+                <button onclick="closeModal('modal-add-file')"
+                    class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"><i
+                        class="fas fa-times text-sm"></i></button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">File
+                        Name</label>
+                    <input type="text" id="modal-file-name" class="auth-input"
+                        placeholder="e.g. receipt.pdf, warranty.jpg..." maxlength="80">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Folder
+                        (Optional)</label>
+                    <select id="modal-file-folder" class="auth-input" style="appearance:auto;">
+                        <option value="">— No Folder —</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">File
+                        Size</label>
+                    <input type="text" id="modal-file-size" class="auth-input" placeholder="e.g. 2.4 MB, 150 KB..."
+                        maxlength="20">
+                </div>
+                <p id="modal-file-error" class="text-red-400 text-xs font-semibold hidden"></p>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closeModal('modal-add-file')"
+                        class="flex-1 py-3 rounded-xl border border-white/12 text-white/60 font-bold text-sm hover:bg-white/10 transition">Cancel</button>
+                    <button id="modal-file-submit" onclick="submitAddFile()"
+                        class="flex-1 py-3 rounded-xl bg-indigo-600 text-white font-bold text-sm hover:bg-indigo-700 transition shadow-lg shadow-indigo-500/30">Add
+                        File</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== MY FILES SYSTEM =====
+        let myFilesFolders = [];
+        let myFilesFiles = [];
+
+        function getFileIcon(name) {
+            const ext = name.split('.').pop().toLowerCase();
+            const icons = {
+                pdf: { icon: 'fa-file-pdf', color: 'text-red-500', bg: 'bg-red-50 dark:bg-red-900/20' },
+                doc: { icon: 'fa-file-word', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+                docx: { icon: 'fa-file-word', color: 'text-blue-600', bg: 'bg-blue-50 dark:bg-blue-900/20' },
+                xls: { icon: 'fa-file-excel', color: 'text-green-600', bg: 'bg-green-50 dark:bg-green-900/20' },
+                xlsx: { icon: 'fa-file-excel', color: 'text-green-600', bg: 'bg-green-50 dark:bg-green-900/20' },
+                jpg: { icon: 'fa-file-image', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+                jpeg: { icon: 'fa-file-image', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+                png: { icon: 'fa-file-image', color: 'text-purple-500', bg: 'bg-purple-50 dark:bg-purple-900/20' },
+                zip: { icon: 'fa-file-zipper', color: 'text-yellow-600', bg: 'bg-yellow-50 dark:bg-yellow-900/20' },
+                txt: { icon: 'fa-file-lines', color: 'text-slate-500', bg: 'bg-slate-50 dark:bg-slate-700' },
+            };
+            return icons[ext] || { icon: 'fa-file', color: 'text-slate-400', bg: 'bg-slate-50 dark:bg-slate-700' };
+        }
+
+        function formatDate(ts) {
+            if (!ts) return '';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        async function loadMyFiles() {
+            const user = auth.currentUser;
+            if (!user) return;
+            const uid = user.uid;
+
+            // Show loading
+            document.getElementById('files-loading').classList.remove('hidden');
+            document.getElementById('files-empty').classList.add('hidden');
+            document.getElementById('files-folders-container').classList.add('hidden');
+            document.getElementById('files-files-container').classList.add('hidden');
+
+            try {
+                // Fetch folders
+                const foldersSnap = await db.collection('users').doc(uid).collection('folders').orderBy('createdAt', 'desc').get();
+                myFilesFolders = foldersSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                // Fetch files
+                const filesSnap = await db.collection('users').doc(uid).collection('files').orderBy('createdAt', 'desc').get();
+                myFilesFiles = filesSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (err) {
+                console.error('Error loading files:', err);
+            }
+
+            // Hide loading
+            document.getElementById('files-loading').classList.add('hidden');
+
+            renderMyFiles();
+        }
+
+        function renderMyFiles() {
+            const foldersGrid = document.getElementById('files-folders-grid');
+            const filesGrid = document.getElementById('files-files-grid');
+            const foldersContainer = document.getElementById('files-folders-container');
+            const filesContainer = document.getElementById('files-files-container');
+            const emptyState = document.getElementById('files-empty');
+
+            // Update counts
+            document.getElementById('files-folder-count').innerText = myFilesFolders.length + ' Folder' + (myFilesFolders.length !== 1 ? 's' : '');
+            document.getElementById('files-file-count').innerText = myFilesFiles.length + ' File' + (myFilesFiles.length !== 1 ? 's' : '');
+
+            if (myFilesFolders.length === 0 && myFilesFiles.length === 0) {
+                emptyState.classList.remove('hidden');
+                foldersContainer.classList.add('hidden');
+                filesContainer.classList.add('hidden');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+
+            // Render folders
+            if (myFilesFolders.length > 0) {
+                foldersContainer.classList.remove('hidden');
+                const filesInFolder = {};
+                myFilesFiles.forEach(f => {
+                    if (f.folderId) {
+                        filesInFolder[f.folderId] = (filesInFolder[f.folderId] || 0) + 1;
+                    }
+                });
+                foldersGrid.innerHTML = myFilesFolders.map(folder => `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-blue-200 dark:hover:border-blue-800/50 transition-all group cursor-pointer relative">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-12 h-12 rounded-xl bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-brand-blue text-xl group-hover:scale-110 transition-transform">
+                                <i class="fas fa-folder"></i>
+                            </div>
+                            <button onclick="event.stopPropagation(); deleteFolder('${folder.id}')" class="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition opacity-0 group-hover:opacity-100">
+                                <i class="fas fa-trash-alt text-xs"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white truncate mb-1">${escapeHtml(folder.name)}</h4>
+                        <div class="flex items-center justify-between">
+                            <span class="text-[11px] text-slate-400">${filesInFolder[folder.id] || 0} files</span>
+                            <span class="text-[11px] text-slate-400">${formatDate(folder.createdAt)}</span>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                foldersContainer.classList.add('hidden');
+            }
+
+            // Render files
+            if (myFilesFiles.length > 0) {
+                filesContainer.classList.remove('hidden');
+                const folderMap = {};
+                myFilesFolders.forEach(f => folderMap[f.id] = f.name);
+
+                filesGrid.innerHTML = myFilesFiles.map(file => {
+                    const fi = getFileIcon(file.name);
+                    const folderName = file.folderId ? folderMap[file.folderId] : null;
+                    return `
+                    <div class="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-md hover:border-indigo-200 dark:hover:border-indigo-800/50 transition-all group relative">
+                        <div class="flex items-start justify-between mb-3">
+                            <div class="w-12 h-12 rounded-xl ${fi.bg} flex items-center justify-center ${fi.color} text-xl group-hover:scale-110 transition-transform">
+                                <i class="fas ${fi.icon}"></i>
+                            </div>
+                            <button onclick="event.stopPropagation(); deleteFile('${file.id}')" class="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition opacity-0 group-hover:opacity-100">
+                                <i class="fas fa-trash-alt text-xs"></i>
+                            </button>
+                        </div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white truncate mb-1">${escapeHtml(file.name)}</h4>
+                        <div class="flex items-center gap-2 flex-wrap">
+                            ${file.size ? `<span class="text-[11px] text-slate-400"><i class="fas fa-weight-hanging mr-1"></i>${escapeHtml(file.size)}</span>` : ''}
+                            ${folderName ? `<span class="text-[11px] px-2 py-0.5 rounded-full bg-blue-50 dark:bg-blue-900/20 text-brand-blue font-semibold"><i class="fas fa-folder text-[9px] mr-1"></i>${escapeHtml(folderName)}</span>` : ''}
+                        </div>
+                        <div class="mt-2">
+                            <span class="text-[11px] text-slate-400">${formatDate(file.createdAt)}</span>
+                        </div>
+                    </div>`;
+                }).join('');
+            } else {
+                filesContainer.classList.add('hidden');
+            }
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // ---- Modals ----
+        function openNewFolderModal() {
+            document.getElementById('modal-folder-name').value = '';
+            document.getElementById('modal-folder-error').classList.add('hidden');
+            const modal = document.getElementById('modal-new-folder');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            setTimeout(() => document.getElementById('modal-folder-name').focus(), 100);
+        }
+
+        function openAddFileModal() {
+            document.getElementById('modal-file-name').value = '';
+            document.getElementById('modal-file-size').value = '';
+            document.getElementById('modal-file-error').classList.add('hidden');
+            // Populate folder dropdown
+            const sel = document.getElementById('modal-file-folder');
+            sel.innerHTML = '<option value="">— No Folder —</option>';
+            myFilesFolders.forEach(f => {
+                sel.innerHTML += `<option value="${f.id}">${escapeHtml(f.name)}</option>`;
+            });
+            const modal = document.getElementById('modal-add-file');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            setTimeout(() => document.getElementById('modal-file-name').focus(), 100);
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.add('hidden');
+            modal.style.display = 'none';
+        }
+
+        // Close modal on backdrop click
+        document.getElementById('modal-new-folder').addEventListener('click', function (e) {
+            if (e.target === this) closeModal('modal-new-folder');
+        });
+        document.getElementById('modal-add-file').addEventListener('click', function (e) {
+            if (e.target === this) closeModal('modal-add-file');
+        });
+
+        async function submitNewFolder() {
+            const nameInput = document.getElementById('modal-folder-name');
+            const errorEl = document.getElementById('modal-folder-error');
+            const btn = document.getElementById('modal-folder-submit');
+            const name = nameInput.value.trim();
+
+            if (!name) {
+                errorEl.innerText = 'Please enter a folder name.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            errorEl.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Creating...';
+
+            try {
+                const user = auth.currentUser;
+                if (!user) throw new Error('Not authenticated');
+
+                await db.collection('users').doc(user.uid).collection('folders').add({
+                    name: name,
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+                closeModal('modal-new-folder');
+                await loadMyFiles();
+            } catch (err) {
+                console.error('Error creating folder:', err);
+                errorEl.innerText = 'Failed to create folder. Please try again.';
+                errorEl.classList.remove('hidden');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = 'Create Folder';
+        }
+
+        async function submitAddFile() {
+            const nameInput = document.getElementById('modal-file-name');
+            const folderSelect = document.getElementById('modal-file-folder');
+            const sizeInput = document.getElementById('modal-file-size');
+            const errorEl = document.getElementById('modal-file-error');
+            const btn = document.getElementById('modal-file-submit');
+            const name = nameInput.value.trim();
+            const folderId = folderSelect.value || null;
+            const size = sizeInput.value.trim();
+
+            if (!name) {
+                errorEl.innerText = 'Please enter a file name.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            errorEl.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Adding...';
+
+            try {
+                const user = auth.currentUser;
+                if (!user) throw new Error('Not authenticated');
+
+                const fileData = {
+                    name: name,
+                    size: size || '',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+                if (folderId) fileData.folderId = folderId;
+
+                await db.collection('users').doc(user.uid).collection('files').add(fileData);
+
+                closeModal('modal-add-file');
+                await loadMyFiles();
+            } catch (err) {
+                console.error('Error adding file:', err);
+                errorEl.innerText = 'Failed to add file. Please try again.';
+                errorEl.classList.remove('hidden');
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = 'Add File';
+        }
+
+        async function deleteFolder(folderId) {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            try {
+                // Delete the folder
+                await db.collection('users').doc(user.uid).collection('folders').doc(folderId).delete();
+
+                // Remove folderId reference from files in this folder
+                const filesInFolder = myFilesFiles.filter(f => f.folderId === folderId);
+                for (const file of filesInFolder) {
+                    await db.collection('users').doc(user.uid).collection('files').doc(file.id).update({
+                        folderId: firebase.firestore.FieldValue.delete()
+                    });
+                }
+
+                await loadMyFiles();
+            } catch (err) {
+                console.error('Error deleting folder:', err);
+            }
+        }
+
+        async function deleteFile(fileId) {
+            const user = auth.currentUser;
+            if (!user) return;
+
+            try {
+                await db.collection('users').doc(user.uid).collection('files').doc(fileId).delete();
+                await loadMyFiles();
+            } catch (err) {
+                console.error('Error deleting file:', err);
+            }
+        }
+
+        // ===== END MY FILES SYSTEM =====
+    </script>
+
+    <!-- ===== PAYROLL MODALS ===== -->
+    <!-- Add Employee Modal -->
+    <div id="modal-add-employee" class="hidden"
+        style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);">
+        <div class="auth-card" style="max-width:440px;" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;"><i
+                        class="fas fa-user-plus text-blue-400 mr-2"></i>Add Employee</h2>
+                <button onclick="closePayrollModal('modal-add-employee')"
+                    class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"><i
+                        class="fas fa-times text-sm"></i></button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Employee
+                        Name</label>
+                    <input type="text" id="modal-emp-name" class="auth-input" placeholder="e.g. Rajesh Kumar"
+                        maxlength="60">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Role /
+                        Designation</label>
+                    <input type="text" id="modal-emp-role" class="auth-input"
+                        placeholder="e.g. Sales Associate, Manager..." maxlength="40">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Monthly
+                        Salary (₹)</label>
+                    <input type="number" id="modal-emp-salary" class="auth-input" placeholder="e.g. 25000" min="0">
+                </div>
+                <p id="modal-emp-error" class="text-red-400 text-xs font-semibold hidden"></p>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closePayrollModal('modal-add-employee')"
+                        class="flex-1 py-3 rounded-xl border border-white/12 text-white/60 font-bold text-sm hover:bg-white/10 transition">Cancel</button>
+                    <button id="modal-emp-submit" onclick="submitAddEmployee()"
+                        class="flex-1 py-3 rounded-xl bg-blue-600 text-white font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-500/30">Add
+                        Employee</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Run Payroll Modal -->
+    <div id="modal-run-payroll" class="hidden"
+        style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);">
+        <div class="auth-card" style="max-width:500px;" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;"><i
+                        class="fas fa-wallet text-green-400 mr-2"></i>Run Payroll</h2>
+                <button onclick="closePayrollModal('modal-run-payroll')"
+                    class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"><i
+                        class="fas fa-times text-sm"></i></button>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Payroll
+                        Month</label>
+                    <select id="modal-payroll-month" class="auth-input" style="appearance:auto;"></select>
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-3">Active
+                        Employees</label>
+                    <div id="modal-payroll-employees" class="space-y-2 max-h-48 overflow-y-auto pr-1"></div>
+                </div>
+                <div class="flex items-center justify-between p-3 rounded-xl bg-white/5 border border-white/10">
+                    <span class="text-sm font-bold text-white/70">Total Payout</span>
+                    <span class="text-lg font-bold text-green-400" id="modal-payroll-total">₹0</span>
+                </div>
+                <p id="modal-payroll-error" class="text-red-400 text-xs font-semibold hidden"></p>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closePayrollModal('modal-run-payroll')"
+                        class="flex-1 py-3 rounded-xl border border-white/12 text-white/60 font-bold text-sm hover:bg-white/10 transition">Cancel</button>
+                    <button id="modal-payroll-submit" onclick="submitRunPayroll()"
+                        class="flex-1 py-3 rounded-xl bg-green-600 text-white font-bold text-sm hover:bg-green-700 transition shadow-lg shadow-green-500/30">Process
+                        Payroll</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Salary Modal -->
+    <div id="modal-edit-salary" class="hidden"
+        style="position:fixed;inset:0;z-index:10001;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);">
+        <div class="auth-card" style="max-width:400px;" onclick="event.stopPropagation()">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;"><i
+                        class="fas fa-edit text-yellow-400 mr-2"></i>Edit Salary</h2>
+                <button onclick="closePayrollModal('modal-edit-salary')"
+                    class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"><i
+                        class="fas fa-times text-sm"></i></button>
+            </div>
+            <div class="space-y-4">
+                <p class="text-sm text-white/50">Updating salary for <strong id="modal-edit-salary-name"
+                        class="text-white"></strong></p>
+                <input type="hidden" id="modal-edit-salary-id">
+                <div>
+                    <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">New
+                        Monthly Salary (₹)</label>
+                    <input type="number" id="modal-edit-salary-value" class="auth-input" placeholder="e.g. 30000"
+                        min="0">
+                </div>
+                <p id="modal-edit-salary-error" class="text-red-400 text-xs font-semibold hidden"></p>
+                <div class="flex gap-3 pt-2">
+                    <button onclick="closePayrollModal('modal-edit-salary')"
+                        class="flex-1 py-3 rounded-xl border border-white/12 text-white/60 font-bold text-sm hover:bg-white/10 transition">Cancel</button>
+                    <button id="modal-edit-salary-submit" onclick="submitEditSalary()"
+                        class="flex-1 py-3 rounded-xl bg-yellow-500 text-white font-bold text-sm hover:bg-yellow-600 transition shadow-lg shadow-yellow-500/30">Update
+                        Salary</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== PAYROLL SYSTEM =====
+        let payrollEmployees = [];
+        let payrollHistory = [];
+
+        function formatCurrency(num) {
+            if (num >= 100000) return '₹' + (num / 100000).toFixed(1) + 'L';
+            if (num >= 1000) return '₹' + num.toLocaleString('en-IN');
+            return '₹' + num;
+        }
+
+        function payrollFormatDate(ts) {
+            if (!ts) return '—';
+            const d = ts.toDate ? ts.toDate() : new Date(ts);
+            return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+        }
+
+        function getCurrentMonth() {
+            const now = new Date();
+            return now.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' });
+        }
+
+        function getMonthOptions() {
+            const months = [];
+            const now = new Date();
+            for (let i = 0; i < 6; i++) {
+                const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+                months.push(d.toLocaleDateString('en-IN', { month: 'long', year: 'numeric' }));
+            }
+            return months;
+        }
+
+        async function loadPayrollData() {
+            const user = auth.currentUser;
+            if (!user) return;
+            const uid = user.uid;
+
+            document.getElementById('payroll-loading').classList.remove('hidden');
+            document.getElementById('payroll-empty').classList.add('hidden');
+            document.getElementById('payroll-employees-section').classList.add('hidden');
+            document.getElementById('payroll-history-section').classList.add('hidden');
+
+            try {
+                const empSnap = await db.collection('users').doc(uid).collection('employees').orderBy('createdAt', 'desc').get();
+                payrollEmployees = empSnap.docs.map(d => ({ id: d.id, ...d.data() }));
+
+                const paySnap = await db.collection('users').doc(uid).collection('payrolls').orderBy('createdAt', 'desc').limit(50).get();
+                payrollHistory = paySnap.docs.map(d => ({ id: d.id, ...d.data() }));
+            } catch (err) {
+                console.error('Error loading payroll:', err);
+            }
+
+            document.getElementById('payroll-loading').classList.add('hidden');
+            renderPayroll();
+        }
+
+        function renderPayroll() {
+            const activeEmps = payrollEmployees.filter(e => e.status !== 'inactive');
+            const monthlyCost = activeEmps.reduce((sum, e) => sum + (Number(e.salary) || 0), 0);
+            const currentMonth = getCurrentMonth();
+            const paidThisMonth = payrollHistory.filter(p => p.month === currentMonth && p.status === 'paid').length;
+            const pendingCount = payrollHistory.filter(p => p.status === 'pending').length;
+
+            // Update summary cards
+            document.getElementById('payroll-stat-employees').innerText = payrollEmployees.length;
+            document.getElementById('payroll-stat-active').innerText = activeEmps.length;
+            document.getElementById('payroll-stat-cost').innerText = formatCurrency(monthlyCost);
+            document.getElementById('payroll-stat-pending').innerText = pendingCount;
+            document.getElementById('payroll-stat-paid').innerText = paidThisMonth;
+
+            if (payrollEmployees.length === 0) {
+                document.getElementById('payroll-empty').classList.remove('hidden');
+                document.getElementById('payroll-employees-section').classList.add('hidden');
+                document.getElementById('payroll-history-section').classList.add('hidden');
+                return;
+            }
+
+            document.getElementById('payroll-empty').classList.add('hidden');
+
+            // Render employees table
+            document.getElementById('payroll-employees-section').classList.remove('hidden');
+            document.getElementById('payroll-emp-count-badge').innerText = payrollEmployees.length;
+            const tbody = document.getElementById('payroll-employees-tbody');
+            tbody.innerHTML = payrollEmployees.map(emp => {
+                const isActive = emp.status !== 'inactive';
+                const initials = (emp.name || 'E').split(' ').map(n => n[0]).join('').toUpperCase().slice(0, 2);
+                return `
+                <tr class="border-b border-gray-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                    <td class="py-3 px-6">
+                        <div class="flex items-center gap-3">
+                            <div class="w-9 h-9 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">${initials}</div>
+                            <span class="font-semibold text-slate-900 dark:text-white">${escapeHtml(emp.name)}</span>
+                        </div>
+                    </td>
+                    <td class="py-3 px-4 text-slate-500">${escapeHtml(emp.role || '—')}</td>
+                    <td class="py-3 px-4 text-right font-bold text-slate-900 dark:text-white">₹${Number(emp.salary || 0).toLocaleString('en-IN')}</td>
+                    <td class="py-3 px-4 text-center">
+                        <button onclick="toggleEmployeeStatus('${emp.id}')" class="px-3 py-1 rounded-full text-xs font-bold ${isActive ? 'bg-green-50 dark:bg-green-900/20 text-green-600' : 'bg-slate-100 dark:bg-slate-700 text-slate-400'} hover:opacity-80 transition cursor-pointer">
+                            ${isActive ? '<i class="fas fa-check-circle mr-1"></i>Active' : '<i class="fas fa-pause-circle mr-1"></i>Inactive'}
+                        </button>
+                    </td>
+                    <td class="py-3 px-6 text-right">
+                        <div class="flex items-center justify-end gap-1">
+                            <button onclick="openEditSalaryModal('${emp.id}')" class="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-yellow-500 hover:bg-yellow-50 dark:hover:bg-yellow-900/20 transition" title="Edit Salary">
+                                <i class="fas fa-edit text-xs"></i>
+                            </button>
+                            <button onclick="deleteEmployee('${emp.id}')" class="w-8 h-8 rounded-lg bg-slate-50 dark:bg-slate-700 flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition" title="Delete">
+                                <i class="fas fa-trash-alt text-xs"></i>
+                            </button>
+                        </div>
+                    </td>
+                </tr>`;
+            }).join('');
+
+            // Render payroll history
+            if (payrollHistory.length > 0) {
+                document.getElementById('payroll-history-section').classList.remove('hidden');
+                document.getElementById('payroll-hist-count-badge').innerText = payrollHistory.length;
+                const histTbody = document.getElementById('payroll-history-tbody');
+                histTbody.innerHTML = payrollHistory.map(p => {
+                    const isPaid = p.status === 'paid';
+                    return `
+                    <tr class="border-b border-gray-50 dark:border-slate-700/50 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition">
+                        <td class="py-3 px-6 font-semibold text-slate-900 dark:text-white">${escapeHtml(p.employeeName || '—')}</td>
+                        <td class="py-3 px-4 text-slate-500">${escapeHtml(p.month || '—')}</td>
+                        <td class="py-3 px-4 text-right font-bold text-slate-900 dark:text-white">₹${Number(p.amount || 0).toLocaleString('en-IN')}</td>
+                        <td class="py-3 px-4 text-center">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold ${isPaid ? 'bg-green-50 dark:bg-green-900/20 text-green-600' : 'bg-orange-50 dark:bg-orange-900/20 text-orange-500'}">
+                                ${isPaid ? '<i class="fas fa-check mr-1"></i>Paid' : '<i class="fas fa-clock mr-1"></i>Pending'}
+                            </span>
+                        </td>
+                        <td class="py-3 px-6 text-right text-slate-400 text-xs">${payrollFormatDate(p.paidAt)}</td>
+                    </tr>`;
+                }).join('');
+            } else {
+                document.getElementById('payroll-history-section').classList.add('hidden');
+            }
+        }
+
+        // ---- Modal helpers ----
+        function openPayrollModal(id) {
+            const m = document.getElementById(id);
+            m.classList.remove('hidden');
+            m.style.display = 'flex';
+        }
+        function closePayrollModal(id) {
+            const m = document.getElementById(id);
+            m.classList.add('hidden');
+            m.style.display = 'none';
+        }
+
+        // Backdrop close
+        ['modal-add-employee', 'modal-run-payroll', 'modal-edit-salary'].forEach(id => {
+            document.getElementById(id).addEventListener('click', function (e) {
+                if (e.target === this) closePayrollModal(id);
+            });
+        });
+
+        // ---- Add Employee ----
+        function openAddEmployeeModal() {
+            document.getElementById('modal-emp-name').value = '';
+            document.getElementById('modal-emp-role').value = '';
+            document.getElementById('modal-emp-salary').value = '';
+            document.getElementById('modal-emp-error').classList.add('hidden');
+            openPayrollModal('modal-add-employee');
+            setTimeout(() => document.getElementById('modal-emp-name').focus(), 100);
+        }
+
+        async function submitAddEmployee() {
+            const name = document.getElementById('modal-emp-name').value.trim();
+            const role = document.getElementById('modal-emp-role').value.trim();
+            const salary = document.getElementById('modal-emp-salary').value.trim();
+            const errorEl = document.getElementById('modal-emp-error');
+            const btn = document.getElementById('modal-emp-submit');
+
+            if (!name) { errorEl.innerText = 'Please enter employee name.'; errorEl.classList.remove('hidden'); return; }
+            if (!salary || Number(salary) <= 0) { errorEl.innerText = 'Please enter a valid salary.'; errorEl.classList.remove('hidden'); return; }
+
+            errorEl.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Adding...';
+
+            try {
+                const user = auth.currentUser;
+                if (!user) throw new Error('Not authenticated');
+                await db.collection('users').doc(user.uid).collection('employees').add({
+                    name, role: role || 'Employee', salary: Number(salary), status: 'active',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                closePayrollModal('modal-add-employee');
+                await loadPayrollData();
+            } catch (err) {
+                console.error('Error adding employee:', err);
+                errorEl.innerText = 'Failed to add employee. Try again.'; errorEl.classList.remove('hidden');
+            }
+            btn.disabled = false;
+            btn.innerHTML = 'Add Employee';
+        }
+
+        // ---- Toggle Status ----
+        async function toggleEmployeeStatus(empId) {
+            const user = auth.currentUser;
+            if (!user) return;
+            const emp = payrollEmployees.find(e => e.id === empId);
+            if (!emp) return;
+            const newStatus = emp.status === 'inactive' ? 'active' : 'inactive';
+            try {
+                await db.collection('users').doc(user.uid).collection('employees').doc(empId).update({ status: newStatus });
+                await loadPayrollData();
+            } catch (err) { console.error('Error toggling status:', err); }
+        }
+
+        // ---- Delete Employee ----
+        async function deleteEmployee(empId) {
+            const user = auth.currentUser;
+            if (!user) return;
+            try {
+                await db.collection('users').doc(user.uid).collection('employees').doc(empId).delete();
+                await loadPayrollData();
+            } catch (err) { console.error('Error deleting employee:', err); }
+        }
+
+        // ---- Edit Salary ----
+        function openEditSalaryModal(empId) {
+            const emp = payrollEmployees.find(e => e.id === empId);
+            if (!emp) return;
+            document.getElementById('modal-edit-salary-id').value = empId;
+            document.getElementById('modal-edit-salary-name').innerText = emp.name;
+            document.getElementById('modal-edit-salary-value').value = emp.salary || '';
+            document.getElementById('modal-edit-salary-error').classList.add('hidden');
+            openPayrollModal('modal-edit-salary');
+            setTimeout(() => document.getElementById('modal-edit-salary-value').focus(), 100);
+        }
+
+        async function submitEditSalary() {
+            const empId = document.getElementById('modal-edit-salary-id').value;
+            const newSalary = document.getElementById('modal-edit-salary-value').value.trim();
+            const errorEl = document.getElementById('modal-edit-salary-error');
+            const btn = document.getElementById('modal-edit-salary-submit');
+
+            if (!newSalary || Number(newSalary) <= 0) { errorEl.innerText = 'Please enter a valid salary.'; errorEl.classList.remove('hidden'); return; }
+
+            errorEl.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Updating...';
+
+            try {
+                const user = auth.currentUser;
+                if (!user) throw new Error('Not authenticated');
+                await db.collection('users').doc(user.uid).collection('employees').doc(empId).update({ salary: Number(newSalary) });
+                closePayrollModal('modal-edit-salary');
+                await loadPayrollData();
+            } catch (err) {
+                console.error('Error updating salary:', err);
+                errorEl.innerText = 'Failed to update. Try again.'; errorEl.classList.remove('hidden');
+            }
+            btn.disabled = false;
+            btn.innerHTML = 'Update Salary';
+        }
+
+        // ---- Run Payroll ----
+        function openRunPayrollModal() {
+            const activeEmps = payrollEmployees.filter(e => e.status !== 'inactive');
+            if (activeEmps.length === 0) {
+                // No active employees – open add employee modal instead
+                openAddEmployeeModal();
+                return;
+            }
+
+            // Populate month dropdown
+            const monthSel = document.getElementById('modal-payroll-month');
+            monthSel.innerHTML = getMonthOptions().map((m, i) => `<option value="${m}" ${i === 0 ? 'selected' : ''}>${m}</option>`).join('');
+
+            // Populate employee list
+            const empList = document.getElementById('modal-payroll-employees');
+            empList.innerHTML = activeEmps.map(e => `
+                <div class="flex items-center justify-between p-2.5 rounded-xl bg-white/5 border border-white/10">
+                    <span class="text-sm text-white/80 font-medium">${escapeHtml(e.name)}</span>
+                    <span class="text-sm text-green-400 font-bold">₹${Number(e.salary || 0).toLocaleString('en-IN')}</span>
+                </div>
+            `).join('');
+
+            // Total
+            const total = activeEmps.reduce((s, e) => s + (Number(e.salary) || 0), 0);
+            document.getElementById('modal-payroll-total').innerText = '₹' + total.toLocaleString('en-IN');
+
+            document.getElementById('modal-payroll-error').classList.add('hidden');
+            openPayrollModal('modal-run-payroll');
+        }
+
+        async function submitRunPayroll() {
+            const month = document.getElementById('modal-payroll-month').value;
+            const errorEl = document.getElementById('modal-payroll-error');
+            const btn = document.getElementById('modal-payroll-submit');
+            const activeEmps = payrollEmployees.filter(e => e.status !== 'inactive');
+
+            if (!month) { errorEl.innerText = 'Please select a month.'; errorEl.classList.remove('hidden'); return; }
+
+            // Check for duplicates
+            const alreadyPaid = payrollHistory.filter(p => p.month === month && p.status === 'paid');
+            if (alreadyPaid.length >= activeEmps.length) {
+                errorEl.innerText = 'Payroll for ' + month + ' has already been processed.';
+                errorEl.classList.remove('hidden');
+                return;
+            }
+
+            errorEl.classList.add('hidden');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Processing...';
+
+            try {
+                const user = auth.currentUser;
+                if (!user) throw new Error('Not authenticated');
+                const batch = db.batch();
+                const paidIds = new Set(alreadyPaid.map(p => p.employeeId));
+
+                activeEmps.forEach(emp => {
+                    if (paidIds.has(emp.id)) return; // Skip already paid
+                    const ref = db.collection('users').doc(user.uid).collection('payrolls').doc();
+                    batch.set(ref, {
+                        employeeId: emp.id,
+                        employeeName: emp.name,
+                        amount: Number(emp.salary) || 0,
+                        month: month,
+                        status: 'paid',
+                        paidAt: firebase.firestore.FieldValue.serverTimestamp(),
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                });
+
+                await batch.commit();
+                closePayrollModal('modal-run-payroll');
+                await loadPayrollData();
+            } catch (err) {
+                console.error('Error running payroll:', err);
+                errorEl.innerText = 'Failed to process payroll. Try again.'; errorEl.classList.remove('hidden');
+            }
+            btn.disabled = false;
+            btn.innerHTML = 'Process Payroll';
+        }
+
+        // ===== END PAYROLL SYSTEM =====
     </script>
 </body>
 
