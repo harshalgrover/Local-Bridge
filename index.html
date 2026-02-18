@@ -820,51 +820,48 @@
 
 
 
-    <nav class="fixed w-full z-50 bg-white border-b border-gray-200">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <div class="flex items-center gap-3">
+    <nav
+        class="fixed w-full z-50 bg-white/60 backdrop-blur-xl border-b border-slate-200/50 shadow-lg transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-[72px] flex items-center justify-between">
+            <div class="flex items-center gap-3 group cursor-pointer">
                 <div
-                    class="w-10 h-10 rounded-xl bg-brand-blue flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
-                    <i class="fas fa-cube text-lg"></i>
+                    class="w-9 h-9 rounded-xl bg-slate-900 dark:bg-white flex items-center justify-center text-white dark:text-black shadow-lg shadow-black/5 dark:shadow-white/10 transition-transform group-hover:scale-105 duration-300">
+                    <i class="fas fa-cube text-base"></i>
                 </div>
                 <span
-                    class="hidden sm:inline font-display font-bold text-xl tracking-tight text-slate-900 dark:text-white">Local<span
-                        class="text-brand-blue">Bridge</span></span>
+                    class="hidden sm:inline font-display font-bold text-lg tracking-tight text-slate-900 dark:text-white group-hover:opacity-80 transition-opacity">LocalBridge</span>
             </div>
 
 
             <div id="nav-role-toggle"
-                class="bg-slate-100 dark:bg-slate-800 p-1 rounded-full flex items-center shadow-inner relative">
+                class="bg-slate-100/50 dark:bg-slate-800/50 p-1 rounded-full flex items-center backdrop-blur-md border border-slate-200/50 dark:border-slate-700/50 relative">
                 <button onclick="switchView('customer')" id="btn-customer"
-                    class="px-3 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-white dark:bg-slate-700 text-brand-blue shadow-sm">
+                    class="px-5 py-1.5 rounded-full text-xs md:text-sm font-semibold transition-all duration-300 bg-white dark:bg-slate-600 text-slate-900 dark:text-white shadow-sm ring-1 ring-black/5 dark:ring-white/10">
                     Customer
                 </button>
                 <button onclick="switchView('merchant')" id="btn-merchant"
-                    class="px-3 md:px-6 py-2 rounded-full text-xs md:text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300">
+                    class="px-5 py-1.5 rounded-full text-xs md:text-sm font-medium text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all duration-300">
                     Merchant
                 </button>
             </div>
             <!-- Role Badge (shown after login) -->
             <div id="nav-role-badge"
-                class="hidden px-4 py-2 rounded-full text-xs md:text-sm font-bold bg-blue-50 dark:bg-blue-900/30 text-brand-blue border border-blue-100 dark:border-blue-800/50">
-                <i class="fas fa-user mr-1" id="nav-badge-icon"></i>
+                class="hidden px-4 py-1.5 rounded-full text-xs font-bold bg-blue-500/10 dark:bg-blue-400/10 text-blue-600 dark:text-blue-400 border border-blue-500/20 dark:border-blue-400/20 backdrop-blur-md">
+                <i class="fas fa-user mr-1.5 opacity-70" id="nav-badge-icon"></i>
                 <span id="nav-badge-text">Customer</span>
             </div>
 
 
-            <div class="flex items-center gap-4">
-                <button onclick="toggleDarkMode()"
-                    class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition">
-                    <i class="fas fa-moon" id="dark-icon"></i>
-                </button>
+            <div class="flex items-center gap-2">
+
 
 
                 <div class="relative">
                     <button onclick="toggleNotifications()"
-                        class="w-10 h-10 rounded-full bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 flex items-center justify-center text-slate-600 dark:text-slate-300 transition">
+                        class="w-9 h-9 rounded-full hover:bg-slate-100/50 dark:hover:bg-slate-800/50 flex items-center justify-center text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-all duration-200">
                         <i class="far fa-bell"></i>
                         <span
-                            class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white dark:border-slate-800"></span>
+                            class="absolute top-2.5 right-2.5 w-1.5 h-1.5 bg-red-500 rounded-full border border-white dark:border-slate-900 shadow-sm"></span>
                     </button>
 
                     <div id="notif-dropdown"
@@ -1054,32 +1051,6 @@
                             </button>
                         </div>
 
-
-                        <div
-                            class="flex items-center justify-center lg:justify-start gap-4 opacity-80 hover:opacity-100 transition-opacity">
-                            <div class="flex -space-x-3">
-                                <img src="https://images.unsplash.com/photo-1542909168-82c3e7fdca5c?auto=format&fit=crop&w=64&h=64"
-                                    class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900"
-                                    alt="User">
-                                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=64&h=64"
-                                    class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900"
-                                    alt="User">
-                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=64&h=64"
-                                    class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900"
-                                    alt="User">
-                                <div
-                                    class="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-600 dark:text-slate-300">
-                                    +2k</div>
-                            </div>
-                            <div class="text-sm">
-                                <div class="flex text-yellow-400 text-xs mb-0.5">
-                                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
-                                        class="fas fa-star"></i><i class="fas fa-star"></i>
-                                </div>
-                                <span class="font-medium text-slate-600 dark:text-slate-400">Trusted by <strong
-                                        class="text-slate-900 dark:text-white">2,000+ stores</strong></span>
-                            </div>
-                        </div>
                     </div>
 
 
@@ -2188,1031 +2159,1535 @@
     </div>
 
 
-    <div id="merchant-view" class="hidden pt-20 h-screen flex bg-gray-50 dark:bg-slate-900 overflow-hidden">
+    <div id="merchant-view" class="hidden pt-20 h-screen bg-gray-50 dark:bg-slate-900 overflow-hidden">
 
-
-        <aside
-            class="hidden md:flex w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex-col flex-shrink-0 z-30">
-
-            <div class="p-4 border-b border-gray-100 dark:border-slate-700 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center"
-                    style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200')">
+        <!-- ========== FULL-PAGE MERCHANT HERO ========== -->
+        <div id="merchant-hero-page" class="h-full overflow-y-auto bg-slate-900">
+            <div class="relative min-h-full">
+                <!-- Full background -->
+                <div class="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950"></div>
+                <!-- Decorative elements -->
+                <div
+                    class="absolute top-0 right-0 w-[500px] h-[500px] bg-blue-500/10 rounded-full blur-3xl translate-x-1/3 -translate-y-1/3">
                 </div>
-                <div class="overflow-hidden">
-                    <h3 class="font-bold text-sm text-slate-900 dark:text-white truncate">Sukhdev Electronics</h3>
-                    <p class="text-xs text-slate-500 uppercase">Merchant</p>
+                <div
+                    class="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-500/10 rounded-full blur-3xl -translate-x-1/3 translate-y-1/3">
                 </div>
-            </div>
+                <div class="absolute top-1/2 right-1/4 w-60 h-60 bg-purple-500/8 rounded-full blur-2xl"></div>
+                <div class="absolute bottom-1/3 left-1/3 w-48 h-48 bg-cyan-500/5 rounded-full blur-2xl"></div>
+                <!-- Grid pattern -->
+                <div class="absolute inset-0 opacity-[0.03]"
+                    style="background-image: radial-gradient(circle, white 1px, transparent 1px); background-size: 28px 28px;">
+                </div>
 
-            <div class="flex-1 overflow-y-auto py-4 space-y-1 px-3">
-                <div onclick="switchMerchantTab('dashboard')" id="menu-dashboard"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 cursor-pointer transition-colors">
-                    <i class="fas fa-chart-pie w-5 text-center"></i> Dashboard
-                </div>
-                <div onclick="switchMerchantTab('new-sale')" id="menu-new-sale"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-plus-circle w-5 text-center"></i> New Sale
-                </div>
-                <div onclick="switchMerchantTab('transactions')" id="menu-transactions"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-list-ul w-5 text-center"></i> Transactions
-                </div>
-                <div onclick="switchMerchantTab('broadcast')" id="menu-broadcast"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-broadcast-tower w-5 text-center"></i> Broadcast
-                </div>
-                <div onclick="switchMerchantTab('campaigns')" id="menu-campaigns"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-bullhorn w-5 text-center"></i> Campaigns
-                </div>
-                <div onclick="switchMerchantTab('customers')" id="menu-customers"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-users w-5 text-center"></i> Customers
-                </div>
-                <div onclick="switchMerchantTab('payroll')" id="menu-payroll"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-money-check-alt w-5 text-center"></i> Payroll
-                </div>
-                <div onclick="switchMerchantTab('settings')" id="menu-settings"
-                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
-                    <i class="fas fa-cog w-5 text-center"></i> Settings
-                </div>
-            </div>
+                <div class="relative z-10 max-w-6xl mx-auto px-6 md:px-10 py-12 md:py-20">
 
-            <div class="p-4 border-t border-gray-100 dark:border-slate-700">
-                <button onclick="authSignOut()"
-                    class="w-full flex items-center justify-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition">
-                    <i class="fas fa-sign-out-alt"></i> Sign Out
-                </button>
-            </div>
-        </aside>
-
-
-        <div class="flex-1 flex flex-col overflow-hidden pb-16 md:pb-0">
-            <main class="flex-1 overflow-y-auto p-4 md:p-8">
-
-
-                <div id="merchant-dashboard" class="space-y-6 max-w-6xl mx-auto">
-
-
-                    <div class="flex justify-between items-center mb-2">
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Dashboard</h2>
-                        <div class="flex gap-2">
-                            <select onchange="updateDashboardData(this.value)"
-                                class="text-xs text-slate-500 bg-white dark:bg-slate-800 px-3 py-1.5 rounded border border-gray-200 dark:border-slate-700 font-bold focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer">
-                                <option value="7days">Last 7 Days</option>
-                                <option value="30days" selected>Last 30 Days</option>
-                                <option value="quarter">Last Quarter</option>
-                                <option value="year">Last Year</option>
-                            </select>
+                    <!-- Top badge -->
+                    <div class="text-center mb-10">
+                        <div
+                            class="inline-flex items-center gap-2 px-4 py-1.5 bg-blue-500/15 border border-blue-500/25 text-blue-300 text-xs font-bold uppercase tracking-wider rounded-full">
+                            <i class="fas fa-store"></i> Merchant Dashboard
                         </div>
                     </div>
 
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-indian-rupee-sign text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total Revenue
-                            </p>
-                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-revenue">₹12.4L</h3>
-                            <div class="mt-4 flex items-center text-xs font-medium text-green-600">
-                                <i class="fas fa-arrow-up mr-1 text-[10px]"></i> 12.5% <span
-                                    class="text-slate-400 ml-1">vs last month</span>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-users text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
-                                Customers</p>
-                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-customers">4.2K</h3>
-                            <div class="mt-4 flex items-center text-xs font-medium text-green-600">
-                                <i class="fas fa-arrow-up mr-1 text-[10px]"></i> 8.2% <span
-                                    class="text-slate-400 ml-1">growth</span>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-rotate-left text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Repeat
-                                Customers</p>
-                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-repeat-customers">342
-                            </h3>
-                            <div class="mt-4 flex items-center text-xs font-medium text-blue-600">
-                                <i class="fas fa-check-circle mr-1 text-[10px]"></i> 18% <span
-                                    class="text-slate-400 ml-1">loyalty rate</span>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-bag-shopping text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Avg. Order
-                                Value</p>
-                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-aov">₹3,450</h3>
-                            <div class="mt-4 flex items-center text-xs font-medium text-blue-600">
-                                <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> High value trend
-                            </div>
-                        </div>
+                    <!-- Welcome Message -->
+                    <div id="merchant-welcome-message" class="text-center mb-4 hidden">
+                        <span class="text-xl md:text-2xl text-blue-200 font-medium">Welcome back, <span
+                                id="merchant-user-name" class="text-white font-bold">Merchant</span> 👋</span>
                     </div>
 
-
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-
-                        <div
-                            class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                            <div class="flex justify-between items-center mb-6">
-                                <h3 class="font-bold text-slate-900 dark:text-white" id="chart-title">Revenue Trend</h3>
-                                <div class="flex gap-2">
-                                    <span class="w-3 h-3 rounded-full bg-blue-500"></span>
-                                    <span class="text-[10px] font-bold text-slate-400 uppercase"
-                                        id="chart-range-label">Current Period</span>
-                                </div>
-                            </div>
-
-                            <div class="h-64 w-full relative group" id="revenue-chart-container">
-
-                                <div id="chart-tooltip"
-                                    class="absolute hidden z-50 bg-slate-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-xl pointer-events-none -translate-x-1/2 -translate-y-full mb-2 whitespace-nowrap">
-                                    ₹0.0
-                                </div>
-
-                                <svg viewBox="0 0 700 200" class="w-full h-full overflow-visible"
-                                    id="revenue-trend-svg">
-                                    <defs>
-                                        <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2" />
-                                            <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
-                                        </linearGradient>
-                                    </defs>
-
-                                    <line x1="0" y1="50" x2="700" y2="50" stroke="currentColor" stroke-dasharray="4"
-                                        class="text-slate-100 dark:text-slate-700" />
-                                    <line x1="0" y1="100" x2="700" y2="100" stroke="currentColor" stroke-dasharray="4"
-                                        class="text-slate-100 dark:text-slate-700" />
-                                    <line x1="0" y1="150" x2="700" y2="150" stroke="currentColor" stroke-dasharray="4"
-                                        class="text-slate-100 dark:text-slate-700" />
-
-
-                                    <path id="chart-area"
-                                        d="M0,160 L100,140 L200,170 L300,110 L400,130 L500,80 L600,90 L700,40 L700,200 L0,200 Z"
-                                        fill="url(#chartGradient)" />
-
-
-                                    <path id="chart-line"
-                                        d="M0,160 L100,140 L200,170 L300,110 L400,130 L500,80 L600,90 L700,40"
-                                        fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"
-                                        stroke-linejoin="round" />
-
-
-                                    <g id="chart-points">
-                                        <circle cx="0" cy="160" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹15,200')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="100" cy="140" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹18,500')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="200" cy="170" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹12,800')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="300" cy="110" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹22,400')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="400" cy="130" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹19,100')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="500" cy="80" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹28,500')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="600" cy="90" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹24,200')"
-                                            onmouseout="hideChartTooltip()" />
-                                        <circle cx="700" cy="40" r="4" fill="#3b82f6"
-                                            class="cursor-pointer hover:r-6 transition-all"
-                                            onmouseover="showChartTooltip(event, '₹35,000')"
-                                            onmouseout="hideChartTooltip()" />
-                                    </g>
-                                </svg>
-
-                                <div
-                                    class="flex justify-between mt-4 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div
-                            class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-6">Recent Activity</h3>
-                            <div class="space-y-6">
-                                <div class="flex gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 text-xs">
-                                        <i class="fas fa-shopping-cart"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate">New Sale:
-                                            iPhone 15 Pro</p>
-                                        <p class="text-[10px] text-slate-500 mt-1">₹1,24,900 • 2 mins ago</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 text-xs">
-                                        <i class="fas fa-broadcast-tower"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate">Broadcast
-                                            Sent</p>
-                                        <p class="text-[10px] text-slate-500 mt-1">To 4.2k customers • 1 hour ago</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0 text-xs">
-                                        <i class="fas fa-user-plus"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate">New
-                                            Customer Joined</p>
-                                        <p class="text-[10px] text-slate-500 mt-1">Via QR Scan • 3 hours ago</p>
-                                    </div>
-                                </div>
-                                <div class="flex gap-4">
-                                    <div
-                                        class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center flex-shrink-0 text-xs">
-                                        <i class="fas fa-clock"></i>
-                                    </div>
-                                    <div class="overflow-hidden">
-                                        <p class="text-xs font-bold text-slate-900 dark:text-white truncate">Warranty
-                                            Expiring soon</p>
-                                        <p class="text-[10px] text-slate-500 mt-1">14 items next week • 5 hours ago</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <button onclick="switchMerchantTab('transactions')"
-                                class="w-full mt-6 py-2 text-xs font-bold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition">
-                                View All Transactions
-                            </button>
-                        </div>
+                    <!-- Main heading -->
+                    <div class="text-center mb-10">
+                        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-5 leading-tight"
+                            style="font-family:'Plus Jakarta Sans',sans-serif;">
+                            Your Complete Business<br>
+                            <span
+                                class="bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 bg-clip-text text-transparent">Command
+                                Center</span>
+                        </h1>
+                        <p class="text-slate-400 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+                            Manage sales, track customers, run campaigns, handle payroll, and grow your local business —
+                            all from one powerful dashboard built for modern retailers.
+                        </p>
                     </div>
-                </div>
 
-
-                <div id="merchant-new-sale" class="hidden space-y-6 max-w-2xl mx-auto">
-                    <div
-                        class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-lg">
-                        <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-6 flex items-center gap-2">
-                            <i class="fas fa-cash-register text-blue-600"></i> Log a New Sale
-                        </h3>
-
-                        <div class="space-y-5">
-                            <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Customer
-                                        Name</label>
-                                    <input type="text" id="sale-name"
-                                        class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
-                                        placeholder="e.g. Rahul Sharma">
-                                </div>
-
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Customer
-                                        Mobile</label>
-                                    <div class="relative">
-                                        <div
-                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                            <span class="text-slate-500 font-bold text-sm">+91</span>
-                                        </div>
-                                        <input type="tel" id="sale-mobile"
-                                            class="block w-full pl-11 text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
-                                            placeholder="98765 43210">
-                                    </div>
-                                </div>
-
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Product
-                                        Name</label>
-                                    <input type="text" id="sale-product"
-                                        class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
-                                        placeholder="e.g. iPhone 15 Pro">
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Sale
-                                        Amount (₹)</label>
-                                    <div class="relative">
-                                        <span
-                                            class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-bold text-base">₹</span>
-                                        <input type="number" id="sale-amount"
-                                            class="block w-full pl-8 text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
-                                            placeholder="0.00">
-                                    </div>
-                                </div>
-
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Payment
-                                        Status</label>
-                                    <select id="sale-status"
-                                        class="block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer border font-bold">
-                                        <option value="Paid" selected>Paid Full</option>
-                                        <option value="Pending">Pending (Friend/Credit)</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="grid grid-cols-2 gap-5">
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Warranty</label>
-                                    <select id="sale-warranty"
-                                        class="block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer border">
-                                        <option value="none">None</option>
-                                        <option value="7d">7 Days</option>
-                                        <option value="1m">1 Month</option>
-                                        <option value="6m">6 Months</option>
-                                        <option value="1y" selected>1 Year</option>
-                                        <option value="lifetime">Lifetime</option>
-                                    </select>
-                                </div>
-
-
-                                <div>
-                                    <label
-                                        class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Return</label>
-                                    <select id="sale-return"
-                                        class="block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer border">
-                                        <option value="none">No Return</option>
-                                        <option value="3d">3 Days</option>
-                                        <option value="7d">7 Days</option>
-                                        <option value="30d">30 Days</option>
-                                    </select>
-                                </div>
-                            </div>
-
-
-                            <div class="pt-2">
-                                <button onclick="registerSale()"
-                                    class="w-full flex justify-center items-center gap-3 py-3 px-6 border border-transparent shadow-xl text-base font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/50">
-                                    <i class="fas fa-check-circle text-lg"></i>
-                                    Confirm & Log Sale
-                                </button>
-                                <p class="text-[10px] text-center text-slate-400 mt-3 font-medium">
-                                    <i class="fas fa-info-circle mr-1 text-blue-500"></i> Receipt will be generated
-                                    automatically for the customer.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="merchant-transactions" class="hidden space-y-6 max-w-6xl mx-auto">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Recent Transactions
-                        </h2>
-                        <div class="flex gap-4">
-                            <div class="relative">
-                                <i
-                                    class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                                <input type="text" id="transaction-search" onkeyup="filterTransactions()"
-                                    placeholder="Search by name, mobile or product..."
-                                    class="border border-gray-300 dark:border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm bg-white dark:bg-slate-800 dark:text-white transition focus:ring-2 focus:ring-blue-500 w-64">
-                            </div>
-                            <button
-                                class="text-xs text-slate-500 bg-white dark:bg-slate-800 px-4 py-2 rounded border border-gray-200 dark:border-slate-700 font-bold flex items-center gap-2 hover:bg-gray-50 transition">
-                                <i class="fas fa-download"></i> Export CSV
-                            </button>
-                        </div>
-                    </div>
-                    <div
-                        class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-sm text-left">
-                                <thead
-                                    class="text-xs text-slate-500 uppercase bg-gray-50 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-700">
-                                    <tr>
-                                        <th class="px-6 py-4 font-bold tracking-wider">Customer</th>
-                                        <th class="px-6 py-4 font-bold tracking-wider">Product</th>
-                                        <th class="px-6 py-4 font-bold tracking-wider">Policies</th>
-                                        <th class="px-6 py-4 font-bold tracking-wider">Date</th>
-                                        <th class="px-6 py-4 font-bold tracking-wider text-right">Amount</th>
-                                        <th class="px-6 py-4 font-bold tracking-wider text-right">Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-gray-100 dark:divide-slate-700" id="transactions-body">
-
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="merchant-broadcast" class="hidden space-y-6 max-w-4xl mx-auto">
-                    <div
-                        class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-xl overflow-hidden">
-                        <div
-                            class="p-8 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
-                            <h3 class="font-bold text-slate-900 dark:text-white text-lg flex items-center gap-3">
-                                <i class="fas fa-bullhorn text-blue-600"></i> Send Smart Broadcast
-                            </h3>
-                            <p class="text-[10px] text-slate-500 mt-2 uppercase font-bold tracking-widest">Reach your
-                                customers directly with instant offers and
-                                updates.</p>
-                        </div>
-                        <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
-                            <div class="space-y-6">
-                                <div>
-                                    <label
-                                        class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">Target
-                                        Audience</label>
-                                    <select id="broadcast-audience" onchange="updateBroadcastReach()"
-                                        class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-4 bg-white dark:bg-slate-900 dark:border-slate-600 dark:text-white border transition shadow-sm font-bold">
-                                        <option value="all">All Customers (4.2K)</option>
-                                        <option value="vip">Generic (High Value) (850)</option>
-                                        <option value="inactive">Inactive > 30 Days (1.2K)</option>
-                                    </select>
-                                </div>
-
-                                <div
-                                    class="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-6 flex justify-between items-center border border-blue-100 dark:border-blue-800/50">
-                                    <div>
-                                        <p
-                                            class="text-[10px] text-blue-700 dark:text-blue-300 font-bold uppercase tracking-widest mb-1">
-                                            Estimated Reach</p>
-                                        <span id="broadcast-reach"
-                                            class="text-3xl font-black text-blue-800 dark:text-blue-200">4,200 <span
-                                                class="text-xs font-medium opacity-70">users</span></span>
-                                    </div>
-                                    <i class="fas fa-users-viewfinder text-4xl text-blue-200 dark:text-blue-800"></i>
-                                </div>
-
-                                <div>
-                                    <label
-                                        class="block text-xs font-bold text-slate-500 mb-2 uppercase tracking-wide">Broadcast
-                                        Message</label>
-                                    <textarea id="broadcast-message" rows="5"
-                                        class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-4 resize-none bg-white dark:bg-slate-900 dark:border-slate-600 dark:text-white border shadow-sm transition"
-                                        placeholder="Type your compelling offer here..."
-                                        oninput="updatePreview()"></textarea>
-                                    <div class="flex justify-between mt-2 px-1">
-                                        <span class="text-[10px] text-slate-400 font-medium">Avoid using too many emojis
-                                            for better
-                                            delivery</span>
-                                        <span class="text-xs font-bold text-blue-600" id="char-count">0/160</span>
-                                    </div>
-                                </div>
-
-                                <button onclick="sendBroadcast()"
-                                    class="w-full flex justify-center items-center gap-3 px-6 py-4 bg-slate-900 dark:bg-blue-600 hover:bg-black dark:hover:bg-blue-700 text-white text-base font-bold rounded-xl transition-all shadow-xl active:scale-[0.98]">
-                                    <i class="fas fa-paper-plane"></i> Send Blast Now
-                                </button>
-                            </div>
-
-
-                            <div class="flex flex-col items-center justify-center">
-                                <div
-                                    class="relative w-64 h-[500px] border-8 border-slate-900 rounded-[3rem] bg-white shadow-2xl overflow-hidden scale-90 lg:scale-100">
-                                    <div
-                                        class="absolute top-0 w-1/3 h-6 bg-slate-900 left-1/2 -translate-x-1/2 rounded-b-2xl z-10">
-                                    </div>
-                                    <div class="h-full pt-12 pb-6 px-4 flex flex-col bg-gray-100">
-                                        <div
-                                            class="bg-white rounded-2xl p-4 shadow-sm border border-gray-200 animate-bounce-subtle">
-                                            <div class="flex items-center gap-2 mb-2">
-                                                <div
-                                                    class="w-6 h-6 rounded-full bg-blue-100 flex items-center justify-center">
-                                                    <i class="fas fa-cube text-[10px] text-blue-600"></i>
-                                                </div>
-                                                <span
-                                                    class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">LocalBridge</span>
-                                            </div>
-                                            <p id="preview-text"
-                                                class="text-xs text-slate-700 leading-relaxed font-medium">Hello there!
-                                                Your message will appear here as a live preview...</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <p class="text-[10px] font-bold uppercase text-slate-400 mt-4 tracking-widest">Customer
-                                    Notification Preview</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div id="merchant-campaigns" class="hidden space-y-6 max-w-6xl mx-auto">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Marketing Campaigns</h2>
-                        <button onclick="createCampaign()"
-                            class="px-6 py-3 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">
-                            <i class="fas fa-plus mr-2"></i> Create New
+                    <!-- CTA Button -->
+                    <div class="text-center mb-14">
+                        <button onclick="showMerchantDashboard()"
+                            class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-xl font-bold text-lg shadow-[0_4px_20px_0_rgba(37,99,235,0.4)] hover:shadow-[0_8px_30px_rgba(37,99,235,0.5)] hover:-translate-y-0.5 transition-all duration-300">
+                            <i class="fas fa-chart-pie"></i> Go to Dashboard
+                            <i class="fas fa-arrow-right text-sm opacity-70"></i>
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div
-                            class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                            <div class="flex justify-between items-start mb-4">
-                                <span
-                                    class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold uppercase rounded-full">Active</span>
-                                <span class="text-xs text-slate-400">Ends in 5 days</span>
+                    <!-- Live Store Status Card -->
+                    <div class="flex justify-center mb-12">
+                        <div class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 min-w-[280px]">
+                            <div class="flex items-center gap-2 mb-4">
+                                <div class="w-2.5 h-2.5 rounded-full bg-green-400 animate-pulse"></div>
+                                <span class="text-xs font-bold text-green-400 uppercase tracking-wider">Store
+                                    Online</span>
                             </div>
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">Winter Sale 2024</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Flat 20% off on all electronics
-                                for previous customers.</p>
-                            <div
-                                class="flex items-center justify-between text-xs font-bold text-slate-400 border-t pt-4">
-                                <span>1.2k Reached</span>
-                                <span class="text-blue-600">4.2% CTR</span>
+                            <div class="grid grid-cols-3 gap-6 text-center">
+                                <div>
+                                    <div class="text-2xl font-extrabold text-white">₹12.4K</div>
+                                    <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mt-1">
+                                        Today's Sales</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-extrabold text-white">28</div>
+                                    <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mt-1">
+                                        Orders</div>
+                                </div>
+                                <div>
+                                    <div class="text-2xl font-extrabold text-white">6</div>
+                                    <div class="text-[10px] text-slate-400 font-semibold uppercase tracking-wide mt-1">
+                                        New Customers</div>
+                                </div>
                             </div>
-                        </div>
-
-                        <div
-                            class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm border-dashed flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition min-h-[180px]">
-                            <div
-                                class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 mb-3">
-                                <i class="fas fa-magic"></i>
-                            </div>
-                            <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Run AI-Powered Campaign</p>
-                            <p class="text-[10px] text-slate-400 mt-1">Boost engagement by 3x</p>
                         </div>
                     </div>
-                </div>
 
-
-                <div id="merchant-customers" class="hidden space-y-6 max-w-6xl mx-auto">
-                    <div class="flex justify-between items-center mb-6">
-                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Customer Directory</h2>
-                        <div class="flex gap-4">
-                            <div class="relative">
-                                <i
-                                    class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
-                                <input type="text" id="customer-search" onkeyup="filterCustomers()"
-                                    placeholder="Search customers..."
-                                    class="border border-gray-300 dark:border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm bg-white dark:bg-slate-800 dark:text-white transition focus:ring-2 focus:ring-blue-500">
+                    <!-- Quick Action Cards -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                        <button onclick="showMerchantDashboard('new-sale')"
+                            class="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-blue-500/40 rounded-2xl p-5 text-center transition-all duration-300">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-blue-500/25 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-plus text-white text-xl"></i>
                             </div>
-                            <button
-                                class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition">
-                                <i class="fas fa-user-plus mr-2"></i> Add Customer
+                            <div class="text-sm font-bold text-white mb-1">New Sale</div>
+                            <div class="text-[10px] text-slate-500">Record a transaction</div>
+                        </button>
+
+                        <button onclick="showMerchantDashboard('transactions')"
+                            class="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-green-500/40 rounded-2xl p-5 text-center transition-all duration-300">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-green-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-green-500/25 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-receipt text-white text-xl"></i>
+                            </div>
+                            <div class="text-sm font-bold text-white mb-1">Transactions</div>
+                            <div class="text-[10px] text-slate-500">View all history</div>
+                        </button>
+
+                        <button onclick="showMerchantDashboard('customers')"
+                            class="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-purple-500/40 rounded-2xl p-5 text-center transition-all duration-300">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-purple-500/25 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-users text-white text-xl"></i>
+                            </div>
+                            <div class="text-sm font-bold text-white mb-1">Customers</div>
+                            <div class="text-[10px] text-slate-500">Manage your CRM</div>
+                        </button>
+
+                        <button onclick="showMerchantDashboard('broadcast')"
+                            class="group bg-white/5 hover:bg-white/10 border border-white/10 hover:border-amber-500/40 rounded-2xl p-5 text-center transition-all duration-300">
+                            <div
+                                class="w-14 h-14 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center mx-auto mb-4 shadow-lg shadow-amber-500/25 group-hover:scale-110 transition-transform">
+                                <i class="fas fa-broadcast-tower text-white text-xl"></i>
+                            </div>
+                            <div class="text-sm font-bold text-white mb-1">Broadcast</div>
+                            <div class="text-[10px] text-slate-500">Send offers & updates</div>
+                        </button>
+                    </div>
+
+                    <!-- Feature Highlights -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="flex items-center gap-4 bg-white/5 rounded-xl px-5 py-4 border border-white/5">
+                            <div
+                                class="w-10 h-10 rounded-full bg-green-500/15 flex items-center justify-center text-green-400">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Real-Time Analytics</div>
+                                <div class="text-xs text-slate-500">Track sales, revenue & growth live</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white/5 rounded-xl px-5 py-4 border border-white/5">
+                            <div
+                                class="w-10 h-10 rounded-full bg-blue-500/15 flex items-center justify-center text-blue-400">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Digital Warranties</div>
+                                <div class="text-xs text-slate-500">Auto-issue to every customer</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 bg-white/5 rounded-xl px-5 py-4 border border-white/5">
+                            <div
+                                class="w-10 h-10 rounded-full bg-purple-500/15 flex items-center justify-center text-purple-400">
+                                <i class="fas fa-bullhorn"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Smart Campaigns</div>
+                                <div class="text-xs text-slate-500">Reach customers with offers</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========== SMART INSIGHTS SECTION ========== -->
+                    <div class="mt-20 mb-20">
+                        <div class="flex items-center justify-between mb-8">
+                            <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight"
+                                style="font-family:'Plus Jakarta Sans',sans-serif;">Business Intelligence</h2>
+                            <button onclick="showMerchantDashboard()"
+                                class="text-sm text-blue-400 hover:text-blue-300 font-bold flex items-center gap-2 transition-colors">
+                                View Full Report <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
-                    </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-1">
-                            <div
-                                class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                                <div
-                                    class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
-                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Top Loyalty Customers
-                                    </h3>
-                                </div>
-                                <div class="divide-y divide-gray-100 dark:divide-slate-700">
-                                    <div
-                                        class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
-                                        <div class="flex items-center gap-3">
-                                            <div
-                                                class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">
-                                                JD</div>
-                                            <div>
-                                                <p
-                                                    class="text-sm font-bold text-slate-900 dark:text-white leading-none">
-                                                    Jaskaran D.</p>
-                                                <p class="text-xs text-slate-500 mt-1">12 Orders • Joined 2023</p>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">₹45k
-                                            </p>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
-                                        <div class="flex items-center gap-3">
-                                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
-                                                class="w-10 h-10 rounded-full object-cover border border-gray-200">
-                                            <div>
-                                                <p
-                                                    class="text-sm font-bold text-slate-900 dark:text-white leading-none">
-                                                    Amit Kumar</p>
-                                                <p class="text-xs text-slate-500 mt-1">8 Orders • Joined 2024</p>
-                                            </div>
-                                        </div>
-                                        <div class="text-right">
-                                            <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">₹32k
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="lg:col-span-2 space-y-8">
-
-                            <div
-                                class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                                <div
-                                    class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 bg-orange-50/50 dark:bg-orange-900/10 flex justify-between items-center">
-                                    <h3
-                                        class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
-                                        <i class="fas fa-book-open text-orange-600"></i> Credit Ledger (Khata)
-                                    </h3>
-                                    <span
-                                        class="text-[10px] font-bold text-orange-700 uppercase tracking-widest bg-orange-100 px-2 py-0.5 rounded border border-orange-200"
-                                        id="total-credit-count">2 Pending</span>
-                                </div>
-                                <div class="overflow-x-auto">
-                                    <table class="w-full text-left">
-                                        <thead>
-                                            <tr class="bg-gray-50 dark:bg-slate-900/50">
-                                                <th
-                                                    class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                                                    Customer</th>
-                                                <th
-                                                    class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                                                    Last Product</th>
-                                                <th
-                                                    class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-                                                    Pending Since</th>
-                                                <th
-                                                    class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">
-                                                    Credit Amount</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="credit-ledger-body"
-                                            class="divide-y divide-gray-100 dark:divide-slate-700">
-
-                                            <tr
-                                                class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 border-orange-500">
-                                                <td class="px-6 py-4">
-                                                    <p class="text-sm font-bold text-slate-900 dark:text-white">Rahul
-                                                        Sharma</p>
-                                                    <p class="text-[10px] text-slate-500">+91 98234 56789</p>
-                                                </td>
-                                                <td class="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">Sony
-                                                    Headphones</td>
-                                                <td class="px-6 py-4 text-xs text-slate-500">2 days ago</td>
-                                                <td class="px-6 py-4 text-sm font-bold text-orange-600 text-right">
-                                                    ₹8,499</td>
-                                            </tr>
-                                            <tr
-                                                class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 border-orange-500">
-                                                <td class="px-6 py-4">
-                                                    <p class="text-sm font-bold text-slate-900 dark:text-white">Preeti
-                                                        V.</p>
-                                                    <p class="text-[10px] text-slate-500">+91 88765 43210</p>
-                                                </td>
-                                                <td class="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">AirPods
-                                                    Pro</td>
-                                                <td class="px-6 py-4 text-xs text-slate-500">1 week ago</td>
-                                                <td class="px-6 py-4 text-sm font-bold text-orange-600 text-right">
-                                                    ₹24,900</td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-
-
-                            <div
-                                class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-8 text-center shadow-sm">
-                                <div
-                                    class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 mx-auto mb-4">
-                                    <i class="fas fa-address-book text-2xl"></i>
-                                </div>
-                                <h3 class="font-bold text-slate-900 dark:text-white mb-2">Customer Base</h3>
-                                <p class="text-sm text-slate-500 max-w-xs mx-auto mb-6">You have 4.2k customers in your
-                                    store database. Use the search to manage individual profiles.</p>
-                                <button
-                                    class="px-6 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 transition">
-                                    Manage Directory
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-                <!-- ===== PAYROLL TAB ===== -->
-                <div id="merchant-payroll" class="hidden space-y-6 max-w-6xl mx-auto">
-                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
-                        <div>
-                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Payroll
-                                Management</h2>
-                            <p class="text-sm text-slate-500 mt-1">Manage employees and process payroll</p>
-                        </div>
-                        <div class="flex gap-3">
-                            <button onclick="openAddEmployeeModal()"
-                                class="px-4 py-2.5 border-2 border-blue-600 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition flex items-center gap-2">
-                                <i class="fas fa-user-plus"></i> Add Employee
-                            </button>
-                            <button onclick="openRunPayrollModal()"
-                                class="px-4 py-2.5 bg-green-600 text-white rounded-xl font-bold text-sm hover:bg-green-700 transition shadow-lg shadow-green-500/30 flex items-center gap-2">
-                                <i class="fas fa-wallet"></i> Run Payroll
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Summary Cards -->
-                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-users text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
-                                Employees</p>
-                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="payroll-stat-employees">0
-                            </h3>
-                            <div class="mt-3 flex items-center text-xs font-medium text-blue-600"><i
-                                    class="fas fa-user-check mr-1 text-[10px]"></i> <span
-                                    id="payroll-stat-active">0</span> active</div>
-                        </div>
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-indian-rupee-sign text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Monthly Cost
-                            </p>
-                            <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="payroll-stat-cost">₹0</h3>
-                            <div class="mt-3 flex items-center text-xs font-medium text-slate-400"><i
-                                    class="fas fa-calculator mr-1 text-[10px]"></i> Active salaries</div>
-                        </div>
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-clock text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Pending</p>
-                            <h3 class="text-3xl font-bold text-orange-500" id="payroll-stat-pending">0</h3>
-                            <div class="mt-3 flex items-center text-xs font-medium text-orange-500"><i
-                                    class="fas fa-exclamation-circle mr-1 text-[10px]"></i> Awaiting payment</div>
-                        </div>
-                        <div
-                            class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
-                            <div
-                                class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <i class="fas fa-check-circle text-4xl"></i>
-                            </div>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Paid This
-                                Month</p>
-                            <h3 class="text-3xl font-bold text-green-600" id="payroll-stat-paid">0</h3>
-                            <div class="mt-3 flex items-center text-xs font-medium text-green-600"><i
-                                    class="fas fa-check mr-1 text-[10px]"></i> Completed</div>
-                        </div>
-                    </div>
-
-                    <!-- Loading -->
-                    <div id="payroll-loading" class="hidden">
-                        <div
-                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 animate-pulse space-y-4">
-                            <div class="h-5 bg-slate-200 dark:bg-slate-700 rounded w-1/4"></div>
-                            <div class="h-10 bg-slate-200 dark:bg-slate-700 rounded"></div>
-                            <div class="h-10 bg-slate-100 dark:bg-slate-700/50 rounded"></div>
-                            <div class="h-10 bg-slate-200 dark:bg-slate-700 rounded"></div>
-                        </div>
-                    </div>
-
-                    <!-- Empty State -->
-                    <div id="payroll-empty" class="hidden">
-                        <div
-                            class="bg-white dark:bg-slate-800 rounded-2xl p-12 border border-gray-200 dark:border-slate-700 text-center">
-                            <div
-                                class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center">
-                                <i class="fas fa-users text-3xl text-slate-300 dark:text-slate-500"></i>
-                            </div>
-                            <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-2">No employees yet</h3>
-                            <p class="text-sm text-slate-500 mb-6 max-w-sm mx-auto">Add employees to start managing your
-                                payroll. You can track salaries, run payroll, and keep payment history.</p>
-                            <button onclick="openAddEmployeeModal()"
-                                class="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-500/30 inline-flex items-center gap-2">
-                                <i class="fas fa-user-plus"></i> Add Your First Employee
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Employee List -->
-                    <div id="payroll-employees-section" class="hidden">
-                        <div
-                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                            <div
-                                class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
-                                <h3 class="font-bold text-slate-900 dark:text-white"><i
-                                        class="fas fa-users mr-2 text-blue-500"></i>Employees</h3>
-                                <span id="payroll-emp-count-badge"
-                                    class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 font-bold text-xs rounded-full">0</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-sm">
-                                    <thead>
-                                        <tr
-                                            class="border-b border-gray-100 dark:border-slate-700 text-xs uppercase tracking-wider text-slate-400">
-                                            <th class="text-left py-3 px-6 font-semibold">Employee</th>
-                                            <th class="text-left py-3 px-4 font-semibold">Role</th>
-                                            <th class="text-right py-3 px-4 font-semibold">Salary</th>
-                                            <th class="text-center py-3 px-4 font-semibold">Status</th>
-                                            <th class="text-right py-3 px-6 font-semibold">Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="payroll-employees-tbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Payroll History -->
-                    <div id="payroll-history-section" class="hidden">
-                        <div
-                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
-                            <div
-                                class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
-                                <h3 class="font-bold text-slate-900 dark:text-white"><i
-                                        class="fas fa-history mr-2 text-green-500"></i>Payroll History</h3>
-                                <span id="payroll-hist-count-badge"
-                                    class="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 font-bold text-xs rounded-full">0</span>
-                            </div>
-                            <div class="overflow-x-auto">
-                                <table class="w-full text-sm">
-                                    <thead>
-                                        <tr
-                                            class="border-b border-gray-100 dark:border-slate-700 text-xs uppercase tracking-wider text-slate-400">
-                                            <th class="text-left py-3 px-6 font-semibold">Employee</th>
-                                            <th class="text-left py-3 px-4 font-semibold">Month</th>
-                                            <th class="text-right py-3 px-4 font-semibold">Amount</th>
-                                            <th class="text-center py-3 px-4 font-semibold">Status</th>
-                                            <th class="text-right py-3 px-6 font-semibold">Paid On</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="payroll-history-tbody"></tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- ===== END PAYROLL TAB ===== -->
-
-                <div id="merchant-settings" class="hidden space-y-6 max-w-2xl mx-auto">
-                    <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Store Settings</h2>
-                    <div
-                        class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-8 shadow-sm space-y-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label
-                                    class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
-                                    Name</label>
-                                <input type="text" value="Sukhdev Electronics"
-                                    class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+                            <!-- Insight Card 1: Retention -->
+                            <div
+                                class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative overflow-hidden group hover:border-blue-500/30 transition-all">
+                                <div
+                                    class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2">
+                                </div>
+                                <div class="relative z-10">
+                                    <div class="flex justify-between items-start mb-6">
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                                                Customer Loyalty</div>
+                                            <div class="text-2xl font-bold text-white">85% <span
+                                                    class="text-sm font-normal text-slate-400">Retention Rate</span>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                            <i class="fas fa-heart"></i>
+                                        </div>
+                                    </div>
+                                    <!-- Fake Graph Lines -->
+                                    <div class="h-24 flex items-end justify-between gap-1 mt-4 opacity-80">
+                                        <div
+                                            class="w-full bg-gradient-to-t from-blue-500/20 to-blue-500/5 rounded-t-sm h-[40%] group-hover:h-[50%] transition-all duration-500">
+                                        </div>
+                                        <div
+                                            class="w-full bg-gradient-to-t from-blue-500/30 to-blue-500/10 rounded-t-sm h-[60%] group-hover:h-[75%] transition-all duration-500 delay-75">
+                                        </div>
+                                        <div
+                                            class="w-full bg-gradient-to-t from-blue-500/40 to-blue-500/20 rounded-t-sm h-[55%] group-hover:h-[65%] transition-all duration-500 delay-100">
+                                        </div>
+                                        <div
+                                            class="w-full bg-gradient-to-t from-blue-500/50 to-blue-500/30 rounded-t-sm h-[80%] group-hover:h-[90%] transition-all duration-500 delay-150">
+                                        </div>
+                                        <div
+                                            class="w-full bg-gradient-to-t from-blue-500/60 to-blue-500/40 rounded-t-sm h-[70%] group-hover:h-[85%] transition-all duration-500 delay-200">
+                                        </div>
+                                        <div
+                                            class="w-full bg-gradient-to-t from-blue-500 to-blue-400 rounded-t-sm h-[90%] group-hover:h-[100%] transition-all duration-500 delay-300">
+                                        </div>
+                                    </div>
+                                    <div class="flex justify-between mt-3 text-[10px] text-slate-500 font-mono">
+                                        <span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div>
-                                <label
-                                    class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Primary
-                                    Contact</label>
-                                <input type="tel" value="98765 43210"
-                                    class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+
+                            <!-- Insight Card 2: Top Products -->
+                            <div
+                                class="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 relative overflow-hidden group hover:border-purple-500/30 transition-all">
+                                <div
+                                    class="absolute top-0 right-0 w-32 h-32 bg-purple-500/10 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2">
+                                </div>
+                                <div class="relative z-10">
+                                    <div class="flex justify-between items-start mb-6">
+                                        <div>
+                                            <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">
+                                                Top Performing</div>
+                                            <div class="text-2xl font-bold text-white">Mobile <span
+                                                    class="text-sm font-normal text-slate-400">Accessories</span></div>
+                                        </div>
+                                        <div
+                                            class="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                            <i class="fas fa-trophy"></i>
+                                        </div>
+                                    </div>
+
+                                    <div class="space-y-3 mt-2">
+                                        <div>
+                                            <div class="flex justify-between text-xs text-slate-300 mb-1">
+                                                <span>Chargers & Cables</span>
+                                                <span class="font-bold">42%</span>
+                                            </div>
+                                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                                <div class="h-full bg-purple-500 w-[42%] rounded-full"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs text-slate-300 mb-1">
+                                                <span>Headphones</span>
+                                                <span class="font-bold">28%</span>
+                                            </div>
+                                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                                <div class="h-full bg-purple-400 w-[28%] rounded-full"></div>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="flex justify-between text-xs text-slate-300 mb-1">
+                                                <span>Screen Guards</span>
+                                                <span class="font-bold">18%</span>
+                                            </div>
+                                            <div class="w-full h-2 bg-white/5 rounded-full overflow-hidden">
+                                                <div class="h-full bg-purple-300 w-[18%] rounded-full"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div>
-                            <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
-                                Address</label>
-                            <textarea rows="3"
-                                class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">Shop No. 42, Sector 17, Chandigarh</textarea>
+                    </div>
+
+                    <!-- ========== GROWTH TOOLS SECTION ========== -->
+                    <div class="mb-20">
+                        <div class="flex items-center justify-between mb-8">
+                            <h2 class="text-2xl md:text-3xl font-bold text-white tracking-tight"
+                                style="font-family:'Plus Jakarta Sans',sans-serif;">Growth Tools</h2>
                         </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <!-- Tool 1 -->
+                            <div
+                                class="group relative bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-green-500/10 transition-all duration-300">
+                                <div
+                                    class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center text-green-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fab fa-whatsapp"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">WhatsApp Automation</h3>
+                                <p class="text-sm text-slate-400 mb-4">automated billing system that means we will send
+                                    a copy of bill to the customer</p>
+                                <a onclick="showMerchantDashboard()"
+                                    class="text-xs font-bold text-green-400 flex items-center gap-1 cursor-pointer hover:gap-2 transition-all">
+                                    Configure <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            <!-- Tool 2 -->
+                            <div
+                                class="group relative bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10 transition-all duration-300">
+                                <div
+                                    class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center text-blue-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">Multi-Store Sync</h3>
+                                <p class="text-sm text-slate-400 mb-4">Manage inventory and sales across multiple
+                                    locations in real-time.</p>
+                                <a onclick="showMerchantDashboard()"
+                                    class="text-xs font-bold text-blue-400 flex items-center gap-1 cursor-pointer hover:gap-2 transition-all">
+                                    Manage Stores <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+
+                            <!-- Tool 3 -->
+                            <div
+                                class="group relative bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 rounded-2xl p-6 hover:-translate-y-1 hover:shadow-xl hover:shadow-amber-500/10 transition-all duration-300">
+                                <div
+                                    class="w-12 h-12 bg-amber-500/20 rounded-xl flex items-center justify-center text-amber-400 text-xl mb-4 group-hover:scale-110 transition-transform">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <h3 class="text-lg font-bold text-white mb-2">Staff Management</h3>
+                                <p class="text-sm text-slate-400 mb-4">Set roles, permissions, and track individual
+                                    sales performance.</p>
+                                <a onclick="showMerchantDashboard()"
+                                    class="text-xs font-bold text-amber-400 flex items-center gap-1 cursor-pointer hover:gap-2 transition-all">
+                                    View Staff <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ========== MERCHANT FOOTER ========== -->
+                    <footer class="mt-20 pt-12 border-t border-white/10">
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-10 mb-12">
+                            <!-- Brand -->
+                            <div class="col-span-2 md:col-span-1">
+                                <div class="flex items-center gap-2.5 mb-4">
+                                    <div
+                                        class="w-9 h-9 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl flex items-center justify-center">
+                                        <i class="fas fa-store text-white text-sm"></i>
+                                    </div>
+                                    <span class="text-lg font-extrabold text-white"
+                                        style="font-family:'Plus Jakarta Sans',sans-serif;">LocalBridge</span>
+                                </div>
+                                <p class="text-xs text-slate-500 leading-relaxed mb-4">Empowering local businesses with
+                                    digital tools to manage sales, warranties, and customer relationships.</p>
+                                <div class="flex gap-3">
+                                    <a href="#"
+                                        class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                        <i class="fab fa-twitter text-xs"></i>
+                                    </a>
+                                    <a href="#"
+                                        class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                        <i class="fab fa-instagram text-xs"></i>
+                                    </a>
+                                    <a href="#"
+                                        class="w-8 h-8 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 flex items-center justify-center text-slate-400 hover:text-white transition-all">
+                                        <i class="fab fa-linkedin-in text-xs"></i>
+                                    </a>
+                                </div>
+                            </div>
+
+                            <!-- Product -->
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Product</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Dashboard</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Sales
+                                            Tracking</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Warranty
+                                            Manager</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Customer
+                                            CRM</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Broadcast
+                                            & Campaigns</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Resources -->
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Resources</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Getting
+                                            Started</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">API
+                                            Documentation</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Blog</a>
+                                    </li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Case
+                                            Studies</a></li>
+                                </ul>
+                            </div>
+
+                            <!-- Support -->
+                            <div>
+                                <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-4">Support</h4>
+                                <ul class="space-y-2.5">
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Help
+                                            Center</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Contact
+                                            Us</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Privacy
+                                            Policy</a></li>
+                                    <li><a href="#"
+                                            class="text-xs text-slate-500 hover:text-blue-400 transition-colors">Terms
+                                            of Service</a></li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Bottom bar -->
                         <div
-                            class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
-                            <div>
-                                <h4 class="text-sm font-bold text-slate-900 dark:text-white">Automatic Receipts</h4>
-                                <p class="text-xs text-slate-500">Send WhatsApp receipt after every sale</p>
-                            </div>
-                            <div class="w-12 h-6 bg-blue-600 rounded-full relative cursor-pointer">
-                                <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                            class="flex flex-col md:flex-row items-center justify-between pt-6 pb-4 border-t border-white/5 gap-3">
+                            <p class="text-[11px] text-slate-600">© 2026 LocalBridge. All rights reserved.</p>
+                            <div class="flex items-center gap-1.5 text-[11px] text-slate-600">
+                                <span>Made with</span>
+                                <i class="fas fa-heart text-red-500/60 text-[9px]"></i>
+                                <span>for local businesses</span>
                             </div>
                         </div>
-                        <button onclick="saveSettings()"
-                            class="w-full py-4 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">
-                            Save Changes
-                        </button>
-                    </div>
-                </div>
+                    </footer>
+                    <!-- ========== END MERCHANT FOOTER ========== -->
 
-            </main>
+                </div>
+            </div>
         </div>
+        <!-- ========== END FULL-PAGE HERO ========== -->
 
+        <!-- ========== MERCHANT APP (Sidebar + Content) ========== -->
+        <div id="merchant-app" class="hidden flex h-full w-full">
 
-        <div
-            class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 flex items-center justify-around h-16 z-40 px-2 pb-safe">
-            <button onclick="switchMerchantTab('dashboard')" id="mobile-menu-dashboard"
-                class="flex flex-col items-center gap-1 text-blue-600 transition-colors">
-                <i class="fas fa-chart-pie text-lg"></i>
-                <span class="text-[10px] font-bold">Dash</span>
-            </button>
-            <button onclick="switchMerchantTab('new-sale')" id="mobile-menu-new-sale"
-                class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
-                <i class="fas fa-plus-circle text-lg"></i>
-                <span class="text-[10px] font-bold">New</span>
-            </button>
-            <button onclick="switchMerchantTab('transactions')" id="mobile-menu-transactions"
-                class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
-                <i class="fas fa-list-ul text-lg"></i>
-                <span class="text-[10px] font-bold">Sales</span>
-            </button>
-            <button onclick="toggleMobileMoreMenu()" id="mobile-menu-more"
-                class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
-                <i class="fas fa-ellipsis-h text-lg"></i>
-                <span class="text-[10px] font-bold">More</span>
-            </button>
-        </div>
+            <aside id="merchant-sidebar"
+                class="hidden md:flex w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex-col flex-shrink-0 z-30">
 
-
-        <div id="mobile-more-overlay"
-            class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex flex-col justify-end transition-opacity duration-300">
-            <div id="more-menu-content"
-                class="bg-white dark:bg-slate-800 rounded-t-[32px] p-6 space-y-2 transform translate-y-full transition-transform duration-300 shadow-2xl">
-                <div class="flex justify-between items-center mb-6">
-                    <h4 class="font-bold text-slate-900 dark:text-white">Merchant Tools</h4>
-                    <button onclick="toggleMobileMoreMenu()"
-                        class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
-                        <i class="fas fa-times text-slate-500"></i>
-                    </button>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div onclick="switchMerchantTab('broadcast'); toggleMobileMoreMenu()"
-                        class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
-                        <i class="fas fa-broadcast-tower text-blue-600 text-xl"></i>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white">Broadcast</span>
+                <div class="p-4 border-b border-gray-100 dark:border-slate-700 flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center"
+                        style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200')">
                     </div>
-                    <div onclick="switchMerchantTab('campaigns'); toggleMobileMoreMenu()"
-                        class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
-                        <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white">Campaigns</span>
-                    </div>
-                    <div onclick="switchMerchantTab('customers'); toggleMobileMoreMenu()"
-                        class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
-                        <i class="fas fa-users text-green-600 text-xl"></i>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white">Customers</span>
-                    </div>
-                    <div onclick="switchMerchantTab('payroll'); toggleMobileMoreMenu()"
-                        class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
-                        <i class="fas fa-money-check-alt text-emerald-600 text-xl"></i>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white">Payroll</span>
-                    </div>
-                    <div onclick="switchMerchantTab('settings'); toggleMobileMoreMenu()"
-                        class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
-                        <i class="fas fa-cog text-slate-500 text-xl"></i>
-                        <span class="text-sm font-bold text-slate-900 dark:text-white">Settings</span>
+                    <div class="overflow-hidden">
+                        <h3 class="font-bold text-sm text-slate-900 dark:text-white truncate">Sukhdev Electronics</h3>
+                        <p class="text-xs text-slate-500 uppercase">Merchant</p>
                     </div>
                 </div>
-                <div class="pt-6">
+
+                <div class="flex-1 overflow-y-auto py-4 space-y-1 px-3">
+                    <div onclick="switchMerchantTab('dashboard')" id="menu-dashboard"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md bg-blue-50 text-blue-700 cursor-pointer transition-colors">
+                        <i class="fas fa-chart-pie w-5 text-center"></i> Dashboard
+                    </div>
+                    <div onclick="switchMerchantTab('new-sale')" id="menu-new-sale"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-plus-circle w-5 text-center"></i> New Sale
+                    </div>
+                    <div onclick="switchMerchantTab('transactions')" id="menu-transactions"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-list-ul w-5 text-center"></i> Transactions
+                    </div>
+                    <div onclick="switchMerchantTab('broadcast')" id="menu-broadcast"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-broadcast-tower w-5 text-center"></i> Broadcast
+                    </div>
+                    <div onclick="switchMerchantTab('campaigns')" id="menu-campaigns"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-bullhorn w-5 text-center"></i> Campaigns
+                    </div>
+                    <div onclick="switchMerchantTab('customers')" id="menu-customers"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-users w-5 text-center"></i> Customers
+                    </div>
+                    <div onclick="switchMerchantTab('payroll')" id="menu-payroll"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-money-check-alt w-5 text-center"></i> Payroll
+                    </div>
+                    <div onclick="switchMerchantTab('settings')" id="menu-settings"
+                        class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                        <i class="fas fa-cog w-5 text-center"></i> Settings
+                    </div>
+                </div>
+
+                <div class="p-4 border-t border-gray-100 dark:border-slate-700">
                     <button onclick="authSignOut()"
-                        class="w-full flex items-center justify-center gap-2 py-4 text-sm font-bold text-red-500 bg-red-50 dark:bg-red-900/20 rounded-xl">
+                        class="w-full flex items-center justify-center gap-2 text-xs font-semibold text-slate-500 hover:text-slate-900 transition">
                         <i class="fas fa-sign-out-alt"></i> Sign Out
                     </button>
                 </div>
+            </aside>
+
+
+            <div class="flex-1 flex flex-col overflow-hidden pb-16 md:pb-0">
+                <main class="flex-1 overflow-y-auto p-4 md:p-8">
+
+
+                    <div id="merchant-dashboard" class="space-y-6 max-w-6xl mx-auto">
+
+                        <div class="flex justify-between items-center mb-2">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Dashboard</h2>
+                            <div class="flex gap-2">
+                                <select onchange="updateDashboardData(this.value)"
+                                    class="text-xs text-slate-500 bg-white dark:bg-slate-800 px-3 py-1.5 rounded border border-gray-200 dark:border-slate-700 font-bold focus:ring-2 focus:ring-blue-500 outline-none cursor-pointer">
+                                    <option value="7days">Last 7 Days</option>
+                                    <option value="30days" selected>Last 30 Days</option>
+                                    <option value="quarter">Last Quarter</option>
+                                    <option value="year">Last Year</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-indian-rupee-sign text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
+                                    Revenue
+                                </p>
+                                <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-revenue">₹12.4L
+                                </h3>
+                                <div class="mt-4 flex items-center text-xs font-medium text-green-600">
+                                    <i class="fas fa-arrow-up mr-1 text-[10px]"></i> 12.5% <span
+                                        class="text-slate-400 ml-1">vs last month</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-users text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
+                                    Customers</p>
+                                <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-customers">4.2K
+                                </h3>
+                                <div class="mt-4 flex items-center text-xs font-medium text-green-600">
+                                    <i class="fas fa-arrow-up mr-1 text-[10px]"></i> 8.2% <span
+                                        class="text-slate-400 ml-1">growth</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-rotate-left text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Repeat
+                                    Customers</p>
+                                <h3 class="text-3xl font-bold text-slate-900 dark:text-white"
+                                    id="stat-repeat-customers">342
+                                </h3>
+                                <div class="mt-4 flex items-center text-xs font-medium text-blue-600">
+                                    <i class="fas fa-check-circle mr-1 text-[10px]"></i> 18% <span
+                                        class="text-slate-400 ml-1">loyalty rate</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-lg border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-bag-shopping text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Avg. Order
+                                    Value</p>
+                                <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="stat-aov">₹3,450</h3>
+                                <div class="mt-4 flex items-center text-xs font-medium text-blue-600">
+                                    <span class="w-2 h-2 rounded-full bg-blue-500 mr-2"></span> High value trend
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+                            <div
+                                class="lg:col-span-2 bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                                <div class="flex justify-between items-center mb-6">
+                                    <h3 class="font-bold text-slate-900 dark:text-white" id="chart-title">Revenue Trend
+                                    </h3>
+                                    <div class="flex gap-2">
+                                        <span class="w-3 h-3 rounded-full bg-blue-500"></span>
+                                        <span class="text-[10px] font-bold text-slate-400 uppercase"
+                                            id="chart-range-label">Current Period</span>
+                                    </div>
+                                </div>
+
+                                <div class="h-64 w-full relative group" id="revenue-chart-container">
+
+                                    <div id="chart-tooltip"
+                                        class="absolute hidden z-50 bg-slate-900 text-white text-[10px] font-bold px-2 py-1 rounded shadow-xl pointer-events-none -translate-x-1/2 -translate-y-full mb-2 whitespace-nowrap">
+                                        ₹0.0
+                                    </div>
+
+                                    <svg viewBox="0 0 700 200" class="w-full h-full overflow-visible"
+                                        id="revenue-trend-svg">
+                                        <defs>
+                                            <linearGradient id="chartGradient" x1="0" y1="0" x2="0" y2="1">
+                                                <stop offset="0%" stop-color="#3b82f6" stop-opacity="0.2" />
+                                                <stop offset="100%" stop-color="#3b82f6" stop-opacity="0" />
+                                            </linearGradient>
+                                        </defs>
+
+                                        <line x1="0" y1="50" x2="700" y2="50" stroke="currentColor" stroke-dasharray="4"
+                                            class="text-slate-100 dark:text-slate-700" />
+                                        <line x1="0" y1="100" x2="700" y2="100" stroke="currentColor"
+                                            stroke-dasharray="4" class="text-slate-100 dark:text-slate-700" />
+                                        <line x1="0" y1="150" x2="700" y2="150" stroke="currentColor"
+                                            stroke-dasharray="4" class="text-slate-100 dark:text-slate-700" />
+
+
+                                        <path id="chart-area"
+                                            d="M0,160 L100,140 L200,170 L300,110 L400,130 L500,80 L600,90 L700,40 L700,200 L0,200 Z"
+                                            fill="url(#chartGradient)" />
+
+
+                                        <path id="chart-line"
+                                            d="M0,160 L100,140 L200,170 L300,110 L400,130 L500,80 L600,90 L700,40"
+                                            fill="none" stroke="#3b82f6" stroke-width="3" stroke-linecap="round"
+                                            stroke-linejoin="round" />
+
+
+                                        <g id="chart-points">
+                                            <circle cx="0" cy="160" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹15,200')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="100" cy="140" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹18,500')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="200" cy="170" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹12,800')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="300" cy="110" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹22,400')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="400" cy="130" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹19,100')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="500" cy="80" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹28,500')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="600" cy="90" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹24,200')"
+                                                onmouseout="hideChartTooltip()" />
+                                            <circle cx="700" cy="40" r="4" fill="#3b82f6"
+                                                class="cursor-pointer hover:r-6 transition-all"
+                                                onmouseover="showChartTooltip(event, '₹35,000')"
+                                                onmouseout="hideChartTooltip()" />
+                                        </g>
+                                    </svg>
+
+                                    <div
+                                        class="flex justify-between mt-4 px-2 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                                        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div
+                                class="bg-white dark:bg-slate-800 p-6 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-6">Recent Activity</h3>
+                                <div class="space-y-6">
+                                    <div class="flex gap-4">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0 text-xs">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <p class="text-xs font-bold text-slate-900 dark:text-white truncate">New
+                                                Sale:
+                                                iPhone 15 Pro</p>
+                                            <p class="text-[10px] text-slate-500 mt-1">₹1,24,900 • 2 mins ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center flex-shrink-0 text-xs">
+                                            <i class="fas fa-broadcast-tower"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <p class="text-xs font-bold text-slate-900 dark:text-white truncate">
+                                                Broadcast
+                                                Sent</p>
+                                            <p class="text-[10px] text-slate-500 mt-1">To 4.2k customers • 1 hour ago
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-green-100 text-green-600 flex items-center justify-center flex-shrink-0 text-xs">
+                                            <i class="fas fa-user-plus"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <p class="text-xs font-bold text-slate-900 dark:text-white truncate">New
+                                                Customer Joined</p>
+                                            <p class="text-[10px] text-slate-500 mt-1">Via QR Scan • 3 hours ago</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4">
+                                        <div
+                                            class="w-8 h-8 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center flex-shrink-0 text-xs">
+                                            <i class="fas fa-clock"></i>
+                                        </div>
+                                        <div class="overflow-hidden">
+                                            <p class="text-xs font-bold text-slate-900 dark:text-white truncate">
+                                                Warranty
+                                                Expiring soon</p>
+                                            <p class="text-[10px] text-slate-500 mt-1">14 items next week • 5 hours ago
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="switchMerchantTab('transactions')"
+                                    class="w-full mt-6 py-2 text-xs font-bold text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition">
+                                    View All Transactions
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="merchant-new-sale" class="hidden space-y-6 max-w-2xl mx-auto">
+                        <button onclick="showMerchantHero()"
+                            class="mb-4 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer group">
+                            <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+                            Back to Home
+                        </button>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-8 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-lg">
+                            <h3 class="font-bold text-slate-900 dark:text-white text-lg mb-6 flex items-center gap-2">
+                                <i class="fas fa-cash-register text-blue-600"></i> Log a New Sale
+                            </h3>
+
+                            <div class="space-y-5">
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Customer
+                                            Name</label>
+                                        <input type="text" id="sale-name"
+                                            class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+                                            placeholder="e.g. Rahul Sharma">
+                                    </div>
+
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Customer
+                                            Mobile</label>
+                                        <div class="relative">
+                                            <div
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <span class="text-slate-500 font-bold text-sm">+91</span>
+                                            </div>
+                                            <input type="tel" id="sale-mobile"
+                                                class="block w-full pl-11 text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+                                                placeholder="98765 43210">
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Product
+                                            Name</label>
+                                        <input type="text" id="sale-product"
+                                            class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+                                            placeholder="e.g. iPhone 15 Pro">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Sale
+                                            Amount (₹)</label>
+                                        <div class="relative">
+                                            <span
+                                                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-500 font-bold text-base">₹</span>
+                                            <input type="number" id="sale-amount"
+                                                class="block w-full pl-8 text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border font-mono tracking-wide placeholder-slate-400 transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+                                                placeholder="0.00">
+                                        </div>
+                                    </div>
+
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Payment
+                                            Status</label>
+                                        <select id="sale-status"
+                                            class="block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer border font-bold">
+                                            <option value="Paid" selected>Paid Full</option>
+                                            <option value="Pending">Pending (Friend/Credit)</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="grid grid-cols-2 gap-5">
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Warranty</label>
+                                        <select id="sale-warranty"
+                                            class="block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer border">
+                                            <option value="none">None</option>
+                                            <option value="7d">7 Days</option>
+                                            <option value="1m">1 Month</option>
+                                            <option value="6m">6 Months</option>
+                                            <option value="1y" selected>1 Year</option>
+                                            <option value="lifetime">Lifetime</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div>
+                                        <label
+                                            class="block text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest mb-1.5">Return</label>
+                                        <select id="sale-return"
+                                            class="block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white transition hover:border-blue-400 cursor-pointer border">
+                                            <option value="none">No Return</option>
+                                            <option value="3d">3 Days</option>
+                                            <option value="7d">7 Days</option>
+                                            <option value="30d">30 Days</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+
+                                <div class="pt-2">
+                                    <button onclick="registerSale()"
+                                        class="w-full flex justify-center items-center gap-3 py-3 px-6 border border-transparent shadow-xl text-base font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/50">
+                                        <i class="fas fa-check-circle text-lg"></i>
+                                        Confirm & Log Sale
+                                    </button>
+                                    <p class="text-[10px] text-center text-slate-400 mt-3 font-medium">
+                                        <i class="fas fa-info-circle mr-1 text-blue-500"></i> Receipt will be generated
+                                        automatically for the customer.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="merchant-transactions" class="hidden space-y-6 max-w-6xl mx-auto">
+                        <button onclick="showMerchantHero()"
+                            class="mb-4 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer group">
+                            <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+                            Back to Home
+                        </button>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Recent
+                                Transactions
+                            </h2>
+                            <div class="flex gap-4">
+                                <div class="relative">
+                                    <i
+                                        class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                    <input type="text" id="transaction-search" onkeyup="filterTransactions()"
+                                        placeholder="Search by name, mobile or product..."
+                                        class="border border-gray-300 dark:border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm bg-white dark:bg-slate-800 dark:text-white transition focus:ring-2 focus:ring-blue-500 w-64">
+                                </div>
+                                <button
+                                    class="text-xs text-slate-500 bg-white dark:bg-slate-800 px-4 py-2 rounded border border-gray-200 dark:border-slate-700 font-bold flex items-center gap-2 hover:bg-gray-50 transition">
+                                    <i class="fas fa-download"></i> Export CSV
+                                </button>
+                            </div>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                            <div class="overflow-x-auto">
+                                <table class="w-full text-sm text-left">
+                                    <thead
+                                        class="text-xs text-slate-500 dark:text-slate-400 uppercase bg-gray-50 dark:bg-slate-700/50 border-b border-gray-200 dark:border-slate-700">
+                                        <tr>
+                                            <th class="px-6 py-4 font-bold tracking-wider">Customer</th>
+                                            <th class="px-6 py-4 font-bold tracking-wider">Product</th>
+                                            <th class="px-6 py-4 font-bold tracking-wider">Policies</th>
+                                            <th class="px-6 py-4 font-bold tracking-wider">Date</th>
+                                            <th class="px-6 py-4 font-bold tracking-wider text-right">Amount</th>
+                                            <th class="px-6 py-4 font-bold tracking-wider text-right">Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-gray-100 dark:divide-slate-700"
+                                        id="transactions-body">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="merchant-broadcast" class="hidden space-y-6 max-w-4xl mx-auto">
+                        <button onclick="showMerchantHero()"
+                            class="mb-4 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer group">
+                            <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+                            Back to Home
+                        </button>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-xl overflow-hidden">
+                            <div
+                                class="p-8 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
+                                <h3 class="font-bold text-slate-900 dark:text-white text-lg flex items-center gap-3">
+                                    <i class="fas fa-bullhorn text-blue-600"></i> Send Smart Broadcast
+                                </h3>
+                                <p
+                                    class="text-[10px] text-slate-500 dark:text-slate-400 mt-2 uppercase font-bold tracking-widest">
+                                    Reach
+                                    your
+                                    customers directly with instant offers and
+                                    updates.</p>
+                            </div>
+                            <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-10">
+                                <div class="space-y-6">
+                                    <div>
+                                        <label
+                                            class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">Target
+                                            Audience</label>
+                                        <select id="broadcast-audience" onchange="updateBroadcastReach()"
+                                            class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-4 bg-white dark:bg-slate-900 dark:border-slate-600 dark:text-white border transition shadow-sm font-bold">
+                                            <option value="all">All Customers (4.2K)</option>
+                                            <option value="vip">Generic (High Value) (850)</option>
+                                            <option value="inactive">Inactive > 30 Days (1.2K)</option>
+                                        </select>
+                                    </div>
+
+                                    <div
+                                        class="bg-blue-50 dark:bg-blue-900/10 rounded-xl p-6 flex justify-between items-center border border-blue-100 dark:border-blue-800/50">
+                                        <div>
+                                            <p
+                                                class="text-[10px] text-blue-700 dark:text-blue-300 font-bold uppercase tracking-widest mb-1">
+                                                Estimated Reach</p>
+                                            <span id="broadcast-reach"
+                                                class="text-3xl font-black text-blue-800 dark:text-blue-200">4,200 <span
+                                                    class="text-xs font-medium opacity-70">users</span></span>
+                                        </div>
+                                        <i
+                                            class="fas fa-users-viewfinder text-4xl text-blue-200 dark:text-blue-800"></i>
+                                    </div>
+
+                                    <div>
+                                        <label
+                                            class="block text-xs font-bold text-slate-500 dark:text-slate-400 mb-2 uppercase tracking-wide">Broadcast
+                                            Message</label>
+                                        <textarea id="broadcast-message" rows="5"
+                                            class="block w-full text-base border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-4 resize-none bg-white dark:bg-slate-900 dark:border-slate-600 dark:text-white border shadow-sm transition"
+                                            placeholder="Type your compelling offer here..."
+                                            oninput="updatePreview()"></textarea>
+                                        <div class="flex justify-between mt-2 px-1">
+                                            <span class="text-[10px] text-slate-400 font-medium">Avoid using too many
+                                                emojis
+                                                for better
+                                                delivery</span>
+                                            <span class="text-xs font-bold text-blue-600" id="char-count">0/160</span>
+                                        </div>
+                                    </div>
+
+                                    <button onclick="sendBroadcast()"
+                                        class="w-full flex justify-center items-center gap-3 px-6 py-4 bg-slate-900 dark:bg-blue-600 hover:bg-black dark:hover:bg-blue-700 text-white text-base font-bold rounded-xl transition-all shadow-xl active:scale-[0.98]">
+                                        <i class="fas fa-paper-plane"></i> Send Blast Now
+                                    </button>
+                                </div>
+
+
+                                <div class="flex flex-col items-center justify-center">
+                                    <div
+                                        class="relative w-64 h-[500px] border-8 border-slate-900 rounded-[3rem] bg-white shadow-2xl overflow-hidden scale-90 lg:scale-100">
+                                        <div
+                                            class="absolute top-0 w-1/3 h-6 bg-slate-900 left-1/2 -translate-x-1/2 rounded-b-2xl z-10">
+                                        </div>
+                                        <div class="h-full pt-12 pb-6 px-4 flex flex-col bg-gray-100 dark:bg-slate-800">
+                                            <div
+                                                class="bg-white dark:bg-slate-700 rounded-2xl p-4 shadow-sm border border-gray-200 dark:border-slate-600 animate-bounce-subtle">
+                                                <div class="flex items-center gap-2 mb-2">
+                                                    <div
+                                                        class="w-6 h-6 rounded-full bg-blue-100 dark:bg-blue-900/30 flex items-center justify-center">
+                                                        <i
+                                                            class="fas fa-cube text-[10px] text-blue-600 dark:text-blue-400"></i>
+                                                    </div>
+                                                    <span
+                                                        class="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">LocalBridge</span>
+                                                </div>
+                                                <p id="preview-text"
+                                                    class="text-xs text-slate-700 dark:text-slate-200 leading-relaxed font-medium">
+                                                    Hello
+                                                    there!
+                                                    Your message will appear here as a live preview...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p class="text-[10px] font-bold uppercase text-slate-400 mt-4 tracking-widest">
+                                        Customer
+                                        Notification Preview</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="merchant-campaigns" class="hidden space-y-6 max-w-6xl mx-auto">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Marketing Campaigns</h2>
+                            <button onclick="createCampaign()"
+                                class="px-6 py-3 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">
+                                <i class="fas fa-plus mr-2"></i> Create New
+                            </button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div
+                                class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
+                                <div class="flex justify-between items-start mb-4">
+                                    <span
+                                        class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold uppercase rounded-full">Active</span>
+                                    <span class="text-xs text-slate-400">Ends in 5 days</span>
+                                </div>
+                                <h3 class="font-bold text-slate-900 dark:text-white mb-2">Winter Sale 2024</h3>
+                                <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Flat 20% off on all
+                                    electronics
+                                    for previous customers.</p>
+                                <div
+                                    class="flex items-center justify-between text-xs font-bold text-slate-400 border-t pt-4">
+                                    <span>1.2k Reached</span>
+                                    <span class="text-blue-600">4.2% CTR</span>
+                                </div>
+                            </div>
+
+                            <div
+                                class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm border-dashed flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition min-h-[180px]">
+                                <div
+                                    class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 mb-3">
+                                    <i class="fas fa-magic"></i>
+                                </div>
+                                <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Run AI-Powered Campaign
+                                </p>
+                                <p class="text-[10px] text-slate-400 mt-1">Boost engagement by 3x</p>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div id="merchant-customers" class="hidden space-y-6 max-w-6xl mx-auto">
+                        <button onclick="showMerchantHero()"
+                            class="mb-4 inline-flex items-center gap-2 text-sm text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer group">
+                            <i class="fas fa-arrow-left text-xs group-hover:-translate-x-1 transition-transform"></i>
+                            Back to Home
+                        </button>
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Customer Directory</h2>
+                            <div class="flex gap-4">
+                                <div class="relative">
+                                    <i
+                                        class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+                                    <input type="text" id="customer-search" onkeyup="filterCustomers()"
+                                        placeholder="Search customers..."
+                                        class="border border-gray-300 dark:border-slate-700 rounded-lg pl-10 pr-4 py-2 text-sm bg-white dark:bg-slate-800 dark:text-white transition focus:ring-2 focus:ring-blue-500">
+                                </div>
+                                <button
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-bold hover:bg-blue-700 transition">
+                                    <i class="fas fa-user-plus mr-2"></i> Add Customer
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                            <div class="lg:col-span-1">
+                                <div
+                                    class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                    <div
+                                        class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800/50">
+                                        <h3 class="font-bold text-slate-900 dark:text-white text-sm">Top Loyalty
+                                            Customers
+                                        </h3>
+                                    </div>
+                                    <div class="divide-y divide-gray-100 dark:divide-slate-700">
+                                        <div
+                                            class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
+                                            <div class="flex items-center gap-3">
+                                                <div
+                                                    class="w-10 h-10 rounded-full bg-purple-100 text-purple-600 flex items-center justify-center text-sm font-bold">
+                                                    JD</div>
+                                                <div>
+                                                    <p
+                                                        class="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                                                        Jaskaran D.</p>
+                                                    <p class="text-xs text-slate-500 mt-1">12 Orders • Joined 2023</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">
+                                                    ₹45k
+                                                </p>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class="p-4 flex items-center justify-between hover:bg-gray-50 dark:hover:bg-slate-700/50 transition">
+                                            <div class="flex items-center gap-3">
+                                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100"
+                                                    class="w-10 h-10 rounded-full object-cover border border-gray-200">
+                                                <div>
+                                                    <p
+                                                        class="text-sm font-bold text-slate-900 dark:text-white leading-none">
+                                                        Amit Kumar</p>
+                                                    <p class="text-xs text-slate-500 mt-1">8 Orders • Joined 2024</p>
+                                                </div>
+                                            </div>
+                                            <div class="text-right">
+                                                <p class="text-sm font-bold text-slate-900 dark:text-white font-mono">
+                                                    ₹32k
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="lg:col-span-2 space-y-8">
+
+                                <div
+                                    class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                    <div
+                                        class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 bg-orange-50/50 dark:bg-orange-900/10 flex justify-between items-center">
+                                        <h3
+                                            class="font-bold text-slate-900 dark:text-white text-sm flex items-center gap-2">
+                                            <i class="fas fa-book-open text-orange-600"></i> Credit Ledger (Khata)
+                                        </h3>
+                                        <span
+                                            class="text-[10px] font-bold text-orange-700 uppercase tracking-widest bg-orange-100 px-2 py-0.5 rounded border border-orange-200"
+                                            id="total-credit-count">2 Pending</span>
+                                    </div>
+                                    <div class="overflow-x-auto">
+                                        <table class="w-full text-left">
+                                            <thead>
+                                                <tr class="bg-gray-50 dark:bg-slate-900/50">
+                                                    <th
+                                                        class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                                        Customer</th>
+                                                    <th
+                                                        class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                                        Last Product</th>
+                                                    <th
+                                                        class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                                                        Pending Since</th>
+                                                    <th
+                                                        class="px-6 py-3 text-[10px] font-bold text-slate-400 uppercase tracking-wider text-right">
+                                                        Credit Amount</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="credit-ledger-body"
+                                                class="divide-y divide-gray-100 dark:divide-slate-700">
+
+                                                <tr
+                                                    class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 border-orange-500">
+                                                    <td class="px-6 py-4">
+                                                        <p class="text-sm font-bold text-slate-900 dark:text-white">
+                                                            Rahul
+                                                            Sharma</p>
+                                                        <p class="text-[10px] text-slate-500">+91 98234 56789</p>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">
+                                                        Sony
+                                                        Headphones</td>
+                                                    <td class="px-6 py-4 text-xs text-slate-500">2 days ago</td>
+                                                    <td class="px-6 py-4 text-sm font-bold text-orange-600 text-right">
+                                                        ₹8,499</td>
+                                                </tr>
+                                                <tr
+                                                    class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 border-orange-500">
+                                                    <td class="px-6 py-4">
+                                                        <p class="text-sm font-bold text-slate-900 dark:text-white">
+                                                            Preeti
+                                                            V.</p>
+                                                        <p class="text-[10px] text-slate-500">+91 88765 43210</p>
+                                                    </td>
+                                                    <td class="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">
+                                                        AirPods
+                                                        Pro</td>
+                                                    <td class="px-6 py-4 text-xs text-slate-500">1 week ago</td>
+                                                    <td class="px-6 py-4 text-sm font-bold text-orange-600 text-right">
+                                                        ₹24,900</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+
+                                <div
+                                    class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-8 text-center shadow-sm">
+                                    <div
+                                        class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 mx-auto mb-4">
+                                        <i class="fas fa-address-book text-2xl"></i>
+                                    </div>
+                                    <h3 class="font-bold text-slate-900 dark:text-white mb-2">Customer Base</h3>
+                                    <p class="text-sm text-slate-500 max-w-xs mx-auto mb-6">You have 4.2k customers in
+                                        your
+                                        store database. Use the search to manage individual profiles.</p>
+                                    <button
+                                        class="px-6 py-2 bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 rounded-lg text-xs font-bold hover:bg-slate-200 transition">
+                                        Manage Directory
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- ===== PAYROLL TAB ===== -->
+                    <div id="merchant-payroll" class="hidden space-y-6 max-w-6xl mx-auto">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                            <div>
+                                <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">Payroll
+                                    Management</h2>
+                                <p class="text-sm text-slate-500 mt-1">Manage employees and process payroll</p>
+                            </div>
+                            <div class="flex gap-3">
+                                <button onclick="openAddEmployeeModal()"
+                                    class="px-4 py-2.5 border-2 border-blue-600 text-blue-600 rounded-xl font-bold text-sm hover:bg-blue-50 dark:hover:bg-blue-900/20 transition flex items-center gap-2">
+                                    <i class="fas fa-user-plus"></i> Add Employee
+                                </button>
+                                <button onclick="openRunPayrollModal()"
+                                    class="px-4 py-2.5 bg-green-600 text-white rounded-xl font-bold text-sm hover:bg-green-700 transition shadow-lg shadow-green-500/30 flex items-center gap-2">
+                                    <i class="fas fa-wallet"></i> Run Payroll
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Summary Cards -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-users text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Total
+                                    Employees</p>
+                                <h3 class="text-3xl font-bold text-slate-900 dark:text-white"
+                                    id="payroll-stat-employees">0
+                                </h3>
+                                <div class="mt-3 flex items-center text-xs font-medium text-blue-600"><i
+                                        class="fas fa-user-check mr-1 text-[10px]"></i> <span
+                                        id="payroll-stat-active">0</span> active</div>
+                            </div>
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-indian-rupee-sign text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Monthly
+                                    Cost
+                                </p>
+                                <h3 class="text-3xl font-bold text-slate-900 dark:text-white" id="payroll-stat-cost">₹0
+                                </h3>
+                                <div class="mt-3 flex items-center text-xs font-medium text-slate-400"><i
+                                        class="fas fa-calculator mr-1 text-[10px]"></i> Active salaries</div>
+                            </div>
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-clock text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Pending
+                                </p>
+                                <h3 class="text-3xl font-bold text-orange-500" id="payroll-stat-pending">0</h3>
+                                <div class="mt-3 flex items-center text-xs font-medium text-orange-500"><i
+                                        class="fas fa-exclamation-circle mr-1 text-[10px]"></i> Awaiting payment</div>
+                            </div>
+                            <div
+                                class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-200 dark:border-slate-700 shadow-sm relative overflow-hidden group">
+                                <div
+                                    class="absolute top-0 right-0 p-3 opacity-10 group-hover:opacity-20 transition-opacity">
+                                    <i class="fas fa-check-circle text-4xl"></i>
+                                </div>
+                                <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Paid This
+                                    Month</p>
+                                <h3 class="text-3xl font-bold text-green-600" id="payroll-stat-paid">0</h3>
+                                <div class="mt-3 flex items-center text-xs font-medium text-green-600"><i
+                                        class="fas fa-check mr-1 text-[10px]"></i> Completed</div>
+                            </div>
+                        </div>
+
+                        <!-- Loading -->
+                        <div id="payroll-loading" class="hidden">
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-6 animate-pulse space-y-4">
+                                <div class="h-5 bg-slate-200 dark:bg-slate-700 rounded w-1/4"></div>
+                                <div class="h-10 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                                <div class="h-10 bg-slate-100 dark:bg-slate-700/50 rounded"></div>
+                                <div class="h-10 bg-slate-200 dark:bg-slate-700 rounded"></div>
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="payroll-empty" class="hidden">
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl p-12 border border-gray-200 dark:border-slate-700 text-center">
+                                <div
+                                    class="w-20 h-20 mx-auto mb-6 rounded-2xl bg-slate-50 dark:bg-slate-700 flex items-center justify-center">
+                                    <i class="fas fa-users text-3xl text-slate-300 dark:text-slate-500"></i>
+                                </div>
+                                <h3 class="font-bold text-xl text-slate-900 dark:text-white mb-2">No employees yet</h3>
+                                <p class="text-sm text-slate-500 mb-6 max-w-sm mx-auto">Add employees to start managing
+                                    your
+                                    payroll. You can track salaries, run payroll, and keep payment history.</p>
+                                <button onclick="openAddEmployeeModal()"
+                                    class="px-6 py-3 bg-blue-600 text-white rounded-xl font-bold text-sm hover:bg-blue-700 transition shadow-lg shadow-blue-500/30 inline-flex items-center gap-2">
+                                    <i class="fas fa-user-plus"></i> Add Your First Employee
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Employee List -->
+                        <div id="payroll-employees-section" class="hidden">
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                                    <h3 class="font-bold text-slate-900 dark:text-white"><i
+                                            class="fas fa-users mr-2 text-blue-500"></i>Employees</h3>
+                                    <span id="payroll-emp-count-badge"
+                                        class="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 font-bold text-xs rounded-full">0</span>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead>
+                                            <tr
+                                                class="border-b border-gray-100 dark:border-slate-700 text-xs uppercase tracking-wider text-slate-400">
+                                                <th class="text-left py-3 px-6 font-semibold">Employee</th>
+                                                <th class="text-left py-3 px-4 font-semibold">Role</th>
+                                                <th class="text-right py-3 px-4 font-semibold">Salary</th>
+                                                <th class="text-center py-3 px-4 font-semibold">Status</th>
+                                                <th class="text-right py-3 px-6 font-semibold">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="payroll-employees-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Payroll History -->
+                        <div id="payroll-history-section" class="hidden">
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-6 py-4 border-b border-gray-100 dark:border-slate-700 flex items-center justify-between">
+                                    <h3 class="font-bold text-slate-900 dark:text-white"><i
+                                            class="fas fa-history mr-2 text-green-500"></i>Payroll History</h3>
+                                    <span id="payroll-hist-count-badge"
+                                        class="px-3 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 font-bold text-xs rounded-full">0</span>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-sm">
+                                        <thead>
+                                            <tr
+                                                class="border-b border-gray-100 dark:border-slate-700 text-xs uppercase tracking-wider text-slate-400">
+                                                <th class="text-left py-3 px-6 font-semibold">Employee</th>
+                                                <th class="text-left py-3 px-4 font-semibold">Month</th>
+                                                <th class="text-right py-3 px-4 font-semibold">Amount</th>
+                                                <th class="text-center py-3 px-4 font-semibold">Status</th>
+                                                <th class="text-right py-3 px-6 font-semibold">Paid On</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="payroll-history-tbody"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ===== END PAYROLL TAB ===== -->
+
+                    <div id="merchant-settings" class="hidden space-y-6 max-w-2xl mx-auto">
+                        <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Store Settings</h2>
+                        <div
+                            class="bg-white dark:bg-slate-800 rounded-2xl border border-gray-200 dark:border-slate-700 p-8 shadow-sm space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div>
+                                    <label
+                                        class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
+                                        Name</label>
+                                    <input type="text" value="Sukhdev Electronics"
+                                        class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+                                </div>
+                                <div>
+                                    <label
+                                        class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Primary
+                                        Contact</label>
+                                    <input type="tel" value="98765 43210"
+                                        class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
+                                    Address</label>
+                                <textarea rows="3"
+                                    class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">Shop No. 42, Sector 17, Chandigarh</textarea>
+                            </div>
+                            <div
+                                class="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800">
+                                <div>
+                                    <h4 class="text-sm font-bold text-slate-900 dark:text-white">Automatic Receipts</h4>
+                                    <p class="text-xs text-slate-500">Send WhatsApp receipt after every sale</p>
+                                </div>
+                                <div class="w-12 h-6 bg-blue-600 rounded-full relative cursor-pointer">
+                                    <div class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></div>
+                                </div>
+                            </div>
+                            <button onclick="saveSettings()"
+                                class="w-full py-4 bg-blue-600 text-white rounded-xl text-sm font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20">
+                                Save Changes
+                            </button>
+                        </div>
+                    </div>
+
+                </main>
+            </div>
+
+
+            <div
+                class="md:hidden fixed bottom-0 left-0 right-0 bg-white dark:bg-slate-800 border-t border-gray-200 dark:border-slate-700 flex items-center justify-around h-16 z-40 px-2 pb-safe">
+                <button onclick="switchMerchantTab('dashboard')" id="mobile-menu-dashboard"
+                    class="flex flex-col items-center gap-1 text-blue-600 transition-colors">
+                    <i class="fas fa-chart-pie text-lg"></i>
+                    <span class="text-[10px] font-bold">Dash</span>
+                </button>
+                <button onclick="switchMerchantTab('new-sale')" id="mobile-menu-new-sale"
+                    class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
+                    <i class="fas fa-plus-circle text-lg"></i>
+                    <span class="text-[10px] font-bold">New</span>
+                </button>
+                <button onclick="switchMerchantTab('transactions')" id="mobile-menu-transactions"
+                    class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
+                    <i class="fas fa-list-ul text-lg"></i>
+                    <span class="text-[10px] font-bold">Sales</span>
+                </button>
+                <button onclick="toggleMobileMoreMenu()" id="mobile-menu-more"
+                    class="flex flex-col items-center gap-1 text-slate-400 dark:text-slate-500 transition-colors">
+                    <i class="fas fa-ellipsis-h text-lg"></i>
+                    <span class="text-[10px] font-bold">More</span>
+                </button>
+            </div>
+
+
+            <div id="mobile-more-overlay"
+                class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex flex-col justify-end transition-opacity duration-300">
+                <div id="more-menu-content"
+                    class="bg-white dark:bg-slate-800 rounded-t-[32px] p-6 space-y-2 transform translate-y-full transition-transform duration-300 shadow-2xl">
+                    <div class="flex justify-between items-center mb-6">
+                        <h4 class="font-bold text-slate-900 dark:text-white">Merchant Tools</h4>
+                        <button onclick="toggleMobileMoreMenu()"
+                            class="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center">
+                            <i class="fas fa-times text-slate-500"></i>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div onclick="switchMerchantTab('broadcast'); toggleMobileMoreMenu()"
+                            class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                            <i class="fas fa-broadcast-tower text-blue-600 text-xl"></i>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">Broadcast</span>
+                        </div>
+                        <div onclick="switchMerchantTab('campaigns'); toggleMobileMoreMenu()"
+                            class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                            <i class="fas fa-bullhorn text-purple-600 text-xl"></i>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">Campaigns</span>
+                        </div>
+                        <div onclick="switchMerchantTab('customers'); toggleMobileMoreMenu()"
+                            class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                            <i class="fas fa-users text-green-600 text-xl"></i>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">Customers</span>
+                        </div>
+                        <div onclick="switchMerchantTab('payroll'); toggleMobileMoreMenu()"
+                            class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                            <i class="fas fa-money-check-alt text-emerald-600 text-xl"></i>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">Payroll</span>
+                        </div>
+                        <div onclick="switchMerchantTab('settings'); toggleMobileMoreMenu()"
+                            class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
+                            <i class="fas fa-cog text-slate-500 text-xl"></i>
+                            <span class="text-sm font-bold text-slate-900 dark:text-white">Settings</span>
+                        </div>
+                    </div>
+                    <div class="pt-6">
+                        <button onclick="authSignOut()"
+                            class="w-full flex items-center justify-center gap-2 py-4 text-sm font-bold text-red-500 bg-red-50 dark:bg-red-900/20 rounded-xl">
+                            <i class="fas fa-sign-out-alt"></i> Sign Out
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
+    </div><!-- close merchant-app -->
 
 
 
@@ -3339,7 +3814,8 @@
                         class="absolute inset-0 flex items-center justify-center text-xs text-brand-blue font-bold tracking-widest uppercase">
                         Scanning...</p>
                 </div>
-                <p class="text-slate-400 text-sm mt-6">Align the QR code within the frame to automatically add warranty.
+                <p class="text-slate-400 text-sm mt-6">Align the QR code within the frame to automatically add
+                    warranty.
                 </p>
             </div>
         </div>
@@ -3536,6 +4012,24 @@
             const authScreen = document.getElementById('auth-screen');
             authScreen.classList.add('auth-hidden');
             setTimeout(() => { authScreen.style.display = 'none'; }, 500);
+        }
+
+        function showMerchantDashboard(tabName = 'dashboard') {
+            // Hide the hero page, show the sidebar + dashboard app
+            document.getElementById('merchant-hero-page').classList.add('hidden');
+            const app = document.getElementById('merchant-app');
+            app.classList.remove('hidden');
+            app.style.display = 'flex';
+            // Switch to the requested tab (defaults to dashboard)
+            switchMerchantTab(tabName);
+        }
+
+        function showMerchantHero() {
+            // Show the hero, hide the app
+            document.getElementById('merchant-hero-page').classList.remove('hidden');
+            const app = document.getElementById('merchant-app');
+            app.classList.add('hidden');
+            app.style.display = '';
         }
 
         function showVerifyScreen(email) {
@@ -3829,6 +4323,18 @@
                 customerView.classList.add('hidden');
                 merchantView.classList.remove('hidden');
                 profileView.classList.add('hidden');
+
+                // Update merchant hero welcome message
+                const welcomeMsg = document.getElementById('merchant-welcome-message');
+                const nameSpan = document.getElementById('merchant-user-name');
+                if (welcomeMsg && nameSpan) {
+                    if (authData.name) {
+                        nameSpan.innerText = authData.name;
+                        welcomeMsg.classList.remove('hidden');
+                    } else {
+                        welcomeMsg.classList.add('hidden');
+                    }
+                }
             }
 
             if (authData.name && typeof userState !== 'undefined') {
