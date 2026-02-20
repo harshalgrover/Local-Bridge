@@ -76,8 +76,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            background: #f1f5f9;
+            transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1), transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         #auth-screen.auth-hidden {
@@ -87,45 +87,45 @@
         }
 
         .auth-card {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 2rem;
-            padding: 2.5rem;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 2.5rem;
+            padding: 3.5rem 3rem;
             width: 100%;
-            max-width: 440px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            max-width: 460px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.08),
+                0 0 1px 0 rgba(0, 0, 0, 0.1);
         }
 
         .auth-role-btn {
             flex: 1;
-            padding: 1rem;
-            border-radius: 1rem;
-            border: 2px solid rgba(255, 255, 255, 0.1);
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.6);
-            font-weight: 700;
-            font-size: 0.875rem;
+            padding: 1.25rem;
+            border-radius: 1.25rem;
+            border: 1px solid #e2e8f0;
+            background: #f8fafc;
+            color: #64748b;
+            font-weight: 600;
+            font-size: 0.813rem;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
 
         .auth-role-btn:hover {
-            border-color: rgba(37, 99, 235, 0.5);
-            background: rgba(37, 99, 235, 0.1);
-            color: white;
+            border-color: #cbd5e1;
+            background: #f1f5f9;
+            color: #334155;
         }
 
         .auth-role-btn.selected {
             border-color: #2563eb;
-            background: rgba(37, 99, 235, 0.2);
-            color: white;
-            box-shadow: 0 0 20px rgba(37, 99, 235, 0.3);
+            background: rgba(37, 99, 235, 0.05);
+            color: #2563eb;
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.1);
+            transform: translateY(-2px);
         }
 
         .auth-role-btn i {
@@ -134,43 +134,44 @@
 
         .auth-input {
             width: 100%;
-            padding: 0.875rem 1rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-radius: 0.75rem;
-            color: white;
-            font-size: 0.875rem;
+            padding: 1rem 1.25rem;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 1rem;
+            color: #0f172a;
+            font-size: 0.938rem;
             outline: none;
-            transition: border-color 0.3s;
+            transition: all 0.3s;
         }
 
         .auth-input::placeholder {
-            color: rgba(255, 255, 255, 0.35);
+            color: #94a3b8;
         }
 
         .auth-input:focus {
-            border-color: #2563eb;
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+            border-color: #94a3b8;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(148, 163, 184, 0.1);
         }
 
         .auth-submit-btn {
             width: 100%;
-            padding: 0.875rem;
-            border-radius: 0.75rem;
+            padding: 1rem;
+            border-radius: 1rem;
             background: #2563eb;
             color: white;
             font-weight: 700;
             font-size: 0.875rem;
             border: none;
             cursor: pointer;
-            transition: all 0.3s;
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.3);
         }
 
         .auth-submit-btn:hover {
             background: #1d4ed8;
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.5);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(37, 99, 235, 0.4);
         }
 
         .auth-submit-btn:active {
@@ -416,41 +417,43 @@
                     </button>
                 </div>
 
-                <div class="flex items-center gap-2 mb-4">
-                    <span id="auth-role-icon" class="text-blue-400"><i class="fas fa-store"></i></span>
-                    <span id="auth-role-label" class="text-sm font-bold text-white/80">Merchant Portal</span>
+                <div class="flex items-center gap-2 mb-4 opacity-70">
+                    <span id="auth-role-icon" class="text-slate-400"><i class="fas fa-store"></i></span>
+                    <span id="auth-role-label"
+                        class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Merchant Portal</span>
                 </div>
 
-                <h2 class="text-lg font-bold text-white mb-1" id="auth-form-title"
+                <h2 class="text-lg font-bold text-slate-900 mb-1" id="auth-form-title"
                     style="font-family:'Plus Jakarta Sans',sans-serif;">Login to your account</h2>
-                <p class="text-xs text-white/40 mb-6" id="auth-form-desc">Enter your details to continue</p>
+                <p class="text-xs text-slate-500 mb-6" id="auth-form-desc">Enter your details to continue</p>
 
                 <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
                     <div id="auth-name-field" class="hidden">
-                        <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Full
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Full
                             Name</label>
                         <input type="text" id="auth-name" class="auth-input" placeholder="e.g. Rahul Sharma">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Email
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Email
                             or Phone Number</label>
                         <input type="text" id="auth-email" class="auth-input"
                             placeholder="e.g. rahul@email.com or 98765 43210" required>
                     </div>
                     <div>
                         <label
-                            class="block text-[10px] font-bold text-white/50 uppercase tracking-widest mb-1.5">Password</label>
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Password</label>
                         <input type="password" id="auth-password" class="auth-input" placeholder="Enter your password"
                             required>
                     </div>
                     <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
-                        <i class="fas fa-sign-in-alt mr-2"></i> Login
+                        Login
                     </button>
                 </form>
 
-                <p class="text-center text-xs text-white/40 mt-5">
+                <p class="text-center text-xs text-slate-500 mt-5">
                     <span id="auth-toggle-text">Don't have an account?</span>
-                    <span class="auth-toggle-link ml-1" onclick="toggleAuthMode()" id="auth-toggle-btn">Sign Up</span>
+                    <span class="text-blue-600 font-semibold cursor-pointer hover:underline ml-1"
+                        onclick="toggleAuthMode()" id="auth-toggle-btn">Sign Up</span>
                 </p>
             </div>
         </div>
@@ -559,7 +562,7 @@
 
                     <!-- Profile Dropdown Menu -->
                     <div id="profile-dropdown"
-                        class="hidden absolute right-0 mt-4 w-72 bg-white/80 dark:bg-slate-800/80 backdrop-blur-xl rounded-[2rem] shadow-2xl border border-white/20 dark:border-slate-700/50 overflow-hidden transform origin-top-right transition-all z-[60]">
+                        class="hidden absolute right-0 mt-4 w-72 bg-white dark:bg-slate-800 rounded-[2rem] shadow-2xl border border-slate-100 dark:border-slate-700 overflow-hidden transform origin-top-right transition-all z-[60]">
                         <div class="p-6 border-b border-slate-100 dark:border-slate-700/50">
                             <div class="flex items-center gap-4 mb-4">
                                 <div
@@ -2533,7 +2536,7 @@
     </div>
 
     <!-- PROFILE VIEW -->
-    <div id="profile-view" class="pt-28 px-6 min-h-screen fade-in hidden">
+    <div id="profile-view" class="pt-28 px-6 min-h-screen fade-in hidden bg-white dark:bg-slate-900">
         <div class="max-w-3xl mx-auto">
             <div class="mb-10 text-center md:text-left reveal">
                 <h2 class="font-display font-bold text-3xl text-slate-900 dark:text-white mb-2">My Profile</h2>
@@ -2566,13 +2569,13 @@
                                     <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Full
                                         Name</label>
                                     <input type="text" id="profile-name-input" placeholder="e.g. John Doe"
-                                        class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition">
+                                        class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 outline-none focus:border-brand-blue transition">
                                 </div>
                                 <div class="space-y-2 reveal">
                                     <label class="text-xs font-bold uppercase tracking-wider text-slate-400">Email
                                         Address</label>
                                     <input type="email" id="profile-email-input" placeholder="name@example.com"
-                                        class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition">
+                                        class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 outline-none focus:border-brand-blue transition">
                                 </div>
                             </div>
 
@@ -2588,7 +2591,7 @@
                                 <div class="relative">
                                     <input type="text" id="profile-img-input"
                                         placeholder="https://images.unsplash.com/photo..."
-                                        class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition">
+                                        class="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 outline-none focus:border-brand-blue transition">
                                     <div class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
                                         <i class="fas fa-link"></i>
                                     </div>
@@ -2690,14 +2693,14 @@
 
             if (authIsSignup) {
                 nameField.classList.remove('hidden');
-                submitBtn.innerHTML = '<i class="fas fa-user-plus mr-2"></i> Create Account';
+                submitBtn.innerText = 'Create Account';
                 toggleText.innerText = 'Already have an account?';
                 toggleBtn.innerText = 'Login';
                 formTitle.innerText = 'Create your account';
                 formDesc.innerText = 'Fill in your details to get started';
             } else {
                 nameField.classList.add('hidden');
-                submitBtn.innerHTML = '<i class="fas fa-sign-in-alt mr-2"></i> Login';
+                submitBtn.innerText = 'Login';
                 toggleText.innerText = "Don't have an account?";
                 toggleBtn.innerText = 'Sign Up';
                 formTitle.innerText = 'Login to your account';
