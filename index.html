@@ -14,6 +14,7 @@
     <!-- EmailJS SDK -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
+
     <script>
         tailwind.config = {
             darkMode: 'class',
@@ -445,6 +446,10 @@
                         <input type="password" id="auth-password" class="auth-input" placeholder="Enter your password"
                             required>
                     </div>
+                    <div class="flex justify-end pt-1" id="auth-forgot-link-container">
+                        <span class="text-[11px] font-semibold text-blue-600 hover:underline cursor-pointer"
+                            onclick="toggleForgotMode(true)">Forgot Password?</span>
+                    </div>
                     <button type="submit" class="auth-submit-btn" id="auth-submit-btn">
                         Login
                     </button>
@@ -455,6 +460,54 @@
                     <span class="text-blue-600 font-semibold cursor-pointer hover:underline ml-1"
                         onclick="toggleAuthMode()" id="auth-toggle-btn">Sign Up</span>
                 </p>
+            </div>
+
+            <!-- Email Verification View -->
+            <div id="auth-verification-view" class="hidden py-8 text-center animate-fade-in">
+                <div
+                    class="w-20 h-20 bg-blue-50 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <i class="fas fa-envelope-open-text text-3xl text-brand-blue"></i>
+                </div>
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Verify your email</h2>
+                <p class="text-sm text-slate-500 dark:text-slate-400 mb-8 leading-relaxed">
+                    We have sent you a verification email to <span id="verification-email-display"
+                        class="font-bold text-slate-800 dark:text-slate-200"></span>. Please verify it and log in.
+                </p>
+                <button onclick="window.location.reload()" class="auth-submit-btn py-3 px-8">
+                    Back to Login
+                </button>
+            </div>
+
+            <!-- Forgot Password View -->
+            <div id="auth-forgot-view" class="hidden py-4 animate-fade-in">
+                <div class="flex items-center gap-2 mb-6 cursor-pointer text-slate-400 hover:text-slate-600 transition-colors"
+                    onclick="toggleForgotMode(false)">
+                    <i class="fas fa-arrow-left text-xs"></i>
+                    <span class="text-[10px] font-bold uppercase tracking-widest">Back to Login</span>
+                </div>
+
+                <h2 class="text-xl font-bold text-slate-900 mb-1">Reset Password</h2>
+                <p class="text-xs text-slate-500 mb-8">Enter your email and we'll send you a reset link.</p>
+
+                <form onsubmit="handleForgotPasswordSubmit(event)" class="space-y-6">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Email
+                            Address</label>
+                        <input type="email" id="auth-forgot-email" class="auth-input" placeholder="e.g. rahul@email.com"
+                            required>
+                    </div>
+
+                    <button type="submit" class="auth-submit-btn" id="auth-forgot-submit-btn">
+                        Send Reset Link
+                    </button>
+                </form>
+
+                <div id="forgot-success-msg"
+                    class="hidden mt-6 p-4 bg-green-50 border border-green-100 rounded-2xl text-center animate-fade-in">
+                    <i class="fas fa-check-circle text-green-500 mb-2 text-xl"></i>
+                    <p class="text-[11px] font-bold text-green-800 uppercase tracking-tight">Email Sent!</p>
+                    <p class="text-[10px] text-green-600 mt-1">Check your inbox for the reset link.</p>
+                </div>
             </div>
         </div>
     </div>
@@ -1499,6 +1552,10 @@
                     class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
                     <i class="fas fa-list-ul w-5 text-center"></i> Transactions
                 </div>
+                <div onclick="switchMerchantTab('my-files')" id="menu-my-files"
+                    class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
+                    <i class="fas fa-folder-open w-5 text-center"></i> My Files
+                </div>
                 <div onclick="switchMerchantTab('broadcast')" id="menu-broadcast"
                     class="flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md text-slate-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-700 cursor-pointer transition-colors">
                     <i class="fas fa-broadcast-tower w-5 text-center"></i> Broadcast
@@ -1911,7 +1968,7 @@
 
 
                             <div class="pt-2">
-                                <button onclick="registerSale()"
+                                <button onclick="registerSale(event)"
                                     class="w-full flex justify-center items-center gap-3 py-3 px-6 border border-transparent shadow-xl text-base font-bold rounded-xl text-white bg-blue-600 hover:bg-blue-700 active:scale-[0.98] transition-all focus:outline-none focus:ring-4 focus:ring-blue-500/50">
                                     <i class="fas fa-check-circle text-lg"></i>
                                     Confirm & Log Sale
@@ -1963,6 +2020,170 @@
 
                                 </tbody>
                             </table>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- My Files Section -->
+                <div id="merchant-my-files" class="hidden space-y-6 max-w-6xl mx-auto animate-fade-in">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-2">
+                        <div>
+                            <h2 class="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">My Files &
+                                Assets</h2>
+                            <p class="text-xs text-slate-500 mt-1">Manage your business documents, notes, and team data.
+                            </p>
+                        </div>
+                        <div class="flex gap-3">
+                            <button onclick="toggleModal('modal-new-folder', true)"
+                                class="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 hover:bg-slate-50 transition flex items-center gap-2">
+                                <i class="fas fa-folder-plus text-blue-500"></i> New Folder
+                            </button>
+                            <button onclick="toggleModal('modal-add-file', true)"
+                                class="px-4 py-2 bg-blue-600 text-white rounded-xl text-xs font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-500/20 flex items-center gap-2">
+                                <i class="fas fa-file-upload"></i> Add File
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Stats Bar -->
+                    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                        <div
+                            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Folders
+                            </p>
+                            <h4 id="count-folders" class="text-xl font-bold text-slate-900 dark:text-white">0</h4>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Total Files
+                            </p>
+                            <h4 id="count-files" class="text-xl font-bold text-slate-900 dark:text-white">0</h4>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Active Notes
+                            </p>
+                            <h4 id="count-notes" class="text-xl font-bold text-slate-900 dark:text-white">0</h4>
+                        </div>
+                        <div
+                            class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-slate-100 dark:border-slate-700 shadow-sm">
+                            <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Team Members
+                            </p>
+                            <h4 id="count-members" class="text-xl font-bold text-slate-900 dark:text-white">0</h4>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Left: Folders & Files -->
+                        <div class="lg:col-span-2 space-y-6">
+                            <!-- Folders List -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-6 py-4 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Folders</h3>
+                                    <span class="text-[10px] font-bold text-slate-400 uppercase">Recent</span>
+                                </div>
+                                <div id="folders-grid" class="p-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <!-- Empty State placeholder -->
+                                    <div id="folders-loading"
+                                        class="col-span-full py-12 flex flex-col items-center justify-center text-slate-400">
+                                        <i class="fas fa-circle-notch fa-spin text-2xl mb-2"></i>
+                                        <p class="text-xs font-bold">Syncing folders...</p>
+                                    </div>
+                                    <div id="folders-empty"
+                                        class="hidden col-span-full py-12 flex flex-col items-center justify-center text-slate-300">
+                                        <i class="fas fa-folder-open text-4xl mb-3"></i>
+                                        <p class="text-xs font-bold">No folders created yet</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Files List -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-6 py-4 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Recent Files</h3>
+                                </div>
+                                <div class="overflow-x-auto">
+                                    <table class="w-full text-xs text-left">
+                                        <thead
+                                            class="bg-slate-50 dark:bg-slate-700/50 text-slate-500 uppercase font-bold tracking-widest">
+                                            <tr>
+                                                <th class="px-6 py-4">Name</th>
+                                                <th class="px-6 py-4">Folder</th>
+                                                <th class="px-6 py-4 text-right">Size</th>
+                                                <th class="px-6 py-4 text-right">Date</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="files-list-body"
+                                            class="divide-y divide-slate-50 dark:divide-slate-700">
+                                            <!-- Loading State -->
+                                            <tr id="files-loading">
+                                                <td colspan="4" class="px-6 py-12 text-center text-slate-400">
+                                                    <i class="fas fa-circle-notch fa-spin mb-2"></i>
+                                                    <p class="font-bold">Loading assets...</p>
+                                                </td>
+                                            </tr>
+                                            <!-- Empty State -->
+                                            <tr id="files-empty" class="hidden">
+                                                <td colspan="4" class="px-6 py-12 text-center text-slate-300">
+                                                    <p class="font-bold">No files found</p>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Notes & Team -->
+                        <div class="space-y-6">
+                            <!-- Notes Section -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-6 py-4 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Quick Notes</h3>
+                                    <button onclick="toggleModal('modal-new-note', true)"
+                                        class="text-blue-600 hover:text-blue-700 transition-transform active:scale-95">
+                                        <i class="fas fa-plus-circle"></i>
+                                    </button>
+                                </div>
+                                <div id="notes-list" class="p-4 space-y-3">
+                                    <div id="notes-loading" class="py-10 text-center text-slate-400">
+                                        <i class="fas fa-spinner fa-spin text-sm"></i>
+                                    </div>
+                                    <div id="notes-empty"
+                                        class="hidden py-10 text-center text-slate-300 text-xs font-bold uppercase tracking-widest">
+                                        Empty
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Team Members -->
+                            <div
+                                class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-100 dark:border-slate-700 shadow-sm overflow-hidden">
+                                <div
+                                    class="px-6 py-4 border-b border-slate-50 dark:border-slate-700 flex justify-between items-center">
+                                    <h3 class="font-bold text-slate-900 dark:text-white text-sm">Team Members</h3>
+                                    <button onclick="toggleModal('modal-add-member', true)"
+                                        class="text-blue-600 hover:text-blue-700 transition-transform active:scale-95">
+                                        <i class="fas fa-user-plus"></i>
+                                    </button>
+                                </div>
+                                <div id="team-list" class="p-4 space-y-3">
+                                    <div id="team-loading" class="py-10 text-center text-slate-400">
+                                        <i class="fas fa-spinner fa-spin text-sm"></i>
+                                    </div>
+                                    <div id="team-empty"
+                                        class="hidden py-10 text-center text-slate-300 text-xs font-bold uppercase tracking-widest">
+                                        Invite Team
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2377,6 +2598,11 @@
                     </button>
                 </div>
                 <div class="grid grid-cols-2 gap-4">
+                    <div onclick="switchMerchantTab('my-files'); toggleMobileMoreMenu()"
+                        class="p-4 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-100 dark:border-blue-800 flex flex-col gap-2">
+                        <i class="fas fa-folder-open text-blue-600 text-xl"></i>
+                        <span class="text-sm font-bold text-slate-900 dark:text-white">My Files</span>
+                    </div>
                     <div onclick="switchMerchantTab('broadcast'); toggleMobileMoreMenu()"
                         class="p-4 rounded-2xl bg-gray-50 dark:bg-slate-900/50 flex flex-col gap-2">
                         <i class="fas fa-broadcast-tower text-blue-600 text-xl"></i>
@@ -2651,20 +2877,89 @@
             </div>
         </div>
     </div>
-    <script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+        import {
+            getAuth,
+            onAuthStateChanged,
+            signInWithEmailAndPassword,
+            createUserWithEmailAndPassword,
+            sendEmailVerification,
+            sendPasswordResetEmail,
+            signOut
+        } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+        // Firestore disabled for now
+        import {
+            getFirestore,
+            collection,
+            addDoc,
+            onSnapshot,
+            query,
+            where,
+            orderBy,
+            doc,
+            deleteDoc,
+            serverTimestamp
+        } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+        import {
+            getStorage, ref, uploadBytesResumable,
+            getDownloadURL, deleteObject
+        } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-storage.js";
+
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyA3vDeJGo1ZXvkP6X95w4KmMJLx5tjZoFY",
+            authDomain: "dukaan-saathi-16db7.firebaseapp.com",
+            projectId: "dukaan-saathi-16db7",
+            storageBucket: "dukaan-saathi-16db7.firebasestorage.app",
+            messagingSenderId: "378784493375",
+            appId: "1:378784493375:web:313c79436dd2a22b1bed8a",
+            measurementId: "G-DGEYVPM5Q3"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        // Expose to global scope for use in other <script> blocks
+        window._fbAuth = auth;
+        window._fbDb = db;
+        window._fbStorage = storage;
+        window.auth = auth;
+        window.db = db;
+        window.storage = storage;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.serverTimestamp = serverTimestamp;
+        window.query = query;
+        window.orderBy = orderBy;
+        window.onSnapshot = onSnapshot;
+
+        // Use device language for auth emails (reset password, etc.)
+        auth.useDeviceLanguage();
+
+        // Wrap analytics in try-catch to prevent ad-blockers from stopping script execution
+        let analytics;
+        try {
+            analytics = getAnalytics(app);
+        } catch (e) {
+            console.warn("Firebase Analytics failed to initialize:", e);
+        }
+        // const db = getFirestore(app);
 
         // ===== AUTH SYSTEM =====
-        let authSelectedRole = null;
-        let authIsSignup = false;
+        window.authSelectedRole = 'merchant'; // Default
+        window.authIsSignup = false;
 
-        function selectAuthRole(role) {
-            authSelectedRole = role;
-            // Highlight selected button
+        window.selectAuthRole = function (role) {
+            window.authSelectedRole = role;
             document.getElementById('auth-role-customer').classList.remove('selected');
             document.getElementById('auth-role-merchant').classList.remove('selected');
             document.getElementById('auth-role-' + role).classList.add('selected');
 
-            // Update labels immediately
             if (role === 'customer') {
                 document.getElementById('auth-role-icon').innerHTML = '<i class="fas fa-user"></i>';
                 document.getElementById('auth-role-label').innerText = 'Customer Portal';
@@ -2673,15 +2968,34 @@
                 document.getElementById('auth-role-label').innerText = 'Merchant Portal';
             }
 
-            // Reset to login mode if switching roles
-            authIsSignup = false;
+            window.authIsSignup = false;
             updateAuthFormMode();
-        }
+        };
 
-        function toggleAuthMode() {
-            authIsSignup = !authIsSignup;
+        window.toggleAuthMode = function () {
+            window.authIsSignup = !window.authIsSignup;
             updateAuthFormMode();
-        }
+        };
+
+        window.toggleForgotMode = function (show) {
+            const stepForm = document.getElementById('auth-step-form');
+            const forgotView = document.getElementById('auth-forgot-view');
+            const forgotEmailInput = document.getElementById('auth-forgot-email');
+            const loginEmailInput = document.getElementById('auth-email');
+
+            if (show) {
+                stepForm.classList.add('hidden');
+                forgotView.classList.remove('hidden');
+                // Pre-fill email if possible
+                if (loginEmailInput.value) {
+                    forgotEmailInput.value = loginEmailInput.value;
+                }
+            } else {
+                stepForm.classList.remove('hidden');
+                forgotView.classList.add('hidden');
+                document.getElementById('forgot-success-msg').classList.add('hidden');
+            }
+        };
 
         function updateAuthFormMode() {
             const nameField = document.getElementById('auth-name-field');
@@ -2690,14 +3004,16 @@
             const toggleBtn = document.getElementById('auth-toggle-btn');
             const formTitle = document.getElementById('auth-form-title');
             const formDesc = document.getElementById('auth-form-desc');
+            const forgotLink = document.getElementById('auth-forgot-link-container');
 
-            if (authIsSignup) {
+            if (window.authIsSignup) {
                 nameField.classList.remove('hidden');
                 submitBtn.innerText = 'Create Account';
                 toggleText.innerText = 'Already have an account?';
                 toggleBtn.innerText = 'Login';
                 formTitle.innerText = 'Create your account';
                 formDesc.innerText = 'Fill in your details to get started';
+                if (forgotLink) forgotLink.classList.add('hidden');
             } else {
                 nameField.classList.add('hidden');
                 submitBtn.innerText = 'Login';
@@ -2705,46 +3021,611 @@
                 toggleBtn.innerText = 'Sign Up';
                 formTitle.innerText = 'Login to your account';
                 formDesc.innerText = 'Enter your details to continue';
+                if (forgotLink) forgotLink.classList.remove('hidden');
             }
         }
 
-        function handleAuthSubmit(e) {
+        window.handleForgotPasswordSubmit = async function (e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-forgot-email').value.trim();
+            const btn = document.getElementById('auth-forgot-submit-btn');
+            const originalText = btn.innerText;
+
+            if (!email) {
+                alert("Please enter your email.");
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerText = "Sending...";
+
+            try {
+                await sendPasswordResetEmail(auth, email);
+                document.getElementById('forgot-success-msg').classList.remove('hidden');
+                btn.innerText = "Sent!";
+                btn.classList.add('bg-green-600');
+
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.classList.remove('bg-green-600');
+                    btn.disabled = false;
+                }, 3000);
+            } catch (error) {
+                console.error("Forgot password error:", error);
+                alert("Error: " + error.message);
+                btn.disabled = false;
+                btn.innerText = originalText;
+            }
+        };
+
+        window.handleAuthSubmit = async function (e) {
             e.preventDefault();
 
             const email = document.getElementById('auth-email').value.trim();
             const password = document.getElementById('auth-password').value.trim();
             const name = document.getElementById('auth-name').value.trim();
+            const submitBtn = document.getElementById('auth-submit-btn');
 
             if (!email || !password) {
                 alert('Please fill all fields.');
                 return;
             }
 
-            if (authIsSignup && !name) {
+            if (window.authIsSignup && !name) {
                 alert('Please enter your name.');
                 return;
             }
 
-            // Save auth to localStorage
-            const authData = {
-                role: authSelectedRole,
-                email: email,
-                name: authIsSignup ? name : (email.includes('@') ? email.split('@')[0] : 'User'),
-                loggedIn: true
-            };
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerText;
+            submitBtn.innerText = window.authIsSignup ? 'Creating...' : 'Logging in...';
 
-            localStorage.setItem('localbridge_auth', JSON.stringify(authData));
+            try {
+                // Store role early to prevent race condition in onAuthStateChanged
+                localStorage.setItem('localbridge_role', window.authSelectedRole);
 
-            // Animate out auth screen
+                if (window.authIsSignup) {
+                    // Sign Up
+                    await createUserWithEmailAndPassword(auth, email, password);
+                    // On success, redirect is handled by onAuthStateChanged listener
+                } else {
+                    // Sign In
+                    await signInWithEmailAndPassword(auth, email, password);
+                    // On success, redirect is handled by onAuthStateChanged listener
+                }
+            } catch (error) {
+                console.error("Authentication full error object:", error);
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                if (window.authIsSignup) {
+                    if (errorCode === 'auth/email-already-in-use') {
+                        alert('User already exists. Please sign in');
+                    } else {
+                        alert('Sign-up error: ' + errorMessage);
+                    }
+                } else {
+                    // Diagnostic Sign-in errors
+                    if (errorCode === 'auth/user-not-found') {
+                        alert('Error: Account not found in this project. Please click "Sign Up" to create your new account.');
+                    } else if (errorCode === 'auth/wrong-password' || errorCode === 'auth/invalid-credential') {
+                        alert('Error: Incorrect password for this account. Please verify or reset your password.');
+                    } else {
+                        alert('Sign-in error (' + errorCode + '): ' + errorMessage + '\n\nPlease try signing up again if this account was created in the old project.');
+                    }
+                }
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+            }
+        };
+
+        window.authSignOut = async function () {
+            try {
+                await signOut(auth);
+                localStorage.removeItem('localbridge_role');
+                localStorage.removeItem('localbridge_display_name');
+                location.reload();
+            } catch (error) {
+                alert('Error signing out: ' + error.message);
+            }
+        };
+
+        // ===== MY FILES SYSTEM =====
+
+        // Generic Modal Toggle
+        window.toggleModal = (id, show) => {
+            const modal = document.getElementById(id);
+            if (!modal) return;
+            if (show) {
+                modal.classList.remove('hidden');
+                setTimeout(() => {
+                    const content = modal.querySelector('.animate-zoom-in');
+                    if (content) content.classList.add('reveal');
+                }, 10);
+            } else {
+                modal.classList.add('hidden');
+            }
+        };
+
+        // CRUD: Folders
+        window.handleNewFolderSubmit = async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) return showToast("Not authenticated", "error");
+
+            const nameInput = document.getElementById('input-folder-name');
+            const name = nameInput ? nameInput.value.trim() : "";
+            if (!name) return showToast("Please enter a folder name", "error");
+
+            const btn = e.submitter || document.getElementById('btn-create-folder');
+            const originalText = btn ? btn.innerText : "Create Folder";
+            if (btn) {
+                btn.disabled = true;
+                btn.innerText = "Creating...";
+            }
+
+            try {
+                await addDoc(collection(db, "users", user.uid, "folders"), {
+                    name,
+                    createdAt: serverTimestamp()
+                });
+                toggleModal('modal-new-folder', false);
+                if (nameInput) nameInput.value = '';
+                showToast("Folder created!", "success");
+            } catch (err) {
+                console.error(err);
+                showToast("Error creating folder", "error");
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerText = originalText;
+                }
+            }
+        };
+
+        // CRUD: Files (Real Upload to Storage + Firestore)
+        window.handleNewFileSubmit = async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) return showToast("Not authenticated", "error");
+
+            const fileInput = document.getElementById('input-file-upload');
+            const folderId = document.getElementById('select-file-folder').value;
+            const errorEl = document.getElementById('upload-error');
+            const progressBar = document.getElementById('upload-progress-bar');
+            const progressText = document.getElementById('upload-progress-text');
+            const progressContainer = document.getElementById('upload-progress-container');
+            const btn = document.getElementById('btn-upload-file');
+
+            if (errorEl) errorEl.classList.add('hidden');
+
+            if (!fileInput || !fileInput.files || fileInput.files.length === 0) {
+                if (errorEl) { errorEl.textContent = 'Please select a file to upload.'; errorEl.classList.remove('hidden'); }
+                return;
+            }
+
+            const file = fileInput.files[0];
+            if (file.size > 50 * 1024 * 1024) {
+                if (errorEl) { errorEl.textContent = 'File too large. Max 50 MB.'; errorEl.classList.remove('hidden'); }
+                return;
+            }
+
+            if (btn) { btn.disabled = true; btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Uploading...'; }
+            if (progressContainer) progressContainer.classList.remove('hidden');
+
+            const fileId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+            const storagePath = `user_uploads/${user.uid}/${fileId}-${file.name}`;
+            const storageRef = ref(storage, storagePath);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    const pct = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
+                    if (progressBar) progressBar.style.width = pct + '%';
+                    if (progressText) progressText.textContent = pct + '%';
+                },
+                (error) => {
+                    console.error('Upload error:', error);
+                    if (errorEl) { errorEl.textContent = 'Upload failed: ' + error.message; errorEl.classList.remove('hidden'); }
+                    if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Upload File'; }
+                    if (progressContainer) progressContainer.classList.add('hidden');
+                },
+                async () => {
+                    try {
+                        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                        const sizeStr = file.size < 1024 ? file.size + ' B'
+                            : file.size < 1024 * 1024 ? (file.size / 1024).toFixed(1) + ' KB'
+                                : (file.size / (1024 * 1024)).toFixed(1) + ' MB';
+
+                        await addDoc(collection(db, "users", user.uid, "files"), {
+                            name: file.name,
+                            storagePath: storagePath,
+                            downloadURL: downloadURL,
+                            size: sizeStr,
+                            type: file.type || 'unknown',
+                            folderId: folderId || '',
+                            createdAt: serverTimestamp()
+                        });
+
+                        toggleModal('modal-add-file', false);
+                        showToast('File uploaded successfully!', 'success');
+
+                        // Reset modal state
+                        fileInput.value = '';
+                        const label = document.getElementById('file-drop-label');
+                        if (label) label.textContent = 'Click to choose a file';
+                        if (progressContainer) progressContainer.classList.add('hidden');
+                        if (progressBar) progressBar.style.width = '0%';
+                        if (progressText) progressText.textContent = '0%';
+                    } catch (err) {
+                        console.error('Firestore save error:', err);
+                        if (errorEl) { errorEl.textContent = 'File uploaded but metadata save failed.'; errorEl.classList.remove('hidden'); }
+                    } finally {
+                        if (btn) { btn.disabled = false; btn.innerHTML = '<i class="fas fa-cloud-upload-alt"></i> Upload File'; }
+                    }
+                }
+            );
+        };
+
+        // Download file helper
+        window.downloadFile = (url) => {
+            if (!url) return showToast('No download URL available', 'error');
+            window.open(url, '_blank');
+        };
+
+        // Delete file from Storage + Firestore
+        window.deleteFileWithStorage = async (fileId, storagePath) => {
+            const user = auth.currentUser;
+            if (!user) return showToast('Not authenticated', 'error');
+
+            try {
+                // Delete from Storage first
+                if (storagePath) {
+                    try {
+                        await deleteObject(ref(storage, storagePath));
+                    } catch (storageErr) {
+                        console.warn('Storage delete failed (file may not exist):', storageErr);
+                    }
+                }
+                // Delete Firestore metadata
+                await deleteDoc(doc(db, `users/${user.uid}/files`, fileId));
+                showToast('File deleted!', 'success');
+            } catch (err) {
+                console.error('Delete error:', err);
+                showToast('Error deleting file', 'error');
+            }
+        };
+
+        // CRUD: Notes
+        window.handleNewNoteSubmit = async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) return showToast("Not authenticated", "error");
+
+            const title = document.getElementById('input-note-title').value;
+            const content = document.getElementById('input-note-content').value;
+
+            try {
+                await addDoc(collection(db, "users", user.uid, "notes"), {
+                    title,
+                    content,
+                    createdAt: serverTimestamp()
+                });
+                toggleModal('modal-new-note', false);
+                e.target.reset();
+                showToast("Note saved!", "success");
+            } catch (err) {
+                console.error(err);
+                showToast("Error saving note", "error");
+            }
+        };
+
+        // CRUD: Team Members
+        window.handleNewMemberSubmit = async (e) => {
+            e.preventDefault();
+            const user = auth.currentUser;
+            if (!user) return showToast("Not authenticated", "error");
+
+            const name = document.getElementById('input-member-name').value;
+            const role = document.getElementById('input-member-role').value;
+
+            try {
+                await addDoc(collection(db, "users", user.uid, "teamMembers"), {
+                    name,
+                    role,
+                    createdAt: serverTimestamp()
+                });
+                toggleModal('modal-add-member', false);
+                e.target.reset();
+                showToast("Member added!", "success");
+            } catch (err) {
+                console.error(err);
+                showToast("Error adding member", "error");
+            }
+        };
+
+        // Deletion Helper
+        window.deleteDocument = async (coll, id) => {
+            // Re-mapping simple collection names to sub-collection paths if needed
+            const user = auth.currentUser;
+            if (!user) return showToast("Not authenticated", "error");
+
+            // No confirm browser prompt as per rule
+            try {
+                // If it's a sub-collection path, we use it directly or map it
+                let path = coll;
+                if (coll === 'folders') path = `users/${user.uid}/folders`;
+                if (coll === 'files') path = `users/${user.uid}/files`;
+                if (coll === 'notes') path = `users/${user.uid}/notes`;
+                if (coll === 'teamMembers' || coll === 'team') path = `users/${user.uid}/teamMembers`;
+                if (coll === 'sales') path = `users/${user.uid}/sales`;
+
+                await deleteDoc(doc(db, path, id));
+                showToast("Deleted!", "success");
+            } catch (err) {
+                console.error(err);
+                showToast("Error deleting", "error");
+            }
+        };
+
+        // Real-time Sync Logic
+        let syncActive = false;
+        window.initMyFilesSync = () => {
+            if (syncActive) return;
+            const user = auth.currentUser;
+            if (!user) return;
+
+            syncActive = true;
+
+            // Sync Folders
+            onSnapshot(query(collection(db, "users", user.uid, "folders"), orderBy("createdAt", "desc")), (snap) => {
+                const foldersGrid = document.getElementById('folders-grid');
+                const selectFolder = document.getElementById('select-file-folder');
+                const countFolders = document.getElementById('count-folders');
+
+                const loader = document.getElementById('folders-loading');
+                if (loader) loader.classList.add('hidden');
+
+                if (countFolders) countFolders.innerText = snap.size;
+
+                if (foldersGrid) {
+                    // Always clear existing UI cards
+                    foldersGrid.querySelectorAll('.folder-card').forEach(c => c.remove());
+
+                    if (snap.empty) {
+                        const emptyState = document.getElementById('folders-empty');
+                        if (emptyState) emptyState.classList.remove('hidden');
+                    } else {
+                        const emptyState = document.getElementById('folders-empty');
+                        if (emptyState) emptyState.classList.add('hidden');
+
+                        // Reset folder select
+                        if (selectFolder) selectFolder.innerHTML = '<option value="">No Folder (Root)</option>';
+
+                        snap.forEach(docSnap => {
+                            const data = docSnap.data();
+                            const card = document.createElement('div');
+                            card.className = 'folder-card group bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl border border-slate-100 dark:border-slate-800 hover:border-blue-200 dark:hover:border-blue-900 transition cursor-pointer relative';
+                            card.innerHTML = `
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-lg bg-blue-100 dark:bg-blue-900/20 flex items-center justify-center text-blue-600">
+                                        <i class="fas fa-folder text-lg"></i>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-sm font-bold text-slate-800 dark:text-slate-200 truncate">${data.name}</p>
+                                        <p class="text-[10px] text-slate-500">Asset Folder</p>
+                                    </div>
+                                    <button onclick="event.stopPropagation(); deleteDocument('folders', '${docSnap.id}')" class="opacity-0 group-hover:opacity-100 p-2 text-slate-400 hover:text-red-500 transition">
+                                        <i class="fas fa-trash-alt text-xs"></i>
+                                    </button>
+                                </div>
+                            `;
+                            foldersGrid.appendChild(card);
+
+                            // Update select
+                            if (selectFolder) {
+                                const opt = document.createElement('option');
+                                opt.value = docSnap.id;
+                                opt.innerText = data.name;
+                                selectFolder.appendChild(opt);
+                            }
+                        });
+                    }
+                }
+            });
+
+            // Sync Files
+            onSnapshot(query(collection(db, "users", user.uid, "files"), orderBy("createdAt", "desc")), (snap) => {
+                const body = document.getElementById('files-list-body');
+                const countFiles = document.getElementById('count-files');
+
+                if (body) {
+                    const loader = body.querySelector('#files-loading');
+                    if (loader) loader.classList.add('hidden');
+
+                    if (countFiles) countFiles.innerText = snap.size;
+
+                    body.querySelectorAll('.file-row').forEach(r => r.remove());
+
+                    if (snap.empty) {
+                        const emptyState = body.querySelector('#files-empty');
+                        if (emptyState) emptyState.classList.remove('hidden');
+                    } else {
+                        const emptyState = body.querySelector('#files-empty');
+                        if (emptyState) emptyState.classList.add('hidden');
+
+                        snap.forEach(docSnap => {
+                            const data = docSnap.data();
+                            const row = document.createElement('tr');
+                            row.className = 'file-row hover:bg-slate-50 dark:hover:bg-slate-700/30 transition group';
+
+                            // File type icon
+                            let fileIcon = 'fa-file-alt';
+                            const t = (data.type || '').toLowerCase();
+                            if (t.includes('image')) fileIcon = 'fa-file-image';
+                            else if (t.includes('pdf')) fileIcon = 'fa-file-pdf';
+                            else if (t.includes('word') || t.includes('doc')) fileIcon = 'fa-file-word';
+                            else if (t.includes('sheet') || t.includes('excel') || t.includes('csv')) fileIcon = 'fa-file-excel';
+                            else if (t.includes('video')) fileIcon = 'fa-file-video';
+                            else if (t.includes('audio')) fileIcon = 'fa-file-audio';
+                            else if (t.includes('zip') || t.includes('rar') || t.includes('tar')) fileIcon = 'fa-file-archive';
+
+                            const escapedPath = (data.storagePath || '').replace(/'/g, "\\'");
+                            const escapedURL = (data.downloadURL || '').replace(/'/g, "\\'");
+
+                            row.innerHTML = `
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center gap-3">
+                                        <i class="fas ${fileIcon} text-blue-400"></i>
+                                        <div>
+                                            <span class="font-medium text-slate-700 dark:text-slate-300 block">${data.name}</span>
+                                            <span class="text-[10px] text-slate-400">${data.type || 'file'}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 text-slate-500">
+                                    ${data.folderId ? 'Subfolder' : 'Root'}
+                                </td>
+                                <td class="px-6 py-4 text-right text-slate-500 font-mono">${data.size || '—'}</td>
+                                <td class="px-6 py-4 text-right">
+                                    <div class="flex items-center justify-end gap-2">
+                                        ${data.downloadURL ? `<button onclick="downloadFile('${escapedURL}')" class="p-1.5 text-slate-400 hover:text-blue-600 transition" title="Download"><i class="fas fa-download text-xs"></i></button>` : ''}
+                                        <button onclick="deleteFileWithStorage('${docSnap.id}', '${escapedPath}')" class="p-1.5 text-slate-300 hover:text-red-500 transition" title="Delete">
+                                            <i class="fas fa-trash-alt text-xs"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            `;
+                            body.appendChild(row);
+                        });
+                    }
+                }
+            });
+
+            // Sync Notes
+            onSnapshot(query(collection(db, "users", user.uid, "notes"), orderBy("createdAt", "desc")), (snap) => {
+                const list = document.getElementById('notes-list');
+                const countNotes = document.getElementById('count-notes');
+
+                const loader = document.getElementById('notes-loading');
+                if (loader) loader.classList.add('hidden');
+                if (countNotes) countNotes.innerText = snap.size;
+
+                if (list) {
+                    list.querySelectorAll('.note-item').forEach(n => n.remove());
+
+                    if (snap.empty) {
+                        const emptyState = document.getElementById('notes-empty');
+                        if (emptyState) emptyState.classList.remove('hidden');
+                    } else {
+                        const emptyState = document.getElementById('notes-empty');
+                        if (emptyState) emptyState.classList.add('hidden');
+
+                        snap.forEach(docSnap => {
+                            const data = docSnap.data();
+                            const item = document.createElement('div');
+                            item.className = 'note-item p-3 bg-slate-50 dark:bg-slate-900/30 rounded-xl border border-slate-100 dark:border-slate-800 group';
+                            item.innerHTML = `
+                                <div class="flex justify-between items-start mb-1">
+                                    <p class="text-xs font-bold text-slate-800 dark:text-slate-200">${data.title}</p>
+                                    <button onclick="deleteDocument('notes', '${docSnap.id}')" class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition">
+                                        <i class="fas fa-times text-[10px]"></i>
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-slate-500 leading-relaxed line-clamp-2">${data.content}</p>
+                            `;
+                            list.appendChild(item);
+                        });
+                    }
+                }
+            });
+
+            // Sync Team
+            onSnapshot(query(collection(db, "users", user.uid, "teamMembers"), orderBy("createdAt", "desc")), (snap) => {
+                const list = document.getElementById('team-list');
+                const countMembers = document.getElementById('count-members');
+
+                const loader = document.getElementById('team-loading');
+                if (loader) loader.classList.add('hidden');
+                if (countMembers) countMembers.innerText = snap.size;
+
+                if (list) {
+                    list.querySelectorAll('.team-item').forEach(t => t.remove());
+
+                    if (snap.empty) {
+                        const emptyState = document.getElementById('team-empty');
+                        if (emptyState) emptyState.classList.remove('hidden');
+                    } else {
+                        const emptyState = document.getElementById('team-empty');
+                        if (emptyState) emptyState.classList.add('hidden');
+
+                        snap.forEach(docSnap => {
+                            const data = docSnap.data();
+                            const item = document.createElement('div');
+                            item.className = 'team-item flex items-center justify-between p-2 hover:bg-slate-50 dark:hover:bg-slate-900/50 rounded-lg group';
+                            item.innerHTML = `
+                                <div class="flex items-center gap-3">
+                                    <div class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-700 flex items-center justify-center text-[10px] font-bold text-slate-600">
+                                        ${data.name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <p class="text-xs font-bold text-slate-800 dark:text-slate-200">${data.name}</p>
+                                        <p class="text-[10px] text-slate-500">${data.role || 'Member'}</p>
+                                    </div>
+                                </div>
+                                <button onclick="deleteDocument('teamMembers', '${docSnap.id}')" class="opacity-0 group-hover:opacity-100 text-slate-400 hover:text-red-500 transition">
+                                    <i class="fas fa-trash-alt text-[10px]"></i>
+                                </button>
+                            `;
+                            list.appendChild(item);
+                        });
+                    }
+                }
+            });
+        };
+
+
+
+        // UI State Management with onAuthStateChanged
+        onAuthStateChanged(auth, (user) => {
             const authScreen = document.getElementById('auth-screen');
-            authScreen.classList.add('auth-hidden');
+            if (user) {
+                // User is signed in
+                const role = localStorage.getItem('localbridge_role') || 'customer';
+                const displayName = localStorage.getItem('localbridge_display_name') || user.email.split('@')[0];
 
-            // Setup the correct view
-            setTimeout(() => {
-                authScreen.style.display = 'none';
-                applyAuthState(authData);
-            }, 500);
-        }
+                const authData = {
+                    role: role,
+                    email: user.email,
+                    name: displayName,
+                    loggedIn: true
+                };
+
+                // Animate out auth screen
+                authScreen.classList.add('auth-hidden');
+                setTimeout(() => {
+                    authScreen.style.display = 'none';
+                    // Show dashboard first, then sync data
+                    applyAuthState(authData);
+                    // Initialize Firestore sync (wrapped to prevent errors from hiding dashboard)
+                    try { initMyFilesSync(); } catch (e) { console.error('Files sync error:', e); }
+                    try { initSalesSync(); } catch (e) { console.error('Sales sync error:', e); }
+                }, 500);
+            } else {
+                // User is signed out OR unverified
+                // (Unverified logic is handled in handleAuthSubmit but listener keeps UI safe)
+                authScreen.style.display = 'flex';
+                authScreen.classList.remove('auth-hidden');
+                document.getElementById('customer-view').classList.add('hidden');
+                document.getElementById('merchant-view').classList.add('hidden');
+                document.getElementById('profile-view').classList.add('hidden');
+                document.getElementById('main-nav').classList.add('hidden');
+
+                // Reset role selection to default
+                window.selectAuthRole('merchant');
+            }
+        });
 
         function applyAuthState(authData) {
             document.getElementById('main-nav').classList.remove('hidden');
@@ -2754,83 +3635,70 @@
             const merchantView = document.getElementById('merchant-view');
             const profileView = document.getElementById('profile-view');
 
-            // Hide toggle, show role badge
-            navToggle.classList.add('hidden');
-            navBadge.classList.remove('hidden');
+            if (navToggle) navToggle.classList.add('hidden');
+            if (navBadge) navBadge.classList.remove('hidden');
 
             if (authData.role === 'customer') {
                 document.getElementById('nav-badge-icon').className = 'fas fa-user mr-1';
                 document.getElementById('nav-badge-text').innerText = 'Customer';
-                // Show customer view
-                customerView.classList.remove('hidden');
-                merchantView.classList.add('hidden');
-                profileView.classList.add('hidden');
+                if (customerView) customerView.classList.remove('hidden');
+                if (merchantView) merchantView.classList.add('hidden');
+                if (profileView) profileView.classList.add('hidden');
             } else {
                 document.getElementById('nav-badge-icon').className = 'fas fa-store mr-1';
                 document.getElementById('nav-badge-text').innerText = 'Merchant';
-                // Show merchant view
-                customerView.classList.add('hidden');
-                merchantView.classList.remove('hidden');
-                profileView.classList.add('hidden');
+                if (customerView) customerView.classList.add('hidden');
+                if (merchantView) merchantView.classList.remove('hidden');
+                if (profileView) profileView.classList.add('hidden');
             }
 
-            // Update profile name if available
-            if (authData.name && typeof userState !== 'undefined') {
-                userState.name = authData.name;
-                userState.email = authData.email;
-                if (typeof updateProfileUI === 'function') {
-                    updateProfileUI();
+            if (authData.name && typeof window.userState !== 'undefined') {
+                window.userState.name = authData.name;
+                window.userState.email = authData.email;
+                if (typeof window.updateProfileUI === 'function') {
+                    window.updateProfileUI();
                 }
             }
         }
+    </script>
 
-        function authSignOut() {
-            localStorage.removeItem('localbridge_auth');
-            location.reload();
-        }
-
-        // Initialize auth on page load
-        (function initAuth() {
-            // Not logged in — show auth screen, hide both views
-            document.getElementById('customer-view').classList.add('hidden');
-            document.getElementById('merchant-view').classList.add('hidden');
-            document.getElementById('profile-view').classList.add('hidden');
-            document.getElementById('main-nav').classList.add('hidden');
-
-            // Default to Merchant role on the login form
-            selectAuthRole('merchant');
-        })();
-
-        // ===== END AUTH SYSTEM =====
-
-
-        function switchView(view) {
+    <script>
+        window.switchView = function (view) {
             const customerView = document.getElementById('customer-view');
             const merchantView = document.getElementById('merchant-view');
             const profileView = document.getElementById('profile-view');
             const btnCustomer = document.getElementById('btn-customer');
             const btnMerchant = document.getElementById('btn-merchant');
 
+            if (!customerView || !merchantView || !profileView) return;
+
             customerView.classList.add('hidden');
             merchantView.classList.add('hidden');
             profileView.classList.add('hidden');
 
-            btnCustomer.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
-            btnCustomer.classList.add('text-slate-500', 'dark:text-slate-400');
-            btnMerchant.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
-            btnMerchant.classList.add('text-slate-500', 'dark:text-slate-400');
+            if (btnCustomer) {
+                btnCustomer.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                btnCustomer.classList.add('text-slate-500', 'dark:text-slate-400');
+            }
+            if (btnMerchant) {
+                btnMerchant.classList.remove('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                btnMerchant.classList.add('text-slate-500', 'dark:text-slate-400');
+            }
 
             if (view === 'customer') {
                 customerView.classList.remove('hidden');
-                btnCustomer.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
-                btnCustomer.classList.remove('text-slate-500', 'dark:text-slate-400');
+                if (btnCustomer) {
+                    btnCustomer.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                    btnCustomer.classList.remove('text-slate-500', 'dark:text-slate-400');
+                }
             } else if (view === 'merchant') {
                 merchantView.classList.remove('hidden');
-                btnMerchant.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
-                btnMerchant.classList.remove('text-slate-500', 'dark:text-slate-400');
+                if (btnMerchant) {
+                    btnMerchant.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
+                    btnMerchant.classList.remove('text-slate-500', 'dark:text-slate-400');
+                }
             } else if (view === 'profile') {
                 profileView.classList.remove('hidden');
-                // Force reveal for profile elements immediately
                 setTimeout(() => {
                     profileView.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
                     profileView.classList.add('revealed');
@@ -2838,8 +3706,7 @@
             }
 
             window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
+        };
 
         const modal = document.getElementById('receipt-modal');
         const modalContent = document.getElementById('modal-content');
@@ -2849,33 +3716,34 @@
             const newRow = document.createElement('div');
             newRow.className = 'product-row grid grid-cols-1 md:grid-cols-12 gap-4 items-end animate-fade-in group mt-4';
             newRow.innerHTML = `
-                <div class="md:col-span-6">
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Product Name</label>
-                    <input type="text" 
-                        class="product-name block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white" 
-                        placeholder="e.g. AirPods Pro">
-                </div>
-                <div class="md:col-span-3">
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Price (₹)</label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-sm">₹</span>
-                        <input type="number" 
-                            oninput="calculateTotal()"
-                            class="product-price block w-full pl-7 text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white" 
-                            placeholder="0.00">
-                    </div>
-                </div>
-                <div class="md:col-span-2">
-                    <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Qty</label>
-                    <input type="number" oninput="calculateTotal()" value="1" min="1"
-                        class="product-qty block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white">
-                </div>
-                <div class="md:col-span-1 pb-1 flex justify-center">
-                    <button type="button" onclick="removeProductRow(this)" class="text-slate-300 hover:text-red-500 transition-colors p-2">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
-            `;
+    <div class="md:col-span-6">
+        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Product Name</label>
+        <input type="text"
+            class="product-name block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+            placeholder="e.g. AirPods Pro">
+    </div>
+    <div class="md:col-span-3">
+        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Price (₹)</label>
+        <div class="relative">
+            <span
+                class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-sm">₹</span>
+            <input type="number" oninput="calculateTotal()"
+                class="product-price block w-full pl-7 text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white"
+                placeholder="0.00">
+        </div>
+    </div>
+    <div class="md:col-span-2">
+        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Qty</label>
+        <input type="number" oninput="calculateTotal()" value="1" min="1"
+            class="product-qty block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white">
+    </div>
+    <div class="md:col-span-1 pb-1 flex justify-center">
+        <button type="button" onclick="removeProductRow(this)"
+            class="text-slate-300 hover:text-red-500 transition-colors p-2">
+            <i class="fas fa-trash-alt"></i>
+        </button>
+    </div>
+    `;
             container.appendChild(newRow);
         }
 
@@ -2897,7 +3765,9 @@
                 const qty = parseInt(row.querySelector('.product-qty').value) || 1;
                 total += price * qty;
             });
-            document.getElementById('sale-total-display').innerText = `₹${total.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            document.getElementById('sale-total-display').innerText = `₹${total.toLocaleString(undefined, {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            })}`;
             document.getElementById('sale-amount').value = total;
         }
 
@@ -2910,19 +3780,26 @@
                 itemEl.className = 'flex justify-between items-start mb-4';
                 const itemTotal = parseFloat(item.price) * parseInt(item.qty);
                 itemEl.innerHTML = `
-                    <div>
-                        <p class="font-bold text-slate-900 text-base mb-1">${item.name}</p>
-                        <p class="text-xs text-slate-500">${item.qty} x ₹${parseFloat(item.price).toLocaleString()}</p>
-                    </div>
-                    <span class="font-bold text-slate-900 text-base">₹${itemTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</span>
-                `;
+    <div>
+        <p class="font-bold text-slate-900 text-base mb-1">${item.name}</p>
+        <p class="text-xs text-slate-500">${item.qty} x ₹${parseFloat(item.price).toLocaleString()}</p>
+    </div>
+    <span class="font-bold text-slate-900 text-base">₹${itemTotal.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                })}</span>
+    `;
                 container.appendChild(itemEl);
             });
 
             document.getElementById('modal-shop').innerText = shop;
-            document.getElementById('modal-subtotal').innerText = `₹${parseFloat(total).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            document.getElementById('modal-subtotal').innerText = `₹${parseFloat(total).toLocaleString(undefined, {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            })}`;
             document.getElementById('modal-tax').innerText = "₹0.00 (Inclusive)";
-            document.getElementById('modal-total').innerText = `₹${parseFloat(total).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            document.getElementById('modal-total').innerText = `₹${parseFloat(total).toLocaleString(undefined, {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            })}`;
 
             modal.classList.remove('hidden');
             setTimeout(() => {
@@ -2972,7 +3849,8 @@
 
         // Close dropdowns when clicking outside
         window.addEventListener('click', (e) => {
-            if (!e.target.closest('#nav-avatar-img') && !e.target.closest('#nav-avatar-initials') && !e.target.closest('#profile-dropdown')) {
+            if (!e.target.closest('#nav-avatar-img') && !e.target.closest('#nav-avatar-initials') &&
+                !e.target.closest('#profile-dropdown')) {
                 document.getElementById('profile-dropdown').classList.add('hidden');
             }
             if (!e.target.closest('.far.fa-bell') && !e.target.closest('#notif-dropdown')) {
@@ -3024,9 +3902,10 @@
             if (type === 'error') icon = 'fa-exclamation-circle';
 
             toast.innerHTML = `
-                <i class="fas ${icon} ${type === 'success' ? 'text-green-500' : type === 'error' ? 'text-red-500' : 'text-blue-500'}"></i>
-                <span>${message}</span>
-            `;
+    <i
+        class="fas ${icon} ${type === 'success' ? 'text-green-500' : type === 'error' ? 'text-red-500' : 'text-blue-500'}"></i>
+    <span>${message}</span>
+    `;
 
             container.appendChild(toast);
 
@@ -3044,7 +3923,8 @@
         function sendBill(mobile, name, products, total, customerEmail) {
             const keysRaw = localStorage.getItem('localbridge_api_keys');
             const keys = keysRaw ? JSON.parse(keysRaw) : null;
-            const merchantEmail = (typeof userState !== 'undefined' && userState.email) ? userState.email : "merchant@example.com";
+            const merchantEmail = (typeof userState !== 'undefined' && userState.email) ? userState.email :
+                "merchant@example.com";
 
             // Primary recipient is customerEmail if provided, otherwise merchantEmail fallback
             const recipientEmail = (customerEmail && customerEmail.includes('@')) ? customerEmail : merchantEmail;
@@ -3074,18 +3954,22 @@
 
             // Format total for nested cost object
             const numTotal = parseFloat(total) || 0;
-            const formattedTotal = `${numTotal.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            const formattedTotal = `${numTotal.toLocaleString(undefined, {
+                minimumFractionDigits: 2, maximumFractionDigits: 2
+            })}`;
 
             // Construct orders array for EmailJS template loop
             const emailOrders = products.map(item => ({
                 name: item.name,
                 units: 1,
-                price: `₹${parseFloat(item.price).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                price: `₹${parseFloat(item.price).toLocaleString(undefined, {
+                    minimumFractionDigits: 2, maximumFractionDigits: 2
+                })}`
             }));
 
             const emailParams = {
-                email: recipientEmail,             // Recipient email
-                order_id: orderId,                 // Transaction ID
+                email: recipientEmail, // Recipient email
+                order_id: orderId, // Transaction ID
 
                 // Line Items array (Handlebars {{#orders}} ... {{/orders}})
                 orders: emailOrders,
@@ -3126,7 +4010,8 @@
 
             // 2. WhatsApp Logic (100% Automated Background Send via Ultramsg)
             const productList = products.map(p => `${p.name} x${p.qty}`).join(', ');
-            const waBody = `*ORDER BILL* 📄\n\nHi ${name},\nYour bill for *${productList}* is *₹${numTotal.toLocaleString()}*.\n\nThank you for shopping with us!\nLocalBridge Merchant`;
+            const waBody = `*ORDER BILL* 📄\n\nHi ${name},\nYour bill for *${productList}* is
+    *₹${numTotal.toLocaleString()}*.\n\nThank you for shopping with us!\nLocalBridge Merchant`;
 
             if (keys.whatsapp?.instance && keys.whatsapp?.token) {
                 showToast(`Sending automated WhatsApp bill...`, 'info');
@@ -3135,7 +4020,8 @@
                 let waTarget = mobile.replace(/\D/g, '');
                 if (waTarget.length === 10) waTarget = `91${waTarget}`;
 
-                const waUrl = `https://api.ultramsg.com/${keys.whatsapp.instance}/messages/chat?token=${keys.whatsapp.token}&to=${waTarget}&body=${encodeURIComponent(waBody)}`;
+                const waUrl =
+                    `https://api.ultramsg.com/${keys.whatsapp.instance}/messages/chat?token=${keys.whatsapp.token}&to=${waTarget}&body=${encodeURIComponent(waBody)}`;
 
                 // Background trigger
                 fetch(waUrl, { mode: 'no-cors' })
@@ -3153,7 +4039,10 @@
         }
 
 
-        function registerSale() {
+        window.registerSale = async (event) => {
+            const user = auth.currentUser;
+            if (!user) return showToast("Not authenticated", "error");
+
             const name = document.getElementById('sale-name').value || "Walk-in Customer";
             const mobile = document.getElementById('sale-mobile').value;
             const customerEmail = document.getElementById('sale-email').value.trim();
@@ -3166,147 +4055,158 @@
             const rows = document.querySelectorAll('.product-row');
             rows.forEach(row => {
                 const pName = row.querySelector('.product-name').value || "Generic Product";
-                const pPrice = row.querySelector('.product-price').value || 0;
-                const pQty = row.querySelector('.product-qty').value || 1;
+                const pPrice = parseFloat(row.querySelector('.product-price').value) || 0;
+                const pQty = parseInt(row.querySelector('.product-qty').value) || 1;
                 products.push({ name: pName, price: pPrice, qty: pQty });
             });
 
-            const totalAmount = document.getElementById('sale-amount').value;
-
+            const totalAmount = parseFloat(document.getElementById('sale-amount').value) || 0;
 
             if (mobile.length < 10) {
-                alert("Please enter a valid 10-digit mobile number.");
+                showToast("Please enter a valid 10-digit mobile number.", "error");
                 return;
             }
-            if (!totalAmount || totalAmount <= 0) {
-                alert("Please add at least one product with a valid price.");
+            if (totalAmount <= 0) {
+                showToast("Please add at least one product with a valid price.", "error");
                 return;
             }
-
-
-            let policiesHTML = '';
-            if (warranty !== 'none') {
-                const wSel = document.getElementById('sale-warranty');
-                const wText = wSel.options[wSel.selectedIndex].text;
-                policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-800 border border-blue-200 mr-1">Warranty (${wText})</span>`;
-            }
-            if (returnPolicy !== 'none') {
-                const rSel = document.getElementById('sale-return');
-                const rText = rSel.options[rSel.selectedIndex].text;
-                policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-purple-100 text-purple-800 border border-purple-200">Return (${rText})</span>`;
-            }
-            if (warranty === 'none' && returnPolicy === 'none') {
-                policiesHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-800 border border-slate-200">Record Only</span>`;
-            }
-
-
-            const statusColor = paymentStatus === "Paid" ? "green" : "orange";
-            const paymentBadge = `<span class="bg-${statusColor}-100 text-${statusColor}-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border border-${statusColor}-200">${paymentStatus}</span>`;
-
 
             const btn = event.currentTarget;
             const originalContent = btn.innerHTML;
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             btn.disabled = true;
 
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-check"></i> Logged!';
-                btn.classList.remove('bg-blue-600', 'hover:bg-blue-700');
-                btn.classList.add('bg-green-600', 'hover:bg-green-700');
+            try {
+                // Save to Firestore
+                await addDoc(collection(db, "users", user.uid, "sales"), {
+                    customerName: name,
+                    customerMobile: mobile,
+                    customerEmail: customerEmail,
+                    products: products,
+                    totalAmount: totalAmount,
+                    warranty: warranty,
+                    returnPolicy: returnPolicy,
+                    paymentStatus: paymentStatus,
+                    createdAt: serverTimestamp()
+                });
 
+                showToast("Sale Logged Successfully!", "success");
 
-                const productSummary = products.map(p => p.name).join(', ');
-                const tbody = document.getElementById('transactions-body');
-                const row = document.createElement('tr');
-                row.className = `hover:bg-gray-50 dark:hover:bg-slate-700/50 transition fade-in ${paymentStatus === 'Pending' ? 'bg-orange-50/30' : 'bg-blue-50/30'} dark:bg-blue-900/10 border-l-4 ${paymentStatus === 'Pending' ? 'border-orange-500' : 'border-blue-500'}`;
+                // We no longer need to manually inject into table because initSalesSync will handle it
 
-
-                const date = new Date();
-                const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ", " +
-                    date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
-
-                row.innerHTML = `
-                    <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">${name} <span class="text-slate-400 text-xs font-normal">(${mobile})</span></td>
-                    <td class="px-5 py-3 text-slate-600 dark:text-slate-300 font-medium">${productSummary}</td>
-                    <td class="px-5 py-3">${policiesHTML}</td>
-                    <td class="px-5 py-3 text-slate-500 font-mono text-xs">${dateStr}</td>
-                    <td class="px-5 py-3 text-slate-900 font-mono text-right font-bold">₹${parseFloat(totalAmount).toLocaleString()}</td>
-                    <td class="px-5 py-3 text-right">${paymentBadge}</td>
-                `;
-                tbody.insertBefore(row, tbody.firstChild);
-
-
-                if (paymentStatus === 'Pending') {
-                    const ledgerBody = document.getElementById('credit-ledger-body');
-                    const ledgerRow = document.createElement('tr');
-                    ledgerRow.className = 'hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 border-orange-500';
-                    ledgerRow.innerHTML = `
-                        <td class="px-6 py-4">
-                            <p class="text-sm font-bold text-slate-900 dark:text-white">${name}</p>
-                            <p class="text-[10px] text-slate-500">+91 ${mobile}</p>
-                        </td>
-                        <td class="px-6 py-4 text-xs text-slate-600 dark:text-slate-400">${productSummary}</td>
-                        <td class="px-6 py-4 text-xs text-slate-500">Just now</td>
-                        <td class="px-6 py-4 text-sm font-bold text-orange-600 text-right">₹${parseFloat(totalAmount).toLocaleString()}</td>
-                    `;
-                    ledgerBody.insertBefore(ledgerRow, ledgerBody.firstChild);
-
-
-                    const countElem = document.getElementById('total-credit-count');
-                    const currentCount = parseInt(countElem.innerText) || 0;
-                    countElem.innerText = `${currentCount + 1} Pending`;
-                }
-
-
+                // Keep the receipts and other side effects
                 openReceipt(products, "LocalBridge Merchant", totalAmount);
-
-                // Send digital bill to customer (or fallback)
                 sendBill(mobile, name, products, totalAmount, customerEmail);
 
+                // Reset Form
+                document.getElementById('sale-name').value = '';
+                document.getElementById('sale-mobile').value = '';
+                document.getElementById('sale-email').value = '';
 
-                setTimeout(() => {
-                    btn.innerHTML = originalContent;
-                    btn.classList.add('bg-blue-600', 'hover:bg-blue-700');
-                    btn.classList.remove('bg-green-600', 'hover:bg-green-700');
-                    btn.disabled = false;
-                    document.getElementById('sale-name').value = '';
-                    document.getElementById('sale-mobile').value = '';
-                    document.getElementById('sale-email').value = '';
-
-                    // Reset product rows
-                    const container = document.getElementById('product-list-container');
-                    container.innerHTML = `
-                        <div class="product-row grid grid-cols-1 md:grid-cols-12 gap-4 items-end animate-fade-in group">
-                            <div class="md:col-span-7">
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Product Name</label>
-                                <input type="text" 
-                                    class="product-name block w-full text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white" 
-                                    placeholder="e.g. iPhone 15 Pro">
-                            </div>
-                            <div class="md:col-span-4">
-                                <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Price (₹)</label>
-                                <div class="relative">
-                                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400 text-sm">₹</span>
-                                    <input type="number" 
-                                        oninput="calculateTotal()"
-                                        class="product-price block w-full pl-7 text-sm border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-2.5 border font-mono transition bg-gray-50 dark:bg-slate-900 dark:border-slate-600 dark:text-white" 
-                                        placeholder="0.00">
-                                </div>
-                            </div>
-                            <div class="md:col-span-1 pb-1 flex justify-center">
-                                <button type="button" onclick="removeProductRow(this)" class="text-slate-300 hover:text-red-500 transition-colors p-2 opacity-0 group-hover:opacity-100">
-                                    <i class="fas fa-trash-alt"></i>
-                                </button>
-                            </div>
+                // Reset product rows
+                const container = document.getElementById('product-list-container');
+                container.innerHTML = `
+                    <div class="product-row grid grid-cols-1 md:grid-cols-12 gap-4 items-end animate-fade-in group">
+                        <div class="md:col-span-7">
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Product Name</label>
+                            <input type="text" class="product-name auth-input" placeholder="Enter product name">
                         </div>
-                    `;
-                    calculateTotal();
-                    document.getElementById('sale-warranty').value = '1y';
-                    document.getElementById('sale-return').value = 'none';
-                    document.getElementById('sale-status').value = 'Paid';
-                }, 2000);
-            }, 800);
-        }
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Price</label>
+                            <input type="number" class="product-price auth-input text-right" placeholder="0" oninput="calculateTotal()">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Qty</label>
+                            <input type="number" class="product-qty auth-input text-right" value="1" oninput="calculateTotal()">
+                        </div>
+                        <div class="md:col-span-1 py-1">
+                            <button class="w-full h-10 flex items-center justify-center text-slate-300">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                calculateTotal();
+
+            } catch (err) {
+                console.error(err);
+                showToast("Error logging sale", "error");
+            } finally {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }
+        };
+
+        // Real-time Sales Sync
+        let salesSyncActive = false;
+        window.initSalesSync = () => {
+            if (salesSyncActive) return;
+            const user = auth.currentUser;
+            if (!user) return;
+            salesSyncActive = true;
+
+            onSnapshot(query(collection(db, "users", user.uid, "sales"), orderBy("createdAt", "desc")), (snap) => {
+                const transactionsBody = document.getElementById('transactions-body');
+                const ledgerBody = document.getElementById('credit-ledger-body');
+                const creditCountElem = document.getElementById('total-credit-count');
+
+                if (transactionsBody) transactionsBody.innerHTML = '';
+                if (ledgerBody) ledgerBody.innerHTML = '';
+
+                let pendingCount = 0;
+
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const date = data.createdAt ? data.createdAt.toDate() : new Date();
+                    const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) + ", " + date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+                    const productSummary = data.products.map(p => p.name).join(', ');
+
+                    // Transaction Table Row
+                    if (transactionsBody) {
+                        const statusColor = data.paymentStatus === "Paid" ? "green" : "orange";
+                        const row = document.createElement('tr');
+                        row.className = `hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 ${data.paymentStatus === 'Pending' ? 'border-orange-500 bg-orange-50/10' : 'border-blue-500 bg-blue-50/10'}`;
+                        row.innerHTML = `
+                            <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">${data.customerName} <span class="text-slate-400 text-xs font-normal">(${data.customerMobile})</span></td>
+                            <td class="px-5 py-3 text-slate-600 dark:text-slate-300 font-medium truncate max-w-[200px]">${productSummary}</td>
+                            <td class="px-5 py-3">
+                                <span class="bg-${statusColor}-100 text-${statusColor}-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border border-${statusColor}-200">${data.paymentStatus}</span>
+                            </td>
+                            <td class="px-5 py-3 text-slate-500 font-mono text-xs">${dateStr}</td>
+                            <td class="px-5 py-3 text-slate-900 dark:text-white font-mono text-right font-bold">₹${data.totalAmount.toLocaleString()}</td>
+                            <td class="px-5 py-3 text-right">
+                                <button onclick="deleteDocument('sales', '${docSnap.id}')" class="text-slate-300 hover:text-red-500 transition">
+                                    <i class="fas fa-trash-alt text-xs"></i>
+                                </button>
+                            </td>
+                        `;
+                        transactionsBody.appendChild(row);
+                    }
+
+                    // Credit Ledger Row
+                    if (data.paymentStatus === 'Pending') {
+                        pendingCount++;
+                        if (ledgerBody) {
+                            const ledgerRow = document.createElement('tr');
+                            ledgerRow.className = 'hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-l-4 border-orange-500';
+                            ledgerRow.innerHTML = `
+                                <td class="px-6 py-4">
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">${data.customerName}</p>
+                                    <p class="text-[10px] text-slate-500">+91 ${data.customerMobile}</p>
+                                </td>
+                                <td class="px-6 py-4 text-xs text-slate-600 dark:text-slate-400 truncate max-w-[150px]">${productSummary}</td>
+                                <td class="px-6 py-4 text-xs text-slate-500">${dateStr}</td>
+                                <td class="px-6 py-4 text-sm font-bold text-orange-600 text-right">₹${data.totalAmount.toLocaleString()}</td>
+                            `;
+                            ledgerBody.appendChild(ledgerRow);
+                        }
+                    }
+                });
+
+                if (creditCountElem) creditCountElem.innerText = `${pendingCount} Pending`;
+            });
+        };
+
 
 
         function generateMockData() {
@@ -3320,26 +4220,29 @@
             tbody.innerHTML = '';
 
             for (let i = 0; i < 25; i++) {
-                const name = names[Math.floor(Math.random() * names.length)];
-                const product = products[Math.floor(Math.random() * products.length)];
-                const amount = Math.floor(Math.random() * 25000) + 500;
-
-
-                let wVal = warranties[Math.floor(Math.random() * warranties.length)];
-                let rVal = returns[Math.floor(Math.random() * returns.length)];
-
-
-                if (Math.random() > 0.8) { wVal = "None"; rVal = "None"; }
+                const name = names[Math.floor(Math.random() * names.length)]; const
+                    product = products[Math.floor(Math.random() * products.length)]; const amount = Math.floor(Math.random() *
+                        25000) + 500; let wVal = warranties[Math.floor(Math.random() * warranties.length)]; let
+                            rVal = returns[Math.floor(Math.random() * returns.length)]; if (Math.random() > 0.8) {
+                                wVal = "None"; rVal =
+                                    "None";
+                            }
 
                 let policiesHTML = '';
                 if (wVal !== "None") {
-                    policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-800 border border-blue-200 mr-1">Warranty (${wVal})</span>`;
+                    policiesHTML += `< span
+        class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-blue-100 text-blue-800 border border-blue-200 mr-1" > Warranty
+            (${wVal})</span > `;
                 }
                 if (rVal !== "None") {
-                    policiesHTML += `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-purple-100 text-purple-800 border border-purple-200">Return (${rVal})</span>`;
+                    policiesHTML += `< span
+        class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-purple-100 text-purple-800 border border-purple-200" > Return
+            (${rVal})</span > `;
                 }
                 if (wVal === "None" && rVal === "None") {
-                    policiesHTML = `<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-800 border border-slate-200">Record Only</span>`;
+                    policiesHTML = `< span
+        class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wide bg-slate-100 text-slate-800 border border-slate-200" > Record
+                Only</span > `;
                 }
 
                 const status = statuses[Math.floor(Math.random() * statuses.length)];
@@ -3351,15 +4254,18 @@
                     date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
 
                 const tr = document.createElement('tr');
-                tr.className = `hover:bg-gray-50 dark:hover:bg-slate-700/50 transition border-b border-gray-100 dark:border-slate-700 ${i >= 7 ? 'hidden extra-row' : ''}`;
+                tr.className = `hover: bg - gray - 50 dark: hover: bg - slate - 700 / 50 transition border - b border - gray - 100
+        dark: border - slate - 700 ${i >= 7 ? 'hidden extra-row' : ''} `;
                 tr.innerHTML = `
-                    <td class="px-5 py-3 font-medium text-slate-900 dark:text-white">${name}</td>
-                    <td class="px-5 py-3 text-slate-600 dark:text-slate-400">${product}</td>
-                    <td class="px-5 py-3">${policiesHTML}</td>
-                    <td class="px-5 py-3 text-slate-500 font-mono text-xs">${dateStr}</td>
-                    <td class="px-5 py-3 text-slate-900 font-mono text-right font-bold">₹${amount.toLocaleString()}</td>
-                    <td class="px-5 py-3 text-right"><span class="bg-${statusColor}-100 text-${statusColor}-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border border-${statusColor}-200">${status}</span></td>
-                `;
+            < td class="px-5 py-3 font-medium text-slate-900 dark:text-white" > ${name}</td >
+            <td class="px-5 py-3 text-slate-600 dark:text-slate-400">${product}</td>
+            <td class="px-5 py-3">${policiesHTML}</td>
+            <td class="px-5 py-3 text-slate-500 font-mono text-xs">${dateStr}</td>
+            <td class="px-5 py-3 text-slate-900 font-mono text-right font-bold">₹${amount.toLocaleString()}</td>
+            <td class="px-5 py-3 text-right"><span
+                    class="bg-${statusColor}-100 text-${statusColor}-700 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase border border-${statusColor}-200">${status}</span>
+            </td>
+        `;
                 tbody.appendChild(tr);
             }
         }
@@ -3390,9 +4296,9 @@
                 const value = Math.floor(progress * (end - start) + start);
 
                 if (id === 'stat-revenue') {
-                    obj.innerHTML = `₹${(value / 10).toFixed(1)}L`;
+                    obj.innerHTML = `₹${(value / 10).toFixed(1)} L`;
                 } else if (id === 'stat-aov') {
-                    obj.innerHTML = `₹${value.toLocaleString()}`;
+                    obj.innerHTML = `₹${value.toLocaleString()} `;
                 } else {
                     obj.innerHTML = value.toLocaleString();
                 }
@@ -3404,19 +4310,16 @@
             window.requestAnimationFrame(step);
         }
 
-
         function showChartTooltip(event, amount) {
             const tooltip = document.getElementById('chart-tooltip');
             const container = document.getElementById('revenue-chart-container');
             if (!tooltip || !container) return;
-
             const rect = container.getBoundingClientRect();
             const x = event.clientX - rect.left;
             const y = event.clientY - rect.top;
-
             tooltip.innerText = amount;
-            tooltip.style.left = `${x}px`;
-            tooltip.style.top = `${y}px`;
+            tooltip.style.left = `${x} px`;
+            tooltip.style.top = `${y} px`;
             tooltip.classList.remove('hidden');
         }
 
@@ -3428,56 +4331,45 @@
         function updateDashboardData(range) {
             let data = {
                 revenue: 124, customers: 4200, repeat: 342, aov: 3450,
-                rangeLabel: "Last 30 Days",
-                chartTitle: "Monthly Revenue Trend",
-                points: [160, 140, 170, 110, 130, 80, 90, 40],
-                amounts: ["₹15,200", "₹18,500", "₹12,800", "₹22,400", "₹19,100", "₹28,500", "₹24,200", "₹35,000"]
+                rangeLabel: "Last 30 Days", chartTitle: "Monthly Revenue Trend", points: [160, 140, 170, 110, 130, 80, 90, 40], amounts: ["₹15,200", "₹18,500", "₹12,800", "₹22,400", "₹19,100", "₹28,500", "₹24,200", "₹35,000"]
             };
 
             if (range === '7days') {
                 data = {
-                    revenue: 32, customers: 1200, repeat: 95, aov: 2800, rangeLabel: "Last 7 Days", chartTitle: "Weekly Revenue Trend",
-                    points: [180, 170, 150, 160, 130, 140, 100, 110],
-                    amounts: ["₹2,100", "₹3,400", "₹5,200", "₹4,800", "₹6,900", "₹6,100", "₹8,400", "₹7,200"]
+                    revenue: 32, customers: 1200, repeat: 95, aov: 2800,
+                    rangeLabel: "Last 7 Days", chartTitle: "Weekly Revenue Trend", points: [180, 170, 150, 160, 130, 140, 100, 110], amounts: ["₹2,100", "₹3,400", "₹5,200", "₹4,800", "₹6,900", "₹6,100", "₹8,400", "₹7,200"]
                 };
             } else if (range === 'quarter') {
                 data = {
-                    revenue: 450, customers: 12500, repeat: 1840, aov: 4100, rangeLabel: "Last Quarter", chartTitle: "Quarterly Revenue Trend",
-                    points: [120, 100, 110, 90, 70, 60, 50, 30],
-                    amounts: ["₹45k", "₹52k", "₹48k", "₹64k", "₹78k", "₹82k", "₹95k", "₹110k"]
+                    revenue: 450, customers: 12500, repeat: 1840,
+                    aov: 4100, rangeLabel: "Last Quarter", chartTitle: "Quarterly Revenue Trend", points: [120, 100, 110, 90, 70, 60, 50, 30], amounts: ["₹45k", "₹52k", "₹48k", "₹64k", "₹78k", "₹82k", "₹95k", "₹110k"]
                 };
             } else if (range === 'year') {
                 data = {
-                    revenue: 1850, customers: 48000, repeat: 6200, aov: 3850, rangeLabel: "Last Year", chartTitle: "Yearly Revenue Trend",
-                    points: [150, 160, 140, 130, 110, 90, 70, 20],
-                    amounts: ["₹1.2L", "₹1.1L", "₹1.4L", "₹1.5L", "₹1.8L", "₹2.2L", "₹2.6L", "₹3.8L"]
+                    revenue: 1850, customers: 48000, repeat: 6200, aov: 3850,
+                    rangeLabel: "Last Year", chartTitle: "Yearly Revenue Trend", points: [150, 160, 140, 130, 110, 90, 70, 20], amounts: ["₹1.2L", "₹1.1L", "₹1.4L", "₹1.5L", "₹1.8L", "₹2.2L", "₹2.6L", "₹3.8L"]
                 };
             }
 
-
             document.getElementById('chart-title').innerText = data.chartTitle;
             document.getElementById('chart-range-label').innerText = data.rangeLabel;
-
-
             animateValue("stat-revenue", 0, data.revenue, 1000);
             animateValue("stat-customers", 0, data.customers, 1000);
             animateValue("stat-repeat-customers", 0, data.repeat, 1000);
             animateValue("stat-aov", 0, data.aov, 1000);
-
 
             const line = document.getElementById('chart-line');
             const area = document.getElementById('chart-area');
             const pointsGroup = document.getElementById('chart-points');
 
             if (line && area && pointsGroup) {
-                let pathD = `M0,${data.points[0]} `;
+                let pathD = `M0, ${data.points[0]} `;
                 data.points.forEach((y, i) => {
                     if (i > 0) pathD += `L${i * 100},${y} `;
                 });
 
                 line.setAttribute('d', pathD);
-                area.setAttribute('d', `${pathD} L700,200 L0,200 Z`);
-
+                area.setAttribute('d', `${pathD} L700, 200 L0, 200 Z`);
 
                 const circles = pointsGroup.getElementsByTagName('circle');
                 data.points.forEach((y, i) => {
@@ -3487,7 +4379,6 @@
                     }
                 });
             }
-
 
             const chartContainer = document.getElementById('revenue-chart-container');
             if (chartContainer) {
@@ -3505,7 +4396,6 @@
             animateValue("stat-repeat-customers", 0, 342, 1000);
             animateValue("stat-aov", 0, 3450, 1000);
         }
-
 
         generateMockData();
         initDashboardStats();
@@ -3571,54 +4461,54 @@
 
 
         function switchMerchantTab(tabName) {
+            const tabs = ['dashboard', 'new-sale', 'transactions', 'my-files', 'broadcast', 'campaigns', 'customers', 'settings'];
+            tabs.forEach(tab => {
+                const section = document.getElementById(`merchant-${tab}`);
+                const menuItem = document.getElementById(`menu-${tab}`);
+                const mobileMenuItem = document.getElementById(`mobile-menu-${tab}`);
 
-            const allTabs = ['dashboard', 'new-sale', 'transactions', 'broadcast', 'campaigns', 'customers', 'settings'];
-
-            allTabs.forEach(tab => {
-                const tabElement = document.getElementById(`merchant-${tab}`);
-                if (tabElement) {
-                    tabElement.classList.add('hidden');
+                if (section) section.classList.add('hidden');
+                if (menuItem) {
+                    menuItem.classList.remove('bg-blue-50', 'text-blue-700', 'dark:bg-blue-900/20', 'dark:text-blue-400');
+                    menuItem.classList.add('text-slate-600', 'dark:text-slate-400');
                 }
-
-
-                const menu = document.getElementById(`menu-${tab}`);
-                if (menu) {
-                    menu.classList.remove('bg-blue-50', 'text-blue-700');
-                    menu.classList.add('text-slate-600', 'dark:text-slate-400', 'hover:bg-gray-50', 'dark:hover:bg-slate-700');
+                if (mobileMenuItem) {
+                    mobileMenuItem.classList.remove('text-blue-600');
+                    mobileMenuItem.classList.add('text-slate-400', 'dark:text-slate-500');
                 }
             });
 
+            const activeSection = document.getElementById(`merchant-${tabName}`);
+            const activeMenuItem = document.getElementById(`menu-${tabName}`);
+            const activeMobileMenuItem = document.getElementById(`mobile-menu-${tabName}`);
 
-            const targetTab = document.getElementById(`merchant-${tabName}`);
-            if (targetTab) {
-                targetTab.classList.remove('hidden');
+            if (activeSection) {
+                activeSection.classList.remove('hidden');
+                // Trigger reveals if dashboard
+                if (tabName === 'dashboard') {
+                    setTimeout(() => {
+                        activeSection.querySelectorAll('.reveal').forEach(el => el.classList.add('revealed'));
+                    }, 50);
+                }
+                // Trigger sync if my-files
+                if (tabName === 'my-files' && typeof window.initMyFilesSync === 'function') {
+                    window.initMyFilesSync();
+                }
             }
 
-
-            const activeMenu = document.getElementById(`menu-${tabName}`);
-            if (activeMenu) {
-                activeMenu.classList.remove('text-slate-600', 'dark:text-slate-400', 'hover:bg-gray-50', 'dark:hover:bg-slate-700');
-                activeMenu.classList.add('bg-blue-50', 'text-blue-700');
+            if (activeMenuItem) {
+                activeMenuItem.classList.add('bg-blue-50', 'text-blue-700', 'dark:bg-blue-900/20', 'dark:text-blue-400');
+                activeMenuItem.classList.remove('text-slate-600', 'dark:text-slate-400');
+            }
+            if (activeMobileMenuItem) {
+                activeMobileMenuItem.classList.add('text-blue-600');
+                activeMobileMenuItem.classList.remove('text-slate-400', 'dark:text-slate-500');
             }
 
-
+            // Mobile more menu logic
             const allMobileTabs = ['dashboard', 'new-sale', 'transactions'];
-            allMobileTabs.forEach(tab => {
-                const mobileBtn = document.getElementById(`mobile-menu-${tab}`);
-                if (mobileBtn) {
-                    if (tab === tabName) {
-                        mobileBtn.classList.remove('text-slate-400', 'dark:text-slate-500');
-                        mobileBtn.classList.add('text-blue-600');
-                    } else {
-                        mobileBtn.classList.add('text-slate-400', 'dark:text-slate-500');
-                        mobileBtn.classList.remove('text-blue-600');
-                    }
-                }
-            });
-
-
+            const moreBtn = document.getElementById('mobile-menu-more');
             if (!allMobileTabs.includes(tabName)) {
-                const moreBtn = document.getElementById('mobile-menu-more');
                 if (moreBtn) {
                     moreBtn.classList.remove('text-slate-400', 'dark:text-slate-500');
                     moreBtn.classList.add('text-blue-600');
@@ -3629,7 +4519,6 @@
                     moreBtn.classList.remove('text-blue-600');
                 }
             }
-
 
             closeMobileMoreMenu();
         }
@@ -3675,12 +4564,11 @@
 
             const tr = table.getElementsByTagName('tr');
             for (let i = 0; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName('td')[0];
-                if (td) {
-                    const txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
+                const td = tr[i].getElementsByTagName('td')[0]; if (td) {
+                    const
+                        txtValue = td.textContent || td.innerText; if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
                         tr[i].style.display = "none";
                     }
                 }
@@ -3695,19 +4583,17 @@
 
             const tr = table.getElementsByTagName('tr');
             for (let i = 0; i < tr.length; i++) {
-                const nameCell = tr[i].getElementsByTagName('td')[0];
-                const productCell = tr[i].getElementsByTagName('td')[1];
-
-                if (nameCell || productCell) {
-                    const nameText = nameCell ? (nameCell.textContent || nameCell.innerText) : "";
-                    const productText = productCell ? (productCell.textContent || productCell.innerText) : "";
-
-                    if (nameText.toUpperCase().indexOf(filter) > -1 || productText.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
+                const nameCell = tr[i].getElementsByTagName('td')[0]; const
+                    productCell = tr[i].getElementsByTagName('td')[1]; if (nameCell || productCell) {
+                        const
+                            nameText = nameCell ? (nameCell.textContent || nameCell.innerText) : ""; const
+                                productText = productCell ? (productCell.textContent || productCell.innerText) : ""; if
+                            (nameText.toUpperCase().indexOf(filter) > -1 || productText.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
                     }
-                }
             }
         }
 
@@ -3843,63 +4729,79 @@
         }
 
         // --- Profile Management ---
-        const userState = {
+        window.userState = {
             name: "Harsh Gupta",
             email: "harsh@localbridge.com",
             bio: "I am a retail business owner focused on high-end electronics and fashion. LocalBridge helps me manage my inventory seamlessly.",
             avatarUrl: "" // Empty string = use initials
         };
 
-        function getInitials(name) {
+        window.getInitials = function (name) {
             if (!name || name.trim() === "") return "?";
             const parts = name.trim().split(/\s+/);
             if (parts.length === 1) return parts[0].substring(0, 2).toUpperCase();
             return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
-        }
+        };
 
-        function updateProfileUI() {
-            const initials = getInitials(userState.name);
+        window.updateProfileUI = function () {
+            if (typeof window.userState === 'undefined') return;
+            const initials = window.getInitials(window.userState.name);
 
             // Update Navbar Avatar
             const navInitials = document.getElementById('nav-avatar-initials');
             const navImg = document.getElementById('nav-avatar-img');
 
-            if (userState.avatarUrl && userState.avatarUrl.startsWith('http')) {
-                navImg.src = userState.avatarUrl;
-                navImg.classList.remove('hidden');
-                navInitials.classList.add('hidden');
+            if (window.userState.avatarUrl && window.userState.avatarUrl.startsWith('http')) {
+                if (navImg) {
+                    navImg.src = window.userState.avatarUrl;
+                    navImg.classList.remove('hidden');
+                }
+                if (navInitials) navInitials.classList.add('hidden');
             } else {
-                navInitials.innerText = initials;
-                navInitials.classList.remove('hidden');
-                navImg.classList.add('hidden');
+                if (navInitials) {
+                    navInitials.innerText = initials;
+                    navInitials.classList.remove('hidden');
+                }
+                if (navImg) navImg.classList.add('hidden');
             }
 
             // Update Dropdown Content
-            document.getElementById('dropdown-avatar-img').src = (userState.avatarUrl && userState.avatarUrl.startsWith('http'))
-                ? userState.avatarUrl
-                : `https://ui-avatars.com/api/?name=${encodeURIComponent(userState.name)}&background=random`;
-            document.getElementById('dropdown-user-name').innerText = userState.name;
-            document.getElementById('dropdown-user-email').innerText = userState.email;
+            const dropdownImg = document.getElementById('dropdown-avatar-img');
+            if (dropdownImg) {
+                dropdownImg.src = (window.userState.avatarUrl && window.userState.avatarUrl.startsWith('http'))
+                    ? window.userState.avatarUrl
+                    : `https://ui-avatars.com/api/?name=${encodeURIComponent(window.userState.name)}&background=random`;
+            }
+            const dropdownName = document.getElementById('dropdown-user-name');
+            if (dropdownName) dropdownName.innerText = window.userState.name;
+            const dropdownEmail = document.getElementById('dropdown-user-email');
+            if (dropdownEmail) dropdownEmail.innerText = window.userState.email;
 
             // Update Profile View Preview
             const largeInitials = document.getElementById('profile-initials-large');
             const largeImg = document.getElementById('profile-img-preview');
 
-            largeInitials.innerText = initials;
+            if (largeInitials) largeInitials.innerText = initials;
 
-            if (userState.avatarUrl && userState.avatarUrl.startsWith('http')) {
-                largeImg.src = userState.avatarUrl;
-                largeImg.classList.remove('opacity-0');
+            if (window.userState.avatarUrl && window.userState.avatarUrl.startsWith('http')) {
+                if (largeImg) {
+                    largeImg.src = window.userState.avatarUrl;
+                    largeImg.classList.remove('opacity-0');
+                }
             } else {
-                largeImg.classList.add('opacity-0');
+                if (largeImg) largeImg.classList.add('opacity-0');
             }
 
             // Update input fields
-            document.getElementById('profile-name-input').value = userState.name;
-            document.getElementById('profile-email-input').value = userState.email;
-            document.getElementById('profile-img-input').value = userState.avatarUrl;
-            document.getElementById('profile-bio-input').value = userState.bio;
-        }
+            const nameInput = document.getElementById('profile-name-input');
+            if (nameInput) nameInput.value = window.userState.name;
+            const emailInput = document.getElementById('profile-email-input');
+            if (emailInput) emailInput.value = window.userState.email;
+            const imgInput = document.getElementById('profile-img-input');
+            if (imgInput) imgInput.value = window.userState.avatarUrl;
+            const bioInput = document.getElementById('profile-bio-input');
+            if (bioInput) bioInput.value = window.userState.bio;
+        };
 
         function saveProfile() {
             const btn = document.getElementById('profile-save-btn');
@@ -3964,6 +4866,183 @@
         updateProfileUI();
 
     </script>
+    <!-- Modals for 'My Files' -->
+    <div id="my-files-modals-container">
+        <!-- New Folder Modal -->
+        <div id="modal-new-folder"
+            class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+            <div
+                class="bg-white dark:bg-slate-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-zoom-in">
+                <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white">New Folder</h3>
+                    <button onclick="toggleModal('modal-new-folder', false)"
+                        class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form onsubmit="handleNewFolderSubmit(event)" class="p-6 space-y-4">
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Folder
+                            Name</label>
+                        <input type="text" id="input-folder-name" required
+                            class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition"
+                            placeholder="e.g. Invoices 2024">
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="toggleModal('modal-new-folder', false)"
+                            class="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">Cancel</button>
+                        <button type="submit" id="btn-create-folder"
+                            class="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">Create
+                            Folder</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add File Modal (Upload) -->
+        <div id="modal-add-file"
+            class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+            <div
+                class="bg-white dark:bg-slate-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-zoom-in">
+                <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white">Upload File</h3>
+                    <button onclick="toggleModal('modal-add-file', false)"
+                        class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form onsubmit="handleNewFileSubmit(event)" class="p-6 space-y-4">
+                    <!-- File Picker Dropzone -->
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Choose
+                            File</label>
+                        <div onclick="document.getElementById('input-file-upload').click()"
+                            class="w-full p-8 rounded-xl border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 transition cursor-pointer bg-slate-50 dark:bg-slate-900 text-center">
+                            <i class="fas fa-cloud-upload-alt text-3xl text-blue-400 mb-2"></i>
+                            <p id="file-drop-label" class="text-sm font-medium text-slate-500">Click to choose a file
+                            </p>
+                            <p class="text-[10px] text-slate-400 mt-1">Max 50 MB</p>
+                        </div>
+                        <input type="file" id="input-file-upload" class="hidden"
+                            onchange="(function(el){ var label = document.getElementById('file-drop-label'); if(el.files[0] && label) label.textContent = el.files[0].name; })(this)">
+                    </div>
+                    <!-- Folder Selector -->
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Target
+                            Folder</label>
+                        <select id="select-file-folder"
+                            class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition font-bold text-slate-600 dark:text-slate-300">
+                            <option value="">No Folder (Root)</option>
+                        </select>
+                    </div>
+                    <!-- Upload Progress -->
+                    <div id="upload-progress-container" class="hidden">
+                        <div class="flex justify-between items-center mb-1">
+                            <span
+                                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Uploading</span>
+                            <span id="upload-progress-text" class="text-xs font-bold text-blue-600">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-100 dark:bg-slate-700 rounded-full h-2 overflow-hidden">
+                            <div id="upload-progress-bar"
+                                class="bg-blue-600 h-2 rounded-full transition-all duration-300" style="width: 0%">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Error Display -->
+                    <p id="upload-error"
+                        class="hidden text-xs font-bold text-red-500 bg-red-50 dark:bg-red-900/20 p-3 rounded-xl"></p>
+                    <!-- Buttons -->
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="toggleModal('modal-add-file', false)"
+                            class="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">Cancel</button>
+                        <button type="submit" id="btn-upload-file"
+                            class="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition flex items-center justify-center gap-2">
+                            <i class="fas fa-cloud-upload-alt"></i> Upload File
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- New Note Modal -->
+        <div id="modal-new-note"
+            class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+            <div
+                class="bg-white dark:bg-slate-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-zoom-in">
+                <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white">New Quick Note</h3>
+                    <button onclick="toggleModal('modal-new-note', false)"
+                        class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form onsubmit="handleNewNoteSubmit(event)" class="p-6 space-y-4">
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Note
+                            Title</label>
+                        <input type="text" id="input-note-title" required
+                            class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition"
+                            placeholder="e.g. Supplier Contact">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Content</label>
+                        <textarea id="input-note-content"
+                            class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition resize-none h-32"
+                            placeholder="Type your note here..."></textarea>
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="toggleModal('modal-new-note', false)"
+                            class="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">Cancel</button>
+                        <button type="submit" id="btn-save-note"
+                            class="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">Save
+                            Note</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Add Member Modal -->
+        <div id="modal-add-member"
+            class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm animate-fade-in">
+            <div
+                class="bg-white dark:bg-slate-800 w-full max-w-md rounded-2xl shadow-2xl overflow-hidden animate-zoom-in">
+                <div class="flex justify-between items-center p-6 border-b border-slate-100 dark:border-slate-700">
+                    <h3 class="font-bold text-slate-900 dark:text-white">Add Team Member</h3>
+                    <button onclick="toggleModal('modal-add-member', false)"
+                        class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form onsubmit="handleNewMemberSubmit(event)" class="p-6 space-y-4">
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Name</label>
+                        <input type="text" id="input-member-name" required
+                            class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition"
+                            placeholder="e.g. John Doe">
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Role</label>
+                        <input type="text" id="input-member-role"
+                            class="w-full px-4 py-3 rounded-xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 outline-none focus:border-brand-blue transition"
+                            placeholder="e.g. Sales Manager">
+                    </div>
+                    <div class="flex gap-3 pt-2">
+                        <button type="button" onclick="toggleModal('modal-add-member', false)"
+                            class="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">Cancel</button>
+                        <button type="submit" id="btn-add-member"
+                            class="flex-1 px-4 py-3 bg-blue-600 text-white rounded-xl font-bold hover:bg-blue-700 transition">Add
+                            Member</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
