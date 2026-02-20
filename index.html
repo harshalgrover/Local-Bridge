@@ -401,52 +401,24 @@
 
     <!-- AUTH SCREEN OVERLAY -->
     <div id="auth-screen">
-        <div class="auth-float-orb" style="width:300px;height:300px;background:#2563eb;top:10%;left:10%;"></div>
-        <div class="auth-float-orb"
-            style="width:250px;height:250px;background:#7c3aed;bottom:10%;right:10%;animation-delay:4s;"></div>
-        <div class="auth-float-orb"
-            style="width:200px;height:200px;background:#06b6d4;top:50%;left:60%;animation-delay:2s;"></div>
-
         <div class="auth-card">
-            <div class="text-center mb-8">
-                <div
-                    class="w-14 h-14 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-lg shadow-blue-500/30 mx-auto mb-4">
-                    <i class="fas fa-cube text-2xl"></i>
-                </div>
-                <h1 class="text-2xl font-bold text-white" style="font-family:'Plus Jakarta Sans',sans-serif;">Welcome to
-                    <span style="color:#60a5fa;">LocalBridge</span>
-                </h1>
-                <p class="text-sm text-white/50 mt-2" id="auth-subtitle">Choose your account type to continue</p>
-            </div>
-
-            <!-- Step 1: Role Selection -->
-            <div id="auth-step-role">
-                <div class="flex gap-4 mb-6">
+            <!-- Integrated Login & Role Selection -->
+            <div id="auth-step-form">
+                <!-- Role Selection Toggle (Integrated) -->
+                <div class="flex gap-3 mb-6">
+                    <button class="auth-role-btn selected" onclick="selectAuthRole('merchant')" id="auth-role-merchant">
+                        <i class="fas fa-store"></i>
+                        <span class="text-[11px]">Merchant</span>
+                    </button>
                     <button class="auth-role-btn" onclick="selectAuthRole('customer')" id="auth-role-customer">
                         <i class="fas fa-user"></i>
-                        <span>Customer</span>
-                        <span style="font-size:10px;opacity:0.6;font-weight:400;">Shop & Manage Warranties</span>
-                    </button>
-                    <button class="auth-role-btn" onclick="selectAuthRole('merchant')" id="auth-role-merchant">
-                        <i class="fas fa-store"></i>
-                        <span>Merchant</span>
-                        <span style="font-size:10px;opacity:0.6;font-weight:400;">Manage Your Business</span>
+                        <span class="text-[11px]">Customer</span>
                     </button>
                 </div>
-            </div>
 
-            <!-- Step 2: Login/Signup Form -->
-            <div id="auth-step-form" class="hidden">
-                <div class="flex items-center gap-2 mb-6">
-                    <button onclick="goBackToRoleSelect()"
-                        class="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white/60 hover:bg-white/20 hover:text-white transition"
-                        style="flex-shrink:0;">
-                        <i class="fas fa-arrow-left text-sm"></i>
-                    </button>
-                    <div class="flex items-center gap-2">
-                        <span id="auth-role-icon" class="text-blue-400"><i class="fas fa-user"></i></span>
-                        <span id="auth-role-label" class="text-sm font-bold text-white/80">Customer</span>
-                    </div>
+                <div class="flex items-center gap-2 mb-4">
+                    <span id="auth-role-icon" class="text-blue-400"><i class="fas fa-store"></i></span>
+                    <span id="auth-role-label" class="text-sm font-bold text-white/80">Merchant Portal</span>
                 </div>
 
                 <h2 class="text-lg font-bold text-white mb-1" id="auth-form-title"
@@ -486,7 +458,7 @@
 
 
 
-    <nav class="fixed w-full z-50 bg-white border-b border-gray-200">
+    <nav id="main-nav" class="hidden fixed w-full z-50 bg-white border-b border-gray-200">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div
@@ -644,7 +616,7 @@
     </nav>
 
 
-    <div id="customer-view" class="pt-28 px-6 min-h-screen fade-in">
+    <div id="customer-view" class="hidden pt-28 px-6 min-h-screen fade-in">
         <div class="max-w-7xl mx-auto">
 
 
@@ -2689,32 +2661,18 @@
             document.getElementById('auth-role-merchant').classList.remove('selected');
             document.getElementById('auth-role-' + role).classList.add('selected');
 
-            // Show form after short delay
-            setTimeout(() => {
-                document.getElementById('auth-step-role').classList.add('hidden');
-                document.getElementById('auth-step-form').classList.remove('hidden');
+            // Update labels immediately
+            if (role === 'customer') {
+                document.getElementById('auth-role-icon').innerHTML = '<i class="fas fa-user"></i>';
+                document.getElementById('auth-role-label').innerText = 'Customer Portal';
+            } else {
+                document.getElementById('auth-role-icon').innerHTML = '<i class="fas fa-store"></i>';
+                document.getElementById('auth-role-label').innerText = 'Merchant Portal';
+            }
 
-                // Update labels
-                if (role === 'customer') {
-                    document.getElementById('auth-role-icon').innerHTML = '<i class="fas fa-user"></i>';
-                    document.getElementById('auth-role-label').innerText = 'Customer';
-                } else {
-                    document.getElementById('auth-role-icon').innerHTML = '<i class="fas fa-store"></i>';
-                    document.getElementById('auth-role-label').innerText = 'Merchant';
-                }
-
-                // Reset to login mode
-                authIsSignup = false;
-                updateAuthFormMode();
-            }, 200);
-        }
-
-        function goBackToRoleSelect() {
-            document.getElementById('auth-step-form').classList.add('hidden');
-            document.getElementById('auth-step-role').classList.remove('hidden');
-            authSelectedRole = null;
-            document.getElementById('auth-role-customer').classList.remove('selected');
-            document.getElementById('auth-role-merchant').classList.remove('selected');
+            // Reset to login mode if switching roles
+            authIsSignup = false;
+            updateAuthFormMode();
         }
 
         function toggleAuthMode() {
@@ -2786,7 +2744,7 @@
         }
 
         function applyAuthState(authData) {
-            const nav = document.querySelector('nav');
+            document.getElementById('main-nav').classList.remove('hidden');
             const navToggle = document.getElementById('nav-role-toggle');
             const navBadge = document.getElementById('nav-role-badge');
             const customerView = document.getElementById('customer-view');
@@ -2830,25 +2788,14 @@
 
         // Initialize auth on page load
         (function initAuth() {
-            const stored = localStorage.getItem('localbridge_auth');
-            if (stored) {
-                try {
-                    const authData = JSON.parse(stored);
-                    if (authData && authData.loggedIn) {
-                        // User is logged in — hide auth screen immediately
-                        const authScreen = document.getElementById('auth-screen');
-                        authScreen.style.display = 'none';
-                        authScreen.classList.add('auth-hidden');
-                        applyAuthState(authData);
-                        return;
-                    }
-                } catch (e) { }
-            }
-
             // Not logged in — show auth screen, hide both views
             document.getElementById('customer-view').classList.add('hidden');
             document.getElementById('merchant-view').classList.add('hidden');
             document.getElementById('profile-view').classList.add('hidden');
+            document.getElementById('main-nav').classList.add('hidden');
+
+            // Default to Merchant role on the login form
+            selectAuthRole('merchant');
         })();
 
         // ===== END AUTH SYSTEM =====
