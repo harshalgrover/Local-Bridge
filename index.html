@@ -879,6 +879,21 @@
 
 
 
+            <!-- GLOBAL OFFERS SECTION (NEW) -->
+            <section class="mb-20 reveal hidden" id="customer-offers-section">
+                <div class="flex items-end justify-between mb-8">
+                    <div>
+                        <h2 class="font-display font-bold text-3xl text-slate-900 dark:text-white">Offers from Shops
+                            Near You</h2>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm mt-1">Exclusive promotions from local
+                            businesses</p>
+                    </div>
+                </div>
+                <div id="customer-offers-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Dynamic Offer Cards will be injected here -->
+                </div>
+            </section>
+
             <section class="mb-20 reveal">
                 <div
                     class="bg-white dark:bg-slate-800 rounded-[2rem] p-8 md:p-12 border border-slate-100 dark:border-slate-700 shadow-xl relative overflow-hidden group">
@@ -1530,11 +1545,18 @@
             class="hidden md:flex w-64 bg-white dark:bg-slate-800 border-r border-gray-200 dark:border-slate-700 flex-col flex-shrink-0 z-30">
 
             <div class="p-4 border-b border-gray-100 dark:border-slate-700 flex items-center gap-3">
-                <div class="w-10 h-10 rounded-full bg-slate-200 bg-cover bg-center"
-                    style="background-image: url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200')">
+                <div
+                    class="w-10 h-10 rounded-full bg-gradient-to-br from-blue-400 to-indigo-600 p-[2px] shadow-md flex items-center justify-center overflow-hidden">
+                    <div id="sidebar-avatar-initials"
+                        class="hidden w-full h-full bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-xs font-bold text-slate-700 dark:text-slate-200 uppercase">
+                        SE
+                    </div>
+                    <img id="sidebar-avatar-img" src="https://ui-avatars.com/api/?name=S+E&background=random"
+                        class="rounded-full w-full h-full object-cover">
                 </div>
                 <div class="overflow-hidden">
-                    <h3 class="font-bold text-sm text-slate-900 dark:text-white truncate">Sukhdev Electronics</h3>
+                    <h3 id="sidebar-store-name" class="font-bold text-sm text-slate-900 dark:text-white truncate">
+                        Sukhdev Electronics</h3>
                     <p class="text-xs text-slate-500 uppercase">Merchant</p>
                 </div>
             </div>
@@ -2291,32 +2313,11 @@
                         </button>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        <div
-                            class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm">
-                            <div class="flex justify-between items-start mb-4">
-                                <span
-                                    class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold uppercase rounded-full">Active</span>
-                                <span class="text-xs text-slate-400">Ends in 5 days</span>
-                            </div>
-                            <h3 class="font-bold text-slate-900 dark:text-white mb-2">Winter Sale 2024</h3>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Flat 20% off on all electronics
-                                for previous customers.</p>
-                            <div
-                                class="flex items-center justify-between text-xs font-bold text-slate-400 border-t pt-4">
-                                <span>1.2k Reached</span>
-                                <span class="text-blue-600">4.2% CTR</span>
-                            </div>
-                        </div>
-
-                        <div
-                            class="bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm border-dashed flex flex-col items-center justify-center text-center cursor-pointer hover:bg-gray-50 transition min-h-[180px]">
-                            <div
-                                class="w-12 h-12 rounded-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 mb-3">
-                                <i class="fas fa-magic"></i>
-                            </div>
-                            <p class="text-sm font-bold text-slate-600 dark:text-slate-300">Run AI-Powered Campaign</p>
-                            <p class="text-[10px] text-slate-400 mt-1">Boost engagement by 3x</p>
+                    <div id="merchant-campaigns-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Campaigns will be loaded here -->
+                        <div class="col-span-full py-12 text-center text-slate-400">
+                            <i class="fas fa-bullhorn text-4xl mb-4 opacity-20"></i>
+                            <p>Loading your active campaigns...</p>
                         </div>
                     </div>
                 </div>
@@ -2484,21 +2485,62 @@
                                 <label
                                     class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
                                     Name</label>
-                                <input type="text" value="Sukhdev Electronics"
+                                <input type="text" id="set-store-name" value="Sukhdev Electronics"
                                     class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
                             </div>
                             <div>
                                 <label
                                     class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Primary
                                     Contact</label>
-                                <input type="tel" value="98765 43210"
+                                <input type="tel" id="set-store-phone" value="98765 43210"
+                                    class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Profile
+                                    Picture</label>
+                                <div class="flex items-center gap-4">
+                                    <div class="relative group cursor-pointer"
+                                        onclick="document.getElementById('set-store-pic-file').click()">
+                                        <div
+                                            class="w-16 h-16 rounded-full bg-slate-100 dark:bg-slate-700 border-2 border-dashed border-gray-300 dark:border-slate-600 flex items-center justify-center overflow-hidden group-hover:border-blue-500 transition-colors">
+                                            <img id="set-store-pic-preview"
+                                                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200"
+                                                class="w-full h-full object-cover">
+                                            <div
+                                                class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                                                <i class="fas fa-camera text-white"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="flex-1">
+                                        <input type="file" id="set-store-pic-file" accept="image/*" class="hidden"
+                                            onchange="window.handleProfilePicSelect(event)">
+                                        <button type="button"
+                                            onclick="document.getElementById('set-store-pic-file').click()"
+                                            class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 border border-blue-200 dark:border-blue-800 rounded-lg px-3 py-2 transition-all">
+                                            Choose from Gallery
+                                        </button>
+                                        <input type="hidden" id="set-store-pic"
+                                            value="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200">
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
+                                    Bio</label>
+                                <input type="text" id="set-store-bio" placeholder="Full stack electronics shop"
+                                    value="Full stack electronics shop"
                                     class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">
                             </div>
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-500 uppercase tracking-widest mb-2">Store
                                 Address</label>
-                            <textarea rows="3"
+                            <textarea id="set-store-address" rows="3"
                                 class="block w-full border-gray-300 rounded-xl focus:ring-blue-500 focus:border-blue-500 p-3 border dark:bg-slate-900 dark:border-slate-700 dark:text-white">Shop No. 42, Sector 17, Chandigarh</textarea>
                         </div>
                         <div
@@ -2761,6 +2803,52 @@
         </div>
     </div>
 
+    <!-- Campaign Modal -->
+    <div id="campaign-modal"
+        class="fixed inset-0 z-[100] hidden items-center justify-center p-6 bg-slate-900/80 backdrop-blur-sm transition-opacity opacity-0"
+        onclick="if(event.target === this) closeCampaignModal()">
+        <div
+            class="bg-white dark:bg-slate-800 w-full max-w-md rounded-[2rem] overflow-hidden shadow-2xl animate-pop border border-slate-200 dark:border-slate-700">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white">Run New Campaign</h2>
+                    <button onclick="closeCampaignModal()" class="text-slate-400 hover:text-slate-600 transition">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="campaign-form" onsubmit="submitCampaign(event)" class="space-y-4">
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Campaign
+                            Title</label>
+                        <input type="text" id="campaign-title" class="auth-input" placeholder="e.g. Summer Flash Sale"
+                            required>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Offer
+                            Description</label>
+                        <textarea id="campaign-desc"
+                            class="auth-input min-h-[100px] py-3 shadow-none focus:ring-1 focus:ring-blue-500"
+                            placeholder="Describe your offer..." required></textarea>
+                    </div>
+                    <div>
+                        <label
+                            class="block text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1.5">Discount
+                            / Offer Label</label>
+                        <input type="text" id="campaign-discount" class="auth-input"
+                            placeholder="e.g. 20% OFF or Buy 1 Get 1" required>
+                    </div>
+                    <div class="pt-4">
+                        <button type="submit" class="auth-submit-btn" id="campaign-submit-btn">
+                            Launch Campaign
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <!-- PROFILE VIEW -->
     <div id="profile-view" class="pt-28 px-6 min-h-screen fade-in hidden bg-white dark:bg-slate-900">
         <div class="max-w-3xl mx-auto">
@@ -2783,10 +2871,12 @@
                                     src="https://ui-avatars.com/api/?name=H+G&background=random"
                                     class="absolute inset-0 w-full h-full object-cover">
                             </div>
-                            <button
+                            <button onclick="document.getElementById('profile-img-file').click()"
                                 class="absolute bottom-0 right-0 w-10 h-10 bg-brand-blue text-white rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition cursor-pointer">
                                 <i class="fas fa-camera"></i>
                             </button>
+                            <input type="file" id="profile-img-file" accept="image/*" class="hidden"
+                                onchange="window.handleProfilePicSelect(event)">
                         </div>
 
                         <div class="flex-1 w-full space-y-6">
@@ -2891,7 +2981,7 @@
         } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
         // Firestore disabled for now
         import {
-            getFirestore,
+            initializeFirestore,
             collection,
             addDoc,
             onSnapshot,
@@ -2899,6 +2989,10 @@
             where,
             orderBy,
             doc,
+            getDoc,
+            getDocs,
+            setDoc,
+            updateDoc,
             deleteDoc,
             serverTimestamp
         } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
@@ -2909,19 +3003,23 @@
 
         // Firebase Configuration
         const firebaseConfig = {
-            apiKey: "AIzaSyA3vDeJGo1ZXvkP6X95w4KmMJLx5tjZoFY",
-            authDomain: "dukaan-saathi-16db7.firebaseapp.com",
-            projectId: "dukaan-saathi-16db7",
-            storageBucket: "dukaan-saathi-16db7.firebasestorage.app",
-            messagingSenderId: "378784493375",
-            appId: "1:378784493375:web:313c79436dd2a22b1bed8a",
-            measurementId: "G-DGEYVPM5Q3"
+            apiKey: "AIzaSyBYcpZNZ40tbRTRtgB4QgfAiYPzhYDR9YU",
+            authDomain: "dukaan-saathii.firebaseapp.com",
+            projectId: "dukaan-saathii",
+            storageBucket: "dukaan-saathii.firebasestorage.app",
+            messagingSenderId: "817314618916",
+            appId: "1:817314618916:web:ca7cb11b67c57411abc2b1",
+            measurementId: "G-EBQ7N0QNXB"
         };
 
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const db = getFirestore(app);
+
+        // Use long polling to prevent file:// protocol and ad-blocker connection drops
+        const db = initializeFirestore(app, {
+            experimentalForceLongPolling: true
+        });
         const storage = getStorage(app);
 
         // Expose to global scope for use in other <script> blocks
@@ -2937,6 +3035,17 @@
         window.query = query;
         window.orderBy = orderBy;
         window.onSnapshot = onSnapshot;
+        window.getDoc = getDoc;
+        window.getDocs = getDocs;
+        window.setDoc = setDoc;
+        window.updateDoc = updateDoc;
+        window.doc = doc;
+        window.where = where;
+        window.deleteDoc = deleteDoc;
+        window.ref = ref;
+        window.uploadBytesResumable = uploadBytesResumable;
+        window.getDownloadURL = getDownloadURL;
+        window.deleteObject = deleteObject;
 
         // Use device language for auth emails (reset password, etc.)
         auth.useDeviceLanguage();
@@ -3086,12 +3195,23 @@
 
                 if (window.authIsSignup) {
                     // Sign Up
-                    await createUserWithEmailAndPassword(auth, email, password);
-                    // On success, redirect is handled by onAuthStateChanged listener
+                    const cred = await createUserWithEmailAndPassword(auth, email, password);
+                    // Save UID immediately to localStorage
+                    const existingAuth = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+                    existingAuth.uid = cred.user.uid;
+                    existingAuth.email = email;
+                    existingAuth.name = name || email.split('@')[0];
+                    existingAuth.loggedIn = true;
+                    localStorage.setItem('localbridge_auth', JSON.stringify(existingAuth));
                 } else {
                     // Sign In
-                    await signInWithEmailAndPassword(auth, email, password);
-                    // On success, redirect is handled by onAuthStateChanged listener
+                    const cred = await signInWithEmailAndPassword(auth, email, password);
+                    // Save UID immediately to localStorage
+                    const existingAuth = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+                    existingAuth.uid = cred.user.uid;
+                    existingAuth.email = email;
+                    existingAuth.loggedIn = true;
+                    localStorage.setItem('localbridge_auth', JSON.stringify(existingAuth));
                 }
             } catch (error) {
                 console.error("Authentication full error object:", error);
@@ -3151,8 +3271,8 @@
         // CRUD: Folders
         window.handleNewFolderSubmit = async (e) => {
             e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return showToast("Not authenticated", "error");
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
 
             const nameInput = document.getElementById('input-folder-name');
             const name = nameInput ? nameInput.value.trim() : "";
@@ -3166,7 +3286,7 @@
             }
 
             try {
-                await addDoc(collection(db, "users", user.uid, "folders"), {
+                await addDoc(collection(db, "users", uid, "folders"), {
                     name,
                     createdAt: serverTimestamp()
                 });
@@ -3187,8 +3307,8 @@
         // CRUD: Files (Real Upload to Storage + Firestore)
         window.handleNewFileSubmit = async (e) => {
             e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return showToast("Not authenticated", "error");
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
 
             const fileInput = document.getElementById('input-file-upload');
             const folderId = document.getElementById('select-file-folder').value;
@@ -3215,7 +3335,7 @@
             if (progressContainer) progressContainer.classList.remove('hidden');
 
             const fileId = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
-            const storagePath = `user_uploads/${user.uid}/${fileId}-${file.name}`;
+            const storagePath = `user_uploads/${uid}/${fileId}-${file.name}`;
             const storageRef = ref(storage, storagePath);
             const uploadTask = uploadBytesResumable(storageRef, file);
 
@@ -3238,7 +3358,7 @@
                             : file.size < 1024 * 1024 ? (file.size / 1024).toFixed(1) + ' KB'
                                 : (file.size / (1024 * 1024)).toFixed(1) + ' MB';
 
-                        await addDoc(collection(db, "users", user.uid, "files"), {
+                        await addDoc(collection(db, "users", uid, "files"), {
                             name: file.name,
                             storagePath: storagePath,
                             downloadURL: downloadURL,
@@ -3276,8 +3396,8 @@
 
         // Delete file from Storage + Firestore
         window.deleteFileWithStorage = async (fileId, storagePath) => {
-            const user = auth.currentUser;
-            if (!user) return showToast('Not authenticated', 'error');
+            const uid = window.getAuthUid();
+            if (!uid) return showToast('Not authenticated', 'error');
 
             try {
                 // Delete from Storage first
@@ -3289,7 +3409,7 @@
                     }
                 }
                 // Delete Firestore metadata
-                await deleteDoc(doc(db, `users/${user.uid}/files`, fileId));
+                await deleteDoc(doc(db, `users/${uid}/files`, fileId));
                 showToast('File deleted!', 'success');
             } catch (err) {
                 console.error('Delete error:', err);
@@ -3300,14 +3420,14 @@
         // CRUD: Notes
         window.handleNewNoteSubmit = async (e) => {
             e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return showToast("Not authenticated", "error");
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
 
             const title = document.getElementById('input-note-title').value;
             const content = document.getElementById('input-note-content').value;
 
             try {
-                await addDoc(collection(db, "users", user.uid, "notes"), {
+                await addDoc(collection(db, "users", uid, "notes"), {
                     title,
                     content,
                     createdAt: serverTimestamp()
@@ -3324,14 +3444,14 @@
         // CRUD: Team Members
         window.handleNewMemberSubmit = async (e) => {
             e.preventDefault();
-            const user = auth.currentUser;
-            if (!user) return showToast("Not authenticated", "error");
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
 
             const name = document.getElementById('input-member-name').value;
             const role = document.getElementById('input-member-role').value;
 
             try {
-                await addDoc(collection(db, "users", user.uid, "teamMembers"), {
+                await addDoc(collection(db, "users", uid, "teamMembers"), {
                     name,
                     role,
                     createdAt: serverTimestamp()
@@ -3347,19 +3467,16 @@
 
         // Deletion Helper
         window.deleteDocument = async (coll, id) => {
-            // Re-mapping simple collection names to sub-collection paths if needed
-            const user = auth.currentUser;
-            if (!user) return showToast("Not authenticated", "error");
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
 
-            // No confirm browser prompt as per rule
             try {
-                // If it's a sub-collection path, we use it directly or map it
                 let path = coll;
-                if (coll === 'folders') path = `users/${user.uid}/folders`;
-                if (coll === 'files') path = `users/${user.uid}/files`;
-                if (coll === 'notes') path = `users/${user.uid}/notes`;
-                if (coll === 'teamMembers' || coll === 'team') path = `users/${user.uid}/teamMembers`;
-                if (coll === 'sales') path = `users/${user.uid}/sales`;
+                if (coll === 'folders') path = `users/${uid}/folders`;
+                if (coll === 'files') path = `users/${uid}/files`;
+                if (coll === 'notes') path = `users/${uid}/notes`;
+                if (coll === 'teamMembers' || coll === 'team') path = `users/${uid}/teamMembers`;
+                if (coll === 'sales') path = `users/${uid}/sales`;
 
                 await deleteDoc(doc(db, path, id));
                 showToast("Deleted!", "success");
@@ -3373,13 +3490,13 @@
         let syncActive = false;
         window.initMyFilesSync = () => {
             if (syncActive) return;
-            const user = auth.currentUser;
-            if (!user) return;
+            const uid = window.getAuthUid();
+            if (!uid) return;
 
             syncActive = true;
 
             // Sync Folders
-            onSnapshot(query(collection(db, "users", user.uid, "folders"), orderBy("createdAt", "desc")), (snap) => {
+            onSnapshot(query(collection(db, "users", uid, "folders"), orderBy("createdAt", "desc")), (snap) => {
                 const foldersGrid = document.getElementById('folders-grid');
                 const selectFolder = document.getElementById('select-file-folder');
                 const countFolders = document.getElementById('count-folders');
@@ -3436,7 +3553,7 @@
             });
 
             // Sync Files
-            onSnapshot(query(collection(db, "users", user.uid, "files"), orderBy("createdAt", "desc")), (snap) => {
+            onSnapshot(query(collection(db, "users", uid, "files"), orderBy("createdAt", "desc")), (snap) => {
                 const body = document.getElementById('files-list-body');
                 const countFiles = document.getElementById('count-files');
 
@@ -3504,7 +3621,7 @@
             });
 
             // Sync Notes
-            onSnapshot(query(collection(db, "users", user.uid, "notes"), orderBy("createdAt", "desc")), (snap) => {
+            onSnapshot(query(collection(db, "users", uid, "notes"), orderBy("createdAt", "desc")), (snap) => {
                 const list = document.getElementById('notes-list');
                 const countNotes = document.getElementById('count-notes');
 
@@ -3542,7 +3659,7 @@
             });
 
             // Sync Team
-            onSnapshot(query(collection(db, "users", user.uid, "teamMembers"), orderBy("createdAt", "desc")), (snap) => {
+            onSnapshot(query(collection(db, "users", uid, "teamMembers"), orderBy("createdAt", "desc")), (snap) => {
                 const list = document.getElementById('team-list');
                 const countMembers = document.getElementById('count-members');
 
@@ -3596,6 +3713,7 @@
                 const displayName = localStorage.getItem('localbridge_display_name') || user.email.split('@')[0];
 
                 const authData = {
+                    uid: user.uid,
                     role: role,
                     email: user.email,
                     name: displayName,
@@ -3607,10 +3725,14 @@
                 setTimeout(() => {
                     authScreen.style.display = 'none';
                     // Show dashboard first, then sync data
+                    // Save auth data to localStorage (including UID for file:// fallback)
+                    localStorage.setItem('localbridge_auth', JSON.stringify(authData));
                     applyAuthState(authData);
                     // Initialize Firestore sync (wrapped to prevent errors from hiding dashboard)
+                    try { window.loadMerchantProfile(); } catch (e) { console.error('Profile load error:', e); }
                     try { initMyFilesSync(); } catch (e) { console.error('Files sync error:', e); }
                     try { initSalesSync(); } catch (e) { console.error('Sales sync error:', e); }
+                    try { initCampaignSync(); } catch (e) { console.error('Campaign sync error:', e); }
                 }, 500);
             } else {
                 // User is signed out OR unverified
@@ -3644,6 +3766,10 @@
                 if (customerView) customerView.classList.remove('hidden');
                 if (merchantView) merchantView.classList.add('hidden');
                 if (profileView) profileView.classList.add('hidden');
+                // Start customer offers sync
+                if (typeof window.initCustomerOffersSync === 'function') {
+                    window.initCustomerOffersSync();
+                }
             } else {
                 document.getElementById('nav-badge-icon').className = 'fas fa-store mr-1';
                 document.getElementById('nav-badge-text').innerText = 'Merchant';
@@ -3687,6 +3813,9 @@
 
             if (view === 'customer') {
                 customerView.classList.remove('hidden');
+                if (typeof window.initCustomerOffersSync === 'function') {
+                    window.initCustomerOffersSync();
+                }
                 if (btnCustomer) {
                     btnCustomer.classList.add('bg-white', 'dark:bg-slate-700', 'text-brand-blue', 'shadow-sm');
                     btnCustomer.classList.remove('text-slate-500', 'dark:text-slate-400');
@@ -4040,8 +4169,8 @@
 
 
         window.registerSale = async (event) => {
-            const user = auth.currentUser;
-            if (!user) return showToast("Not authenticated", "error");
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
 
             const name = document.getElementById('sale-name').value || "Walk-in Customer";
             const mobile = document.getElementById('sale-mobile').value;
@@ -4078,7 +4207,7 @@
 
             try {
                 // Save to Firestore
-                await addDoc(collection(db, "users", user.uid, "sales"), {
+                await addDoc(collection(db, "users", uid, "sales"), {
                     customerName: name,
                     customerMobile: mobile,
                     customerEmail: customerEmail,
@@ -4129,8 +4258,9 @@
                 calculateTotal();
 
             } catch (err) {
-                console.error(err);
-                showToast("Error logging sale", "error");
+                console.error("Firestore Error in registerSale:", err);
+                const errorMsg = err.code ? `${err.code}: ${err.message}` : err.message || String(err);
+                showToast("Error logging sale: " + errorMsg, "error");
             } finally {
                 btn.innerHTML = originalContent;
                 btn.disabled = false;
@@ -4141,11 +4271,11 @@
         let salesSyncActive = false;
         window.initSalesSync = () => {
             if (salesSyncActive) return;
-            const user = auth.currentUser;
-            if (!user) return;
+            const uid = window.getAuthUid();
+            if (!uid) return;
             salesSyncActive = true;
 
-            onSnapshot(query(collection(db, "users", user.uid, "sales"), orderBy("createdAt", "desc")), (snap) => {
+            onSnapshot(query(collection(db, "users", uid, "sales"), orderBy("createdAt", "desc")), (snap) => {
                 const transactionsBody = document.getElementById('transactions-body');
                 const ledgerBody = document.getElementById('credit-ledger-body');
                 const creditCountElem = document.getElementById('total-credit-count');
@@ -4494,6 +4624,10 @@
                 if (tabName === 'my-files' && typeof window.initMyFilesSync === 'function') {
                     window.initMyFilesSync();
                 }
+                // Trigger sync if campaigns
+                if (tabName === 'campaigns' && typeof window.initCampaignSync === 'function') {
+                    window.initCampaignSync();
+                }
             }
 
             if (activeMenuItem) {
@@ -4552,9 +4686,67 @@
         }
 
 
-        function createCampaign() {
-            alert("Create Campaign Modal will open here. (Mock)");
-        }
+        window.createCampaign = () => {
+            const modal = document.getElementById('campaign-modal');
+            modal.classList.remove('hidden');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.replace('opacity-0', 'opacity-100');
+            }, 10);
+        };
+
+        window.closeCampaignModal = () => {
+            const modal = document.getElementById('campaign-modal');
+            modal.classList.replace('opacity-100', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.style.display = 'none';
+                document.getElementById('campaign-form').reset();
+            }, 300);
+        };
+
+        window.submitCampaign = async (event) => {
+            event.preventDefault();
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
+
+            const title = document.getElementById('campaign-title').value;
+            const desc = document.getElementById('campaign-desc').value;
+            const discount = document.getElementById('campaign-discount').value;
+
+            // Get merchant name from profile or auth
+            const authData = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+            const merchantName = authData.name || "Local Merchant";
+
+            const btn = document.getElementById('campaign-submit-btn');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Launching...';
+            btn.disabled = true;
+
+            try {
+                // Save to global campaigns collection
+                await addDoc(collection(db, "campaigns"), {
+                    merchantId: uid,
+                    merchantName: merchantName,
+                    title: title,
+                    description: desc,
+                    discount: discount,
+                    status: 'active',
+                    createdAt: serverTimestamp(),
+                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // Default 7 days
+                });
+                console.log("submitCampaign: Document added successfully");
+
+                showToast("Campaign Launched Successfully!", "success");
+                closeCampaignModal();
+            } catch (err) {
+                console.error("Campaign Error:", err);
+                showToast("Error launching campaign: " + err.message, "error");
+            } finally {
+                btn.innerHTML = originalContent;
+                btn.disabled = false;
+            }
+        };
 
         function filterCustomers() {
             const input = document.getElementById('customer-search');
@@ -4597,58 +4789,262 @@
             }
         }
 
-        function saveSettings() {
-            const btn = event.currentTarget;
+        window.saveSettings = async () => {
+            const btn = document.querySelector('button[onclick="saveSettings()"]') || event.currentTarget;
+            if (!btn) return;
             const originalText = btn.innerHTML;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
 
-            // Save API settings to localStorage
-            const apiSettings = {
-                emailjs: {
-                    service: document.getElementById('api-emailjs-service').value,
-                    template: document.getElementById('api-emailjs-template').value,
-                    public: document.getElementById('api-emailjs-public').value
-                },
-                whatsapp: {
-                    instance: document.getElementById('api-wa-instance').value,
-                    token: document.getElementById('api-wa-token').value
-                }
-            };
-            localStorage.setItem('localbridge_api_keys', JSON.stringify(apiSettings));
-
-            if (apiSettings.emailjs.public) {
-                emailjs.init(apiSettings.emailjs.public);
+            // Get user UID - try Firebase Auth first, fall back to localStorage
+            let uid = null;
+            if (auth.currentUser) {
+                uid = auth.currentUser.uid;
+            } else {
+                try {
+                    const localAuth = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+                    uid = localAuth.uid || null;
+                } catch (e) { }
             }
 
-            setTimeout(() => {
+            if (!uid) {
+                showToast("Not authenticated. Please log in again.", "error");
+                return;
+            }
+
+            if (window.isUploadingPic) {
+                showToast("Please wait for the image to finish uploading...", "info");
+                return;
+            }
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving to Cloud...';
+            btn.disabled = true;
+
+            const profileData = {
+                name: document.getElementById('set-store-name').value,
+                phone: document.getElementById('set-store-phone').value,
+                address: document.getElementById('set-store-address').value,
+                bio: document.getElementById('set-store-bio').value,
+                profilePic: document.getElementById('set-store-pic').value,
+                apiKeys: {
+                    emailjs: {
+                        service: document.getElementById('api-emailjs-service').value,
+                        template: document.getElementById('api-emailjs-template').value,
+                        public: document.getElementById('api-emailjs-public').value
+                    },
+                    whatsapp: {
+                        instance: document.getElementById('api-wa-instance').value,
+                        token: document.getElementById('api-wa-token').value
+                    }
+                },
+                updatedAt: serverTimestamp()
+            };
+
+            try {
+                const result = await window.syncProfileToCloud(uid, profileData);
+
+                if (result.success) {
+                    // Re-init EmailJS if key changed
+                    if (profileData.apiKeys.emailjs.public) {
+                        emailjs.init(profileData.apiKeys.emailjs.public);
+                    }
+                    showToast("Settings Saved Successfully!", "success");
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (err) {
+                console.error("Save Error:", err);
+                showToast("Error saving settings: " + err.message, "error");
+            } finally {
                 btn.innerHTML = '<i class="fas fa-check"></i> Saved';
                 btn.classList.add('bg-green-500');
+                btn.disabled = false;
                 setTimeout(() => {
                     btn.innerHTML = originalText;
                     btn.classList.remove('bg-green-500');
                 }, 2000);
-            }, 1000);
-        }
-
-        function loadApiSettings() {
-            const saved = localStorage.getItem('localbridge_api_keys');
-            if (saved) {
-                const keys = JSON.parse(saved);
-                if (document.getElementById('api-emailjs-service')) {
-                    document.getElementById('api-emailjs-service').value = keys.emailjs?.service || '';
-                    document.getElementById('api-emailjs-template').value = keys.emailjs?.template || '';
-                    document.getElementById('api-emailjs-public').value = keys.emailjs?.public || '';
-                    document.getElementById('api-wa-instance').value = keys.whatsapp?.instance || '';
-                    document.getElementById('api-wa-token').value = keys.whatsapp?.token || '';
-                }
-
-                if (keys.emailjs?.public) {
-                    emailjs.init(keys.emailjs.public);
-                }
             }
-        }
+        };
 
-        window.addEventListener('load', loadApiSettings);
+        // Helper: get the current user UID from Firebase Auth or localStorage fallback
+        window.getAuthUid = () => {
+            if (auth.currentUser) return auth.currentUser.uid;
+            try {
+                const localAuth = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+                return localAuth.uid || null;
+            } catch (e) { return null; }
+        };
+
+        window.syncProfileToCloud = async (uid, data) => {
+            console.log("🚀 Syncing to Cloud for UID:", uid);
+            try {
+                if (!window.db || !window.setDoc || !window.doc) {
+                    throw new Error("Firebase not initialized yet. Please wait a moment.");
+                }
+
+                // 1. Save to Firestore (with 15s timeout race)
+                console.log("Starting Firestore write...");
+                const firestorePromise = window.setDoc(window.doc(window.db, "users", uid), data, { merge: true });
+                const timeoutPromise = new Promise((_, reject) => setTimeout(() => reject(new Error("Database timeout (15s)")), 15000));
+
+                await Promise.race([firestorePromise, timeoutPromise]);
+                console.log("✅ Firestore Write Success!");
+
+                // 2. Update localStorage
+                const localAuth = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+                localAuth.name = data.name;
+                localAuth.avatarUrl = data.profilePic;
+                localStorage.setItem('localbridge_auth', JSON.stringify(localAuth));
+                localStorage.setItem('localbridge_display_name', data.name);
+                if (data.apiKeys) localStorage.setItem('localbridge_api_keys', JSON.stringify(data.apiKeys));
+
+                // 3. Update Global userState
+                if (typeof window.userState !== 'undefined') {
+                    window.userState.name = data.name;
+                    window.userState.avatarUrl = data.profilePic;
+                    if (data.bio) window.userState.bio = data.bio;
+                }
+
+                // 4. Update UI
+                if (typeof window.updateProfileUI === 'function') window.updateProfileUI();
+
+                return { success: true };
+            } catch (err) {
+                console.error("❌ Cloud Sync Error:", err);
+                return { success: false, error: err.message };
+            }
+        };
+
+        window.handleProfilePicSelect = async (event) => {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const uid = window.getAuthUid();
+            if (!uid) return showToast("Not authenticated", "error");
+
+            // 1. Show local preview immediately
+            const preview = document.getElementById('set-store-pic-preview');
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                if (preview) preview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+
+            // 2. Upload to Firebase Storage
+            showToast("Uploading picture...", "info");
+            window.isUploadingPic = true;
+            const storageRef = ref(storage, `profile_pics/${uid}/${Date.now()}_${file.name}`);
+            const uploadTask = uploadBytesResumable(storageRef, file);
+
+            uploadTask.on('state_changed',
+                (snapshot) => {
+                    // Progress can be handled here if needed
+                },
+                (error) => {
+                    console.error("Upload error:", error);
+                    showToast("Error uploading image", "error");
+                    window.isUploadingPic = false;
+                },
+                async () => {
+                    const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+                    console.log("Upload Success! URL:", downloadURL);
+
+                    if (document.getElementById('set-store-pic')) document.getElementById('set-store-pic').value = downloadURL;
+                    if (document.getElementById('profile-img-input')) document.getElementById('profile-img-input').value = downloadURL;
+
+                    window.isUploadingPic = false;
+                    showToast("Picture uploaded! Don't forget to Save Changes.", "success");
+
+                    // Update previews
+                    if (preview) preview.src = downloadURL;
+                    const largePreview = document.getElementById('profile-img-preview');
+                    if (largePreview) {
+                        largePreview.src = downloadURL;
+                        largePreview.classList.remove('opacity-0');
+                    }
+                    if (document.getElementById('profile-initials-large')) {
+                        document.getElementById('profile-initials-large').classList.add('hidden');
+                    }
+                }
+            );
+        };
+
+        window.loadMerchantProfile = async () => {
+            const uid = window.getAuthUid();
+            if (!uid) return;
+
+            try {
+                const docSnap = await getDoc(doc(db, "users", uid));
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+
+                    // Populate Settings UI
+                    if (document.getElementById('set-store-name')) document.getElementById('set-store-name').value = data.name || 'Sukhdev Electronics';
+                    if (document.getElementById('set-store-phone')) document.getElementById('set-store-phone').value = data.phone || '98765 43210';
+                    if (document.getElementById('set-store-address')) document.getElementById('set-store-address').value = data.address || 'Shop No. 42, Sector 17, Chandigarh';
+                    if (document.getElementById('set-store-bio')) document.getElementById('set-store-bio').value = data.bio || 'Full stack electronics shop';
+                    if (document.getElementById('set-store-pic')) document.getElementById('set-store-pic').value = data.profilePic || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200';
+                    if (document.getElementById('set-store-pic-preview')) document.getElementById('set-store-pic-preview').src = data.profilePic || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200';
+
+                    // Populate API Keys
+                    let keys = data.apiKeys;
+                    if (!keys) {
+                        const legacy = localStorage.getItem('localbridge_api_keys');
+                        if (legacy) {
+                            try { keys = JSON.parse(legacy); } catch (e) { }
+                        }
+                    }
+
+                    if (keys) {
+                        if (document.getElementById('api-emailjs-service')) document.getElementById('api-emailjs-service').value = keys.emailjs?.service || '';
+                        if (document.getElementById('api-emailjs-template')) document.getElementById('api-emailjs-template').value = keys.emailjs?.template || '';
+                        if (document.getElementById('api-emailjs-public')) document.getElementById('api-emailjs-public').value = keys.emailjs?.public || '';
+                        if (document.getElementById('api-wa-instance')) document.getElementById('api-wa-instance').value = keys.whatsapp?.instance || '';
+                        if (document.getElementById('api-wa-token')) document.getElementById('api-wa-token').value = keys.whatsapp?.token || '';
+
+                        // Set in localStorage for legacy parts of the app
+                        localStorage.setItem('localbridge_api_keys', JSON.stringify(keys));
+                        if (keys.emailjs?.public) emailjs.init(keys.emailjs.public);
+                    }
+
+                    // Update Global State
+                    if (data.name) {
+                        localStorage.setItem('localbridge_display_name', data.name);
+                        const localAuth = JSON.parse(localStorage.getItem('localbridge_auth') || '{}');
+                        localAuth.name = data.name;
+                        localStorage.setItem('localbridge_auth', JSON.stringify(localAuth));
+
+                        if (typeof window.userState !== 'undefined') {
+                            window.userState.name = data.name;
+                            window.userState.avatarUrl = data.profilePic;
+                        }
+                        if (typeof window.updateProfileUI === 'function') window.updateProfileUI();
+                    }
+                } else {
+                    // Scenario: No cloud profile yet, check localStorage to populate UI
+                    const legacy = localStorage.getItem('localbridge_api_keys');
+                    if (legacy) {
+                        try {
+                            const keys = JSON.parse(legacy);
+                            if (document.getElementById('api-emailjs-service')) document.getElementById('api-emailjs-service').value = keys.emailjs?.service || '';
+                            if (document.getElementById('api-emailjs-template')) document.getElementById('api-emailjs-template').value = keys.emailjs?.template || '';
+                            if (document.getElementById('api-emailjs-public')) document.getElementById('api-emailjs-public').value = keys.emailjs?.public || '';
+                            if (document.getElementById('api-wa-instance')) document.getElementById('api-wa-instance').value = keys.whatsapp?.instance || '';
+                            if (document.getElementById('api-wa-token')) document.getElementById('api-wa-token').value = keys.whatsapp?.token || '';
+                        } catch (e) { }
+                    }
+                }
+            } catch (err) {
+                console.error("Profile Load Error:", err);
+            }
+        };
+
+        window.addEventListener('load', () => {
+            // Check for local keys as fallback
+            const savedKeys = localStorage.getItem('localbridge_api_keys');
+            if (savedKeys) {
+                const keys = JSON.parse(savedKeys);
+                if (keys.emailjs?.public) emailjs.init(keys.emailjs.public);
+            }
+        });
 
 
         function updateBroadcastReach() {
@@ -4777,6 +5173,32 @@
             const dropdownEmail = document.getElementById('dropdown-user-email');
             if (dropdownEmail) dropdownEmail.innerText = window.userState.email;
 
+            // Sync Sidebar Avatar
+            const sideInitials = document.getElementById('sidebar-avatar-initials');
+            const sideImg = document.getElementById('sidebar-avatar-img');
+            if (window.userState.avatarUrl && window.userState.avatarUrl.startsWith('http')) {
+                if (sideImg) {
+                    sideImg.src = window.userState.avatarUrl;
+                    sideImg.classList.remove('hidden');
+                }
+                if (sideInitials) sideInitials.classList.add('hidden');
+            } else {
+                if (sideInitials) {
+                    sideInitials.innerText = initials;
+                    sideInitials.classList.remove('hidden');
+                }
+                if (sideImg) {
+                    sideImg.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(window.userState.name || 'Shop')}&background=random`;
+                    sideImg.classList.remove('hidden');
+                    // Alternatively, hide img if initials are shown:
+                    // sideImg.classList.add('hidden');
+                }
+            }
+
+            // Update Sidebar Store Name
+            const sidebarStoreName = document.getElementById('sidebar-store-name');
+            if (sidebarStoreName) sidebarStoreName.innerText = window.userState.name;
+
             // Update Profile View Preview
             const largeInitials = document.getElementById('profile-initials-large');
             const largeImg = document.getElementById('profile-img-preview');
@@ -4803,7 +5225,7 @@
             if (bioInput) bioInput.value = window.userState.bio;
         };
 
-        function saveProfile() {
+        window.saveProfile = async function () {
             const btn = document.getElementById('profile-save-btn');
             const originalText = btn.innerText;
 
@@ -4812,33 +5234,49 @@
             const newUrl = document.getElementById('profile-img-input').value;
             const newBio = document.getElementById('profile-bio-input').value;
 
-            // Simple validation
-            if (!newName.trim()) {
-                alert("Please enter your name.");
+            if (window.isUploadingPic) {
+                return showToast("Please wait for the image to finish uploading...", "info");
+            }
+
+            btn.innerText = "Saving to Cloud...";
+            btn.disabled = true;
+
+            const uid = window.getAuthUid();
+            if (!uid) {
+                showToast("Not authenticated. Please login again.", "error");
+                btn.disabled = false;
+                btn.innerText = originalText;
                 return;
             }
 
-            btn.innerText = "Saving...";
-            btn.disabled = true;
+            // Sync with Merchant Settings fields if they exist
+            const profileData = {
+                name: newName,
+                bio: newBio,
+                profilePic: newUrl,
+                updatedAt: serverTimestamp()
+            };
 
-            // Update local state
-            userState.name = newName;
-            userState.email = newEmail;
-            userState.avatarUrl = newUrl;
-            userState.bio = newBio;
-
-            setTimeout(() => {
-                updateProfileUI();
-                btn.innerText = "Profile Saved!";
-                btn.classList.replace('bg-brand-blue', 'bg-green-600');
-
+            try {
+                const result = await window.syncProfileToCloud(uid, profileData);
+                if (result.success) {
+                    btn.innerText = "Profile Saved!";
+                    btn.classList.add('bg-green-600');
+                    showToast("Profile Saved to Cloud!", "success");
+                } else {
+                    throw new Error(result.error);
+                }
+            } catch (err) {
+                console.error("Profile Save Error:", err);
+                showToast("Error: " + err.message, "error");
+            } finally {
+                btn.disabled = false;
                 setTimeout(() => {
                     btn.innerText = originalText;
-                    btn.classList.replace('bg-green-600', 'bg-brand-blue');
-                    btn.disabled = false;
+                    btn.classList.remove('bg-green-600');
                 }, 2000);
-            }, 800);
-        }
+            }
+        };
 
         // Live preview for name/initials
         document.getElementById('profile-name-input').addEventListener('input', (e) => {
@@ -4865,6 +5303,124 @@
         // Initialize UI with default state
         updateProfileUI();
 
+        // Campaign Management Logic
+        let campaignsSyncActive = false;
+        window.initCampaignSync = () => {
+            if (campaignsSyncActive) return;
+            const uid = window.getAuthUid();
+            if (!uid) return;
+            campaignsSyncActive = true;
+
+            onSnapshot(query(collection(db, "campaigns"), where("merchantId", "==", uid)), (snap) => {
+                const list = document.getElementById('merchant-campaigns-list');
+                if (!list) return;
+                list.innerHTML = '';
+
+                if (snap.empty) {
+                    list.innerHTML = `
+                        <div class="col-span-full py-12 text-center text-slate-400">
+                            <i class="fas fa-bullhorn text-4xl mb-4 opacity-20"></i>
+                            <p>You haven't launched any campaigns yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                snap.forEach(docSnap => {
+                    const data = docSnap.data();
+                    const card = document.createElement('div');
+                    card.className = "bg-white dark:bg-slate-800 p-6 rounded-2xl border border-gray-200 dark:border-slate-700 shadow-sm animate-fade-in";
+
+                    const expiresAt = data.expiresAt ? data.expiresAt.toDate() : new Date();
+                    const timeLeft = Math.ceil((expiresAt - new Date()) / (1000 * 60 * 60 * 24));
+
+                    card.innerHTML = `
+                        <div class="flex justify-between items-start mb-4">
+                            <span class="px-3 py-1 bg-green-100 text-green-700 text-[10px] font-bold uppercase rounded-full">Active</span>
+                            <span class="text-xs text-slate-400">${timeLeft > 0 ? 'Ends in ' + timeLeft + ' days' : 'Expired'}</span>
+                        </div>
+                        <h3 class="font-bold text-slate-900 dark:text-white mb-2">${data.title}</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">${data.description}</p>
+                        <div class="flex items-center justify-between text-xs font-bold text-slate-400 border-t pt-4">
+                            <span class="text-blue-600 uppercase tracking-widest">${data.discount}</span>
+                            <button onclick="deleteCampaign('${docSnap.id}')" class="text-red-400 hover:text-red-600 transition p-2">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }, (error) => {
+                console.error("Campaign Sync Error:", error);
+            });
+        };
+
+        window.deleteCampaign = async (id) => {
+            if (!confirm("Are you sure you want to delete this campaign? It will be removed from all customers as well.")) return;
+            try {
+                await deleteDoc(doc(db, "campaigns", id));
+                showToast("Campaign deleted successfully", "success");
+            } catch (err) {
+                showToast("Error deleting campaign", "error");
+            }
+        };
+
+        let customerOffersSyncActive = false;
+        window.initCustomerOffersSync = () => {
+            if (customerOffersSyncActive) return;
+            customerOffersSyncActive = true;
+            console.log("initCustomerOffersSync: Starting listener");
+
+            const section = document.getElementById('customer-offers-section');
+            const list = document.getElementById('customer-offers-list');
+
+            onSnapshot(query(collection(db, "campaigns"), where("status", "==", "active")), (snap) => {
+                console.log("initCustomerOffersSync: Received snapshot, size:", snap.size);
+                if (!list || !section) return;
+                list.innerHTML = '';
+
+                if (snap.empty) {
+                    console.log("initCustomerOffersSync: No active campaigns found");
+                    section.classList.add('hidden');
+                    return;
+                }
+
+                section.classList.remove('hidden');
+                setTimeout(() => section.classList.add('revealed'), 100);
+
+                // Sort in memory
+                const docs = [];
+                snap.forEach(d => docs.push({ id: d.id, ...d.data() }));
+                docs.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
+
+                docs.forEach(data => {
+                    const card = document.createElement('div');
+                    card.className = "bg-white dark:bg-slate-800 rounded-2xl p-6 border border-slate-100 dark:border-slate-700 shadow-lg relative overflow-hidden group hover:scale-[1.02] transition-all duration-300 flex flex-col h-full";
+
+                    card.innerHTML = `
+                        <div class="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2 group-hover:bg-blue-500/10 transition"></div>
+                        <div class="flex items-center gap-3 mb-4">
+                            <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center text-brand-blue">
+                                <i class="fas fa-store"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-slate-900 dark:text-white text-sm">${data.merchantName || 'Local Merchant'}</h4>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold tracking-widest">Verified Partner</p>
+                            </div>
+                        </div>
+                        <h3 class="font-display font-bold text-lg text-slate-900 dark:text-white mb-2">${data.title}</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6 leading-relaxed">${data.description}</p>
+                        <div class="flex items-center justify-between mt-auto pt-4 border-t border-slate-50 dark:border-slate-700/50">
+                            <span class="text-xl font-black text-brand-blue">${data.discount}</span>
+                            <button onclick="showToast('Offer saved to your profile!', 'success')" class="px-4 py-2 bg-brand-blue text-white rounded-xl text-[10px] font-bold uppercase tracking-widest hover:bg-blue-600 transition-all shadow-md shadow-blue-500/20 active:scale-95">Claim Offer</button>
+                        </div>
+                    `;
+                    list.appendChild(card);
+                });
+            }, (error) => {
+                console.error("Customer Offers Sync Error:", error);
+            });
+        };
     </script>
     <!-- Modals for 'My Files' -->
     <div id="my-files-modals-container">
